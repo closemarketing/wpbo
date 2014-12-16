@@ -1,9 +1,9 @@
-WP BOOTSTRAP
-===================
+WP BOOTSTRAP Forked by Closemarketing
+===================================
 
-Bootstrap (http://getbootstrap.com) in WordPress theme form. 
+Bootstrap (http://getbootstrap.com) in WordPress theme form.
 
-Used Eddie Machado's Bones for a starting point (https://github.com/eddiemachado/bones) but it doesn't look too much like it any longer. 
+Used Eddie Machado's Bones for a starting point (https://github.com/eddiemachado/bones) but it doesn't look too much like it any longer.
 
 FEATURES
 ________
@@ -15,7 +15,7 @@ Watch or star this project to keep up with its progress.
 Multi-Lingual
 _____________
 
-WP-Bootstrap is translated in 4 languages - Spanish, French, Portuguese and German. 
+WP-Bootstrap is translated in 4 languages - Spanish, French, Portuguese and German.
 
 Page Templates
 ______________
@@ -30,7 +30,7 @@ We’ve packaged four different page templates into this theme.
 Theme Options Panel
 ___________________
 
-We've removed the custom theme options panel in version 3.0. Currently working on moving all of the options that used to appear there over to the theme customizer. 
+We've removed the custom theme options panel in version 3.0. Currently working on moving all of the options that used to appear there over to the theme customizer.
 
 Shortcodes
 __________
@@ -45,6 +45,6 @@ There are two different sidebars. One for the homepage and one for the other pag
 CONTRIBUTE!
 ___________
 
-This project would not exist in its current state today were it not for lots of generous folks who have contributed to it. Thank you! 
+This project would not exist in its current state today were it not for lots of generous folks who have contributed to it. Thank you!
 
 If you'd like to commit to this project please submit a pull request and I will do my best to merge appropriately.
