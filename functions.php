@@ -53,8 +53,8 @@ you like. Enjoy!
 function wp_bootstrap_register_sidebars() {
     register_sidebar(array(
     	'id' => 'sidebar1',
-    	'name' => 'Main Sidebar',
-    	'description' => 'Used on every page BUT the homepage page template.',
+    	'name' => __('Main Sidebar','wpbootstrap'),
+    	'description' => __('Used on every page BUT the homepage page template.','wpbootstrap'),
     	'before_widget' => '<div id="%1$s" class="widget %2$s">',
     	'after_widget' => '</div>',
     	'before_title' => '<h4 class="widgettitle">',
@@ -63,8 +63,8 @@ function wp_bootstrap_register_sidebars() {
 
     register_sidebar(array(
     	'id' => 'sidebar2',
-    	'name' => 'Homepage Sidebar',
-    	'description' => 'Used only on the homepage page template.',
+    	'name' => __('Homepage Sidebar','wpbootstrap'),
+    	'description' => __('Used only on the homepage page template.','wpbootstrap'),
     	'before_widget' => '<div id="%1$s" class="widget %2$s">',
     	'after_widget' => '</div>',
     	'before_title' => '<h4 class="widgettitle">',
@@ -73,7 +73,7 @@ function wp_bootstrap_register_sidebars() {
 
     register_sidebar(array(
       'id' => 'footer1',
-      'name' => 'Footer 1',
+      'name' => __('Footer 1','wpbootstrap'),
       'before_widget' => '<div id="%1$s" class="widget col-sm-4 %2$s">',
       'after_widget' => '</div>',
       'before_title' => '<h4 class="widgettitle">',
@@ -82,7 +82,7 @@ function wp_bootstrap_register_sidebars() {
 
     register_sidebar(array(
       'id' => 'footer2',
-      'name' => 'Footer 2',
+      'name' => __('Footer 2','wpbootstrap'),
       'before_widget' => '<div id="%1$s" class="widget col-sm-4 %2$s">',
       'after_widget' => '</div>',
       'before_title' => '<h4 class="widgettitle">',
@@ -91,7 +91,7 @@ function wp_bootstrap_register_sidebars() {
 
     register_sidebar(array(
       'id' => 'footer3',
-      'name' => 'Footer 3',
+      'name' => __('Footer 3','wpbootstrap'),
       'before_widget' => '<div id="%1$s" class="widget col-sm-4 %2$s">',
       'after_widget' => '</div>',
       'before_title' => '<h4 class="widgettitle">',
