@@ -18,7 +18,7 @@ function gallery_shortcode_tbs($attr) {
 	if ($attachments) {
 		$output = '<div class="row-fluid"><ul class="thumbnails">';
 		foreach ( $attachments as $attachment ) {
-			$output .= '<li class="span2">';
+			$output .= '<li class="col-sm-2">';
 			$att_title = apply_filters( 'the_title' , $attachment->post_title );
 			$output .= wp_get_attachment_link( $attachment->ID , 'thumbnail', true );
 			$output .= '</li>';
