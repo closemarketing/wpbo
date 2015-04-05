@@ -11,7 +11,7 @@ Template Name: Full Width Page
         yoast_breadcrumb('<p id="breadcrumbs">','</p>');
     } ?>
 
-    <div id="main" class="col col-lg-12 clearfix" role="main">
+    <div id="main" class="col col-sm-12 clearfix" role="main">
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
@@ -35,8 +35,6 @@ Template Name: Full Width Page
             </footer> <!-- end article footer -->
 
         </article> <!-- end article -->
-
-        <?php comments_template(); ?>
 
         <?php endwhile; ?>
 
