@@ -30,6 +30,12 @@
                 <span><?php _e("Yearly Archives:", "wpbootstrap"); ?>:</span> <?php the_time('Y'); ?>
             </h1>
         <?php } ?>
+        
+        <?php if ( !get_query_var( 'paged' ) ) { 
+          //Description for Taxonomy ?>
+          <?php echo wpautop( term_description() ); ?>
+        <?php } ?>
+        
         </div>
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
