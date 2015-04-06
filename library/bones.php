@@ -27,8 +27,6 @@ function wp_bootstrap_head_cleanup() {
 	remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );             // start link
 	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 ); // Links for Adjacent Posts
 	remove_action( 'wp_head', 'wp_generator' );                           // WP version
-	add_filter( 'style_loader_src', 'bones_remove_wp_ver_css_js', 9999 );  // remove WP version from css
-	add_filter( 'script_loader_src', 'bones_remove_wp_ver_css_js', 9999 ); // remove Wp version from scripts
 }
 	// launching operation cleanup
 	add_action('init', 'wp_bootstrap_head_cleanup');
