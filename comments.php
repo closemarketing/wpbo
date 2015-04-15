@@ -66,6 +66,6 @@ The comments page for Bones
 
 <?php if ( comments_open() ) : ?>
 
-	<?php comment_form(); ?>
+    <?php comment_form(array('comment_notes_after' => '')); ?>
 
 <?php endif; // if you delete this the sky will fall on your head ?>
