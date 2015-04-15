@@ -26,39 +26,39 @@ The comments page for Bones
 	  		<li><?php next_comments_link( __("Newer comments","wpbootstrap") ) ?></li>
 	 	</ul>
 	</nav>
-	
+
 	<ol class="commentlist">
 		<?php wp_list_comments('type=comment&callback=wp_bootstrap_comments'); ?>
 	</ol>
-	
+
 	<?php endif; ?>
-	
+
 	<?php if ( ! empty($comments_by_type['pings']) ) : ?>
 		<h3 id="pings">Trackbacks/Pingbacks</h3>
-		
+
 		<ol class="pinglist">
 			<?php wp_list_comments('type=pings&callback=list_pings'); ?>
 		</ol>
 	<?php endif; ?>
-	
+
 	<nav id="comment-nav">
 		<ul class="clearfix">
 	  		<li><?php previous_comments_link( __("Older comments","wpbootstrap") ) ?></li>
 	  		<li><?php next_comments_link( __("Newer comments","wpbootstrap") ) ?></li>
 		</ul>
 	</nav>
-  
+
 	<?php else : // this is displayed if there are no comments so far ?>
 
 	<?php if ( comments_open() ) : ?>
     	<!-- If comments are open, but there are no comments. -->
 
-	<?php else : // comments are closed 
+	<?php else : // comments are closed
 	?>
-		
+
 	<!-- If comments are closed. -->
 	<p class="alert alert-info"><?php _e("Comments are closed","wpbootstrap"); ?>.</p>
-				
+
 	<?php endif; ?>
 
 <?php endif; ?>
