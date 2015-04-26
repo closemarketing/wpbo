@@ -1,4 +1,4 @@
-WPBOOT Naked Wordpress Theme Bootstrap by Closemarketing
+WPBo Naked Wordpress Theme Bootstrap by Closemarketing
 =========================================================
 
 Bootstrap (http://getbootstrap.com) in WordPress theme form.
