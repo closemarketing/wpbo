@@ -24,10 +24,11 @@ ______________
 
 We’ve packaged four different page templates into this theme.
 
-    - Homepage template (seen on the homepage of this site - http://www.320press.com/wp-bootstrap)
+    - Homepage template
     - Standard page with right sidebar (this page)
     - Page with left sidebar
     - Full width page
+    - Page without title
 
 Theme Options Panel
 ___________________
@@ -38,6 +39,28 @@ Shortcodes
 __________
 
 We’ve built in some shortcodes so you can easily add UI elements found in Bootstrap.
+
+[gridbox] - Allows you to show a grid with post types related.
+
+Parameters:
+- post_type -> slug of Post type that you want to show.
+- posts_per_page -> 
+- col -> Columns that you want to show.
+- date -> true or false. If you want to show in the grid.
+- tax -> Show Taxonomy that the post in.
+- size -> image size for post thumbnail
+
+[imagepostslider] - Image Slider from Images attached in a post
+
+[carouselcpt] - Multiple elements Carousel 
+
+- post_type -> slug of Post type that you want to show.
+- tax -> Show Taxonomy that the post in.
+- title -> Title that goes before
+- type -> post or tax
+- col -> Elements visibles
+- titlep -> true or false. Show Title's post in carousel
+
 
 Sidebars
 ________
@@ -50,7 +73,7 @@ Plugins Recomended
 To use thes theme, we recommend this plugins:
     - Wordpress SEO by Yoast (https://wordpress.org/plugins/wordpress-seo/)
     - Gravity Forms. The best Form plugin. (http://www.closemarketing.es/likes/gravityforms/)
-    - Addthis. For 
+    - Addthis.
 
 
 CONTRIBUTE!
@@ -61,6 +84,9 @@ This project would not exist in its current state today were it not for lots of 
 If you'd like to commit to this project please submit a pull request and I will do my best to merge appropriately.
 
 ## Changelog ##
+
+### 1.2.0 ###
+* Added new shortcodes
 
 ### 1.1.0 ###
 * Bootstrap 3.3.4
