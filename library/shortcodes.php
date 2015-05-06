@@ -107,7 +107,7 @@ if( !function_exists('btsc_imagepostslider_shortcode') ) {
             if($i==0) $html .= ' active';
             $html .= '">';
             $html .= '<div class="bannerImage">';
-            $html .= get_the_post_thumbnail( $post->ID, 'page-thumb' );
+            $html .= wp_get_attachment_image( $attachment->ID, 'page-thumb' );
             $html .= '</div>';
             $html .= '</div><!-- /Slide -->' ;
             $i++;
