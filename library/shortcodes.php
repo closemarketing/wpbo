@@ -202,7 +202,7 @@ if ( !function_exists('btsc_carouselcpt_shortcode') ) {
                 'post_type' => esc_attr($att['post_type']),
                 'post_parent' => 0,
                 'posts_per_page' => 6,
-                'orderby' => 'title'
+                'orderby' => 'date'
             );
             $grid = get_posts( $args );
             
