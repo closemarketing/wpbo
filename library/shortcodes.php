@@ -33,6 +33,7 @@ if( !function_exists('btsc_gridbox_shortcode') ) {
         
         $postsgrid = get_posts( $args );
         $colw = 12/ esc_attr($att['col']);
+        $col = esc_attr($att['col']);
         //print_r($postsgrid);
     
         
