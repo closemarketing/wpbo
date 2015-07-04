@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-    <title><?php wp_title( '' ); ?></title>	
+    <title><?php wp_title( '' ); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- media-queries.js (fallback) -->
@@ -23,7 +23,7 @@
     <![endif]-->
 
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
-    <link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/img/favicon.png" />
+    <link rel="shortcut icon" href="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/img/favicon.png" />
 
     <!-- wordpress head functions -->
     <?php wp_head(); ?>
@@ -45,16 +45,16 @@
                     <span class="icon-bar"></span>
                 </button>
 
-               
+
             <a class="navbar-brand" title="<?php echo get_bloginfo('description'); ?>" href="<?php echo home_url(); ?>">
-                <img src="<?php bloginfo('stylesheet_directory');?>/img/logo.png" width="360" height="120" alt="<?php bloginfo('description');?>" />    
+                <img src="<?php echo esc_url( get_stylesheet_directory_uri() );?>/img/logo.png" width="360" height="120" alt="<?php bloginfo('description');?>" />
             </a>
             </div>
 
             <div class="collapse navbar-collapse navbar-responsive-collapse">
                 <?php wp_bootstrap_main_nav(); // Adjust using Menus in Wordpress Admin ?>
 
-                
+
                 <form class="navbar-form navbar-right" role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">
                     <div class="form-group">
                         <input name="s" id="s" type="text" class="search-query form-control" autocomplete="off" placeholder="<?php _e('Search','wpbootstrap'); ?>">
