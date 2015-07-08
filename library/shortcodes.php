@@ -14,7 +14,7 @@ add_filter('widget_text', 'do_shortcode');
  */
 if( !function_exists('btsc_gridbox_shortcode') ) {
 	function btsc_gridbox_shortcode($atts, $content = null) {
-        
+
         $att = shortcode_atts( array(
             'post_type' => 'page',
             'posts_per_page' => -1,
@@ -22,7 +22,7 @@ if( !function_exists('btsc_gridbox_shortcode') ) {
             'date' => false,
             'tax' => ''
         ), $atts );
-        
+
         $html = '<div id="gridbox" class="row">';
         $args = array(
                 'post_type' => esc_attr($att['post_type']),
@@ -35,8 +35,8 @@ if( !function_exists('btsc_gridbox_shortcode') ) {
         $colw = 12/ esc_attr($att['col']);
         $col = esc_attr($att['col']);
         //print_r($postsgrid);
-    
-        
+
+
         foreach ( $postsgrid as $postg ) :
             $html .= '<div class="gridbox-container col-sm-'.$colw;
             if(!wp_is_mobile() ) $html.=' animated fadeInRight delay0 duration3 eds-on-scroll';
@@ -46,9 +46,9 @@ if( !function_exists('btsc_gridbox_shortcode') ) {
             $html .= get_the_post_thumbnail($postg->ID, 'thumb-col-'.$col);
             $html .= '</a>';
             $html .= '<div class="captiongrid">';
-            if(esc_attr($att['tax'])) { 
+            if(esc_attr($att['tax'])) {
                 $terms = get_the_terms( $postg->ID, esc_attr($att['tax']) );
-                if ( $terms && ! is_wp_error( $terms ) ) : 
+                if ( $terms && ! is_wp_error( $terms ) ) :
                 $tax_links = array();
                     foreach ( $terms as $term ) {
                         $tax_links[] = $term->name;
@@ -61,14 +61,14 @@ if( !function_exists('btsc_gridbox_shortcode') ) {
                 $html .= '</span>  ';
             }
             $html .= '<h2 class="titlegrid">';
-            if(esc_attr($att['date'])) { 
+            if(esc_attr($att['date'])) {
                 $html .= '<span class="postdate">';
                 $html .= get_the_date('d/m', $postg->ID);
                 $html .= '</span>  ';
             }
             $html .= '<a href="'.get_the_permalink($postg->ID).'">'.get_the_title($postg->ID).'</a></h2>';
             $html .= '</div> </div> </div>';
-        endforeach; 
+        endforeach;
         $html .= '</div>';
 
         return $html;
@@ -82,7 +82,7 @@ if( !function_exists('btsc_gridbox_shortcode') ) {
  */
 if( !function_exists('btsc_imagepostslider_shortcode') ) {
 	function btsc_imagepostslider_shortcode($atts, $content = null) {
-        
+
         global $post;
         $args = array(
             'post_mime_type' => 'image',
@@ -97,7 +97,7 @@ if( !function_exists('btsc_imagepostslider_shortcode') ) {
         if ( $attachments && $numattach == 1 ) {
             $html = get_the_post_thumbnail('page-thumb', array('class' => 'page-thumb img-rounded'));
         } elseif ($attachments) {
-            
+
         $html = '<div class="carousel slide" id="myCarousel">';
         $html .= '<div class="carousel-inner">';
 
@@ -119,7 +119,7 @@ if( !function_exists('btsc_imagepostslider_shortcode') ) {
         $html .= '<a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>';
         $html .= '</div><!-- /.control-box -->';
         $html .= '</div>';
-            
+
         return $html;
         }
     }
@@ -132,29 +132,29 @@ if( !function_exists('btsc_imagepostslider_shortcode') ) {
  */
 if( !function_exists('btsc_gridtaxbox_shortcode') ) {
 	function btsc_gridtaxbox_shortcode($atts, $content = null) {
-        
+
         $att = shortcode_atts( array(
             'col' => 3,
             'tax' => '',
             'title' => false,
         ), $atts );
-        
+
         $html = '<div id="gridbox" class="row">';
-        
-        $taxgrid = get_terms( array(esc_attr($att['tax']) ), 
-                              array('orderby' => 'name', 
+
+        $taxgrid = get_terms( array(esc_attr($att['tax']) ),
+                              array('orderby' => 'name',
                                     'order'   => 'ASC',
                                     'hide_empty' =>true
                                    ) );
         $colw = 12/ esc_attr($att['col']);
-        
+
         foreach ( $taxgrid as $taxg ) :
             $html .= '<div class="gridtaxbox-container col-sm-'.$colw;
             if(!wp_is_mobile() ) $html.= ' animated fadeInRight delay1 duration3 eds-on-scroll';
             $html.='">';
             $html .= '<div class="gridtaxbox-thumbnail text-center">';
             $html .= '<a href="'.get_term_link($taxg).'">';
-        
+
             $tax_term_id = $taxg->term_id;
             $images = get_option('taxonomy_image_plugin');
             $html.= wp_get_attachment_image( $images[$tax_term_id], 'medium' );
@@ -167,7 +167,7 @@ if( !function_exists('btsc_gridtaxbox_shortcode') ) {
                 $html .= '</div>';
             }
             $html .= '</div> </div>';
-        endforeach; 
+        endforeach;
         $html .= '</div>';
 
         return $html;
@@ -182,7 +182,7 @@ if( !function_exists('btsc_gridtaxbox_shortcode') ) {
 
 if ( !function_exists('btsc_carouselcpt_shortcode') ) {
 	function btsc_carouselcpt_shortcode($atts, $content = null) {
-        
+
         $att = shortcode_atts( array(
             'post_type' => 'page',
             'tax' => '',
@@ -191,7 +191,7 @@ if ( !function_exists('btsc_carouselcpt_shortcode') ) {
             'col' => 3,
             'titlep' => false
         ), $atts );
-        
+
         $html = '<div id="gridcarbox" class="row">';
         $type = esc_attr($att['type']);
         $idcarousel = rand(1,99);
@@ -206,11 +206,11 @@ if ( !function_exists('btsc_carouselcpt_shortcode') ) {
                 'orderby' => 'date'
             );
             $grid = get_posts( $args );
-            
-        } elseif($type =='tax') { 
+
+        } elseif($type =='tax') {
             $grid = get_terms( array(esc_attr($att['tax']) ), 'orderby=count&hide_empty=0' );
         }
-                
+
         $i = 1;
         $idcarousel = rand(1,99);
         $titlep = esc_attr($att['titlep']);
@@ -222,14 +222,14 @@ if ( !function_exists('btsc_carouselcpt_shortcode') ) {
                 <div class="carousel carousel'.$idcarousel.' slide" id="myCarousel'.$idcarousel.'" data-ride="carousel">
                   <div class="carousel-inner">';
 
-        
-            foreach ( $grid as $gridg ) : 
+
+            foreach ( $grid as $gridg ) :
                     $html.='
                     <div class="item';
                     if($i == 1) $html.=' active';
                     $html.='">';
-        
-                    if($type =='post') { 
+
+                    if($type =='post') {
                         $html.='<div class="col-xs-12 col-sm-'.$colw.'">';
                         $html .= '<a href="'.get_permalink($gridg).'">';
                         $html.= get_the_post_thumbnail( $gridg->ID, 'thumb-col-'.$colw );
@@ -241,7 +241,7 @@ if ( !function_exists('btsc_carouselcpt_shortcode') ) {
                             $html.= '</a></h2></div>';
                             }
                         $html.='</div>';
-                    } elseif($type =='tax') { 
+                    } elseif($type =='tax') {
                         $html.='<div class="col-xs-12 col-sm-'.$colw.'">';
                         $html .= '<a href="'.get_term_link($gridg).'">';
 
@@ -250,12 +250,12 @@ if ( !function_exists('btsc_carouselcpt_shortcode') ) {
                         $html.= wp_get_attachment_image( $images[$tax_term_id], 'medium' );
                         $html.= '</a></div>';
                     }
-        
+
                     $html.='</div>';
                     $i++;
-                endforeach;         
-        
-        
+                endforeach;
+
+
                   $html.='</div>
                   <a class="left carousel-control" href="#myCarousel'.$idcarousel.'" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
                   <a class="right carousel-control" href="#myCarousel'.$idcarousel.'" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
@@ -263,14 +263,14 @@ if ( !function_exists('btsc_carouselcpt_shortcode') ) {
             </div>
         </div>
         </div>';
-        
+
 
         $html .="
         <script type='text/javascript'>
         jQuery('#myCarousel".$idcarousel."').carousel({
           interval: 2000
         });
-        
+
         jQuery('.carousel".$idcarousel." .item').each(function(){
           var next = jQuery(this).next();
           if (!next.length) {
@@ -340,7 +340,7 @@ function gallery_shortcode_tbs($attr) {
 
 	$output = "";
 
-	$args = array( 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => null, 'post_parent' => $post->ID ); 
+	$args = array( 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' => null, 'post_parent' => $post->ID );
 	$attachments = get_posts($args);
 	if ($attachments) {
 		$output = '<div class="row-fluid"><ul class="thumbnails">';
@@ -364,46 +364,46 @@ function buttons( $atts, $content = null ) {
 	'type' => 'default', /* primary, default, info, success, danger, warning, inverse */
 	'size' => 'default', /* mini, small, default, large */
 	'url'  => '',
-	'text' => '', 
+	'text' => '',
 	), $atts ) );
-	
+
 	if($type == "default"){
 		$type = "";
 	}
-	else{ 
+	else{
 		$type = "btn-" . $type;
 	}
-	
+
 	if($size == "default"){
 		$size = "";
 	}
 	else{
 		$size = "btn-" . $size;
 	}
-	
+
 	$output = '<a href="' . $url . '" class="btn '. $type . ' ' . $size . '">';
 	$output .= $text;
 	$output .= '</a>';
-	
+
 	return $output;
 }
 
-add_shortcode('button', 'buttons'); 
+add_shortcode('button', 'buttons');
 
 // Alerts
 function alerts( $atts, $content = null ) {
 	extract( shortcode_atts( array(
 	'type' => 'alert-info', /* alert-info, alert-success, alert-error */
 	'close' => 'false', /* display close link */
-	'text' => '', 
+	'text' => '',
 	), $atts ) );
-	
+
 	$output = '<div class="fade in alert alert-'. $type . '">';
 	if($close == 'true') {
 		$output .= '<a class="close" data-dismiss="alert">×</a>';
 	}
 	$output .= $text . '</div>';
-	
+
 	return $output;
 }
 
@@ -414,19 +414,19 @@ function block_messages( $atts, $content = null ) {
 	extract( shortcode_atts( array(
 	'type' => 'alert-info', /* alert-info, alert-success, alert-error */
 	'close' => 'false', /* display close link */
-	'text' => '', 
+	'text' => '',
 	), $atts ) );
-	
+
 	$output = '<div class="fade in alert alert-block alert-'. $type . '">';
 	if($close == 'true') {
 		$output .= '<a class="close" data-dismiss="alert">×</a>';
 	}
 	$output .= '<p>' . $text . '</p></div>';
-	
+
 	return $output;
 }
 
-add_shortcode('block-message', 'block_messages'); 
+add_shortcode('block-message', 'block_messages');
 
 // Block Messages
 function blockquotes( $atts, $content = null ) {
@@ -434,7 +434,7 @@ function blockquotes( $atts, $content = null ) {
 	'float' => '', /* left, right */
 	'cite' => '', /* text for cite */
 	), $atts ) );
-	
+
 	$output = '<blockquote';
 	if($float == 'left') {
 		$output .= ' class="pull-left"';
@@ -443,17 +443,14 @@ function blockquotes( $atts, $content = null ) {
 		$output .= ' class="pull-right"';
 	}
 	$output .= '><p>' . $content . '</p>';
-	
+
 	if($cite){
 		$output .= '<small>' . $cite . '</small>';
 	}
-	
+
 	$output .= '</blockquote>';
-	
+
 	return $output;
 }
 
-add_shortcode('blockquote', 'blockquotes'); 
- 
-
-
+add_shortcode('blockquote', 'blockquotes');
