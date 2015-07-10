@@ -1,7 +1,7 @@
 <?php
 /* Welcome to Bones :)
 This is the core Bones file where most of the
-main functions & features reside. If you have 
+main functions & features reside. If you have
 any custom functions, it's best to put them
 in the functions.php file.
 
@@ -10,9 +10,9 @@ URL: http://themble.com/bones/
 */
 
 // Adding Translation Option
-load_theme_textdomain( 'wpbootstrap', TEMPLATEPATH.'/languages' );
+load_theme_textdomain( 'wpbootstrap', get_template_directory().'/languages' );
 $locale = get_locale();
-$locale_file = TEMPLATEPATH."/languages/$locale.php";
+$locale_file = get_template_directory()."/languages/$locale.php";
 if ( is_readable($locale_file) ) require_once($locale_file);
 
 // Cleaning up the Wordpress Head
@@ -33,7 +33,7 @@ function wp_bootstrap_head_cleanup() {
 	// remove WP version from RSS
 	function wp_bootstrap_rss_version() { return ''; }
 	add_filter('the_generator', 'wp_bootstrap_rss_version');
-	
+
 // loading jquery reply elements on single pages automatically
 function wp_bootstrap_queue_js(){ if (!is_admin()){ if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) wp_enqueue_script( 'comment-reply' ); }
 }
@@ -48,7 +48,7 @@ function wp_bootstrap_excerpt_more($more) {
 	return '...  <a href="'. get_permalink($post->ID) . '" class="more-link" title="Read '.get_the_title($post->ID).'">Read more &raquo;</a>';
 }
 add_filter('excerpt_more', 'wp_bootstrap_excerpt_more');
-	
+
 // Adding WP 3+ Functions & Theme Support
 function wp_bootstrap_theme_support() {
 	add_theme_support('post-thumbnails');      // wp thumbnails (sizes handled in functions.php)
@@ -57,26 +57,26 @@ function wp_bootstrap_theme_support() {
 	add_theme_support('automatic-feed-links'); // rss thingy
 	// to add header image support go here: http://themble.com/support/adding-header-background-image-support/
 	// adding post format support
-	add_theme_support( 'post-formats',      // post formats
-		array( 
+	/*add_theme_support( 'post-formats',      // post formats
+		array(
 			'aside',   // title less blurb
 			'gallery', // gallery of images
 			'link',    // quick link to other site
 			'image',   // an image
 			'quote',   // a quick quote
 			'status',  // a Facebook like status update
-			'video',   // video 
+			'video',   // video
 			'audio',   // audio
-			'chat'     // chat transcript 
+			'chat'     // chat transcript
 		)
-	);	
+	);*/
 	add_theme_support( 'menus' );            // wp menus
 	register_nav_menus(                      // wp3+ menus
-		array( 
+		array(
 			'main_nav' => 'The Main Menu',   // main nav in header
 			'footer_links' => 'Footer Links' // secondary nav in footer
 		)
-	);	
+	);
 }
 
 // launching this stuff after theme setup
@@ -87,20 +87,20 @@ add_action( 'widgets_init', 'wp_bootstrap_register_sidebars' );
 
 function wp_bootstrap_main_nav() {
 	// display the wp3 menu if available
-    wp_nav_menu( 
-    	array( 
+    wp_nav_menu(
+    	array(
     		'menu' => 'main_nav', /* menu name */
     		'menu_class' => 'nav navbar-nav',
     		'theme_location' => 'main_nav', /* where in the theme it's assigned */
     		'container' => 'false', /* container class */
     		'fallback_cb' => 'wp_bootstrap_main_nav_fallback', /* menu fallback */
-    		// 'depth' => '2',  suppress lower levels for now 
+    		// 'depth' => '2',  suppress lower levels for now
     		'walker' => new Bootstrap_walker()
     	)
     );
 }
 
-function wp_bootstrap_footer_links() { 
+function wp_bootstrap_footer_links() {
 	// display the wp3 menu if available
     wp_nav_menu(
     	array(
@@ -111,21 +111,21 @@ function wp_bootstrap_footer_links() {
     	)
 	);
 }
- 
+
 // this is the fallback for header menu
-function wp_bootstrap_main_nav_fallback() { 
+function wp_bootstrap_main_nav_fallback() {
 	// Figure out how to make this output bootstrap-friendly html
-	//wp_page_menu( 'show_home=Home&menu_class=nav' ); 
+	//wp_page_menu( 'show_home=Home&menu_class=nav' );
 }
 
 // this is the fallback for footer menu
-function wp_bootstrap_footer_links_fallback() { 
-	/* you can put a default here if you like */ 
+function wp_bootstrap_footer_links_fallback() {
+	/* you can put a default here if you like */
 }
 
 
 /****************** PLUGINS & EXTRA FEATURES **************************/
-	
+
 /*********************
 RELATED POSTS FUNCTION
 *********************/
