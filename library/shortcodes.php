@@ -30,7 +30,7 @@ if( !function_exists('btsc_gridbox_shortcode') ) {
                 'posts_per_page' => esc_attr($att['posts_per_page']),
                 'orderby' => 'date'
         );
-        
+
         $postsgrid = get_posts( $args );
         $colw = 12/ esc_attr($att['col']);
         $col = esc_attr($att['col']);
@@ -38,7 +38,7 @@ if( !function_exists('btsc_gridbox_shortcode') ) {
 
 
         foreach ( $postsgrid as $postg ) :
-            $html .= '<div class="gridbox-container col-sm-'.$colw;
+            $html .= '<div class="gridbox-container col-xs-12 col-sm-'.$colw;
             if(!wp_is_mobile() ) $html.=' animated fadeInRight delay0 duration3 eds-on-scroll';
             $html .= '">';
             $html .= '<div class="gridbox-thumbnail">';
