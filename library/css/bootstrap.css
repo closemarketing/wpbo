@@ -7452,3 +7452,8 @@ blockquote.pull-left {
     line-height: 1.8;
     padding: 10px 0px;
 }
+p.comment-form-author, p.comment-form-email, p.comment-form-url {
+    float: left;
+    width: 33%;
+    padding: 15px 10px;
+}

@@ -26,6 +26,8 @@
                 <?php the_content(); ?>
 
                 <?php wp_link_pages(); ?>
+                
+                <?php get_template_part('partials/content','author'); ?>
 
             </section> <!-- end article section -->
 
