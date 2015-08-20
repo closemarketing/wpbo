@@ -8,7 +8,7 @@ The comments page for Bones
     die ('Please do not load this page directly. Thanks!');
 
   if ( post_password_required() ) { ?>
-  	<div class="alert alert-info"><?php _e("This post is password protected. Enter the password to view comments.","wpbootstrap"); ?></div>
+  	<div class="alert alert-info"><?php _e("This post is password protected. Enter the password to view comments.","wpbo"); ?></div>
   <?php
     return;
   }
@@ -18,12 +18,12 @@ The comments page for Bones
 
 <?php if ( have_comments() ) : ?>
 	<?php if ( ! empty($comments_by_type['comment']) ) : ?>
-	<h3 id="comments"><?php comments_number('<span>' . __("No","wpbootstrap") . '</span> ' . __("Responses","wpbootstrap") . '', '<span>' . __("One","wpbootstrap") . '</span> ' . __("Response","wpbootstrap") . '', '<span>%</span> ' . __("Responses","wpbootstrap") );?> <?php _e("to","wpbootstrap"); ?> &#8220;<?php the_title(); ?>&#8221;</h3>
+	<h3 id="comments"><?php comments_number('<span>' . __("No","wpbo") . '</span> ' . __("Responses","wpbo") . '', '<span>' . __("One","wpbo") . '</span> ' . __("Response","wpbo") . '', '<span>%</span> ' . __("Responses","wpbo") );?> <?php _e("to","wpbo"); ?> &#8220;<?php the_title(); ?>&#8221;</h3>
 
 	<nav id="comment-nav">
 		<ul class="clearfix">
-	  		<li><?php previous_comments_link( __("Older comments","wpbootstrap") ) ?></li>
-	  		<li><?php next_comments_link( __("Newer comments","wpbootstrap") ) ?></li>
+	  		<li><?php previous_comments_link( __("Older comments","wpbo") ) ?></li>
+	  		<li><?php next_comments_link( __("Newer comments","wpbo") ) ?></li>
 	 	</ul>
 	</nav>
 
@@ -43,8 +43,8 @@ The comments page for Bones
 
 	<nav id="comment-nav">
 		<ul class="clearfix">
-	  		<li><?php previous_comments_link( __("Older comments","wpbootstrap") ) ?></li>
-	  		<li><?php next_comments_link( __("Newer comments","wpbootstrap") ) ?></li>
+	  		<li><?php previous_comments_link( __("Older comments","wpbo") ) ?></li>
+	  		<li><?php next_comments_link( __("Newer comments","wpbo") ) ?></li>
 		</ul>
 	</nav>
 

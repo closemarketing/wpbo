@@ -8,7 +8,7 @@
  * or theme author for support.
  *
  * @package   TGM-Plugin-Activation
- * @version   2.5.0
+ * @version   2.5.2
  * @link      http://tgmpluginactivation.com/
  * @author    Thomas Griffin, Gary Jones, Juliette Reinders Folmer
  * @copyright Copyright (c) 2011, Thomas Griffin
@@ -18,7 +18,7 @@
  * Plugin Name: TGM Plugin Activation
  * Plugin URI:
  * Description: Plugin installation and activation for WordPress themes.
- * Version:     2.5.0
+ * Version:     2.5.2
  * Author:      Thomas Griffin, Gary Jones, Juliette Reinders Folmer
  * Author URI:  http://tgmpluginactivation.com/
  * Text Domain: tgmpa
@@ -66,7 +66,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 *
 		 * @const string Version number.
 		 */
-		const TGMPA_VERSION = '2.5.0';
+		const TGMPA_VERSION = '2.5.2';
 
 		/**
 		 * Regular expression to test if a URL is a WP plugin repo URL.
@@ -149,7 +149,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 *
 		 * @var string
 		 */
-		public $menu = 'tgmpa-install-plugins';
+		protected $menu = 'tgmpa-install-plugins';
 
 		/**
 		 * Parent menu file slug.
@@ -256,11 +256,15 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * Adds a reference of this object to $instance, populates default strings,
 		 * does the tgmpa_init action hook, and hooks in the interactions to init.
 		 *
+		 * @internal This method should be `protected`, but as too many TGMPA implementations
+		 * haven't upgraded beyond v2.3.6 yet, this gives backward compatibility issues.
+		 * Reverted back to public for the time being.
+		 *
 		 * @since 1.0.0
 		 *
 		 * @see TGM_Plugin_Activation::init()
 		 */
-		protected function __construct() {
+		public function __construct() {
 			// Set the current WordPress version.
 			$this->wp_version = $GLOBALS['wp_version'];
 
@@ -269,6 +273,34 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 
 			// When the rest of WP has loaded, kick-start the rest of the class.
 			add_action( 'init', array( $this, 'init' ) );
+		}
+
+		/**
+		 * Magic method to (not) set protected properties from outside of this class.
+		 *
+		 * @internal hackedihack... There is a serious bug in v2.3.2 - 2.3.6  where the `menu` property
+		 * is being assigned rather than tested in a conditional, effectively rendering it useless.
+		 * This 'hack' prevents this from happening.
+		 *
+		 * @see https://github.com/TGMPA/TGM-Plugin-Activation/blob/2.3.6/tgm-plugin-activation/class-tgm-plugin-activation.php#L1593
+		 *
+		 * @param string $name  Name of an inaccessible property.
+		 * @param mixed  $value Value to assign to the property.
+		 * @return void  Silently fail to set the property when this is tried from outside of this class context.
+		 *               (Inside this class context, the __set() method if not used as there is direct access.)
+		 */
+		public function __set( $name, $value ) {
+			return;
+		}
+
+		/**
+		 * Magic method to get the value of a protected property outside of this class context.
+		 *
+		 * @param string $name Name of an inaccessible property.
+		 * @return mixed The property value.
+		 */
+		public function __get( $name ) {
+			return $this->{$name};
 		}
 
 		/**
@@ -399,9 +431,10 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 					add_action( 'admin_init', array( $this, 'admin_init' ), 1 );
 					add_action( 'admin_enqueue_scripts', array( $this, 'thickbox' ) );
 				}
-
-				add_action( 'load-plugins.php', array( $this, 'add_plugin_action_link_filters' ), 1 );
 			}
+
+			// If needed, filter plugin action links.
+			add_action( 'load-plugins.php', array( $this, 'add_plugin_action_link_filters' ), 1 );
 
 			// Make sure things get reset on switch theme.
 			add_action( 'switch_theme', array( $this, 'flush_plugins_cache' ) );
@@ -422,8 +455,11 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		}
 
 		/**
-		 * Prevent activation of plugins which don't meet the minimum version requirement from the
-		 * WP native plugins page.
+		 * Hook in plugin action link filters for the WP native plugins page.
+		 *
+		 * - Prevent activation of plugins which don't meet the minimum version requirements.
+		 * - Prevent deactivation of force-activated plugins.
+		 * - Add update notice if update available.
 		 *
 		 * @since 2.5.0
 		 */
@@ -606,7 +642,8 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			if ( 'themes.php' === $this->parent_slug ) {
 				$this->page_hook = call_user_func( 'add_theme_page', $args['page_title'], $args['menu_title'], $args['capability'], $args['menu_slug'], $args['function'] );
 			} else {
-				$this->page_hook = call_user_func( 'add_submenu_page', $args['parent_slug'], $args['page_title'], $args['menu_title'], $args['capability'], $args['menu_slug'], $args['function'] );
+				$type = 'submenu';
+				$this->page_hook = call_user_func( "add_{$type}_page", $args['parent_slug'], $args['page_title'], $args['menu_title'], $args['capability'], $args['menu_slug'], $args['function'] );
 			}
 		}
 
@@ -1079,7 +1116,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 					unset( $plugin_slug );
 
 					$count          = count( $plugin_group );
-					$linked_plugins = array_map( array( 'TGM_Utils', 'wrap_in_em' ), $linked_plugins );
+					$linked_plugins = array_map( array( 'TGMPA_Utils', 'wrap_in_em' ), $linked_plugins );
 					$last_plugin    = array_pop( $linked_plugins ); // Pop off last name to prep for readability.
 					$imploded       = empty( $linked_plugins ) ? $last_plugin : ( implode( ', ', $linked_plugins ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'tgmpa' ) . ' ' . $last_plugin );
 
@@ -1229,9 +1266,9 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			// Forgive users for using string versions of booleans or floats for version number.
 			$plugin['version']            = (string) $plugin['version'];
 			$plugin['source']             = empty( $plugin['source'] ) ? 'repo' : $plugin['source'];
-			$plugin['required']           = TGM_Utils::validate_bool( $plugin['required'] );
-			$plugin['force_activation']   = TGM_Utils::validate_bool( $plugin['force_activation'] );
-			$plugin['force_deactivation'] = TGM_Utils::validate_bool( $plugin['force_deactivation'] );
+			$plugin['required']           = TGMPA_Utils::validate_bool( $plugin['required'] );
+			$plugin['force_activation']   = TGMPA_Utils::validate_bool( $plugin['force_activation'] );
+			$plugin['force_deactivation'] = TGMPA_Utils::validate_bool( $plugin['force_deactivation'] );
 
 			// Enrich the received data.
 			$plugin['file_path']   = $this->_get_plugin_basename_from_slug( $plugin['slug'] );
@@ -1900,6 +1937,21 @@ if ( ! function_exists( 'tgmpa' ) ) {
 		}
 
 		if ( ! empty( $config ) && is_array( $config ) ) {
+			// Send out notices for deprecated arguments passed.
+			if ( isset( $config['notices'] ) ) {
+				_deprecated_argument( __FUNCTION__, '2.2.0', 'The `notices` config parameter was renamed to `has_notices` in TGMPA 2.2.0. Please adjust your configuration.' );
+				if ( ! isset( $config['has_notices'] ) ) {
+					$config['has_notices'] = $config['notices'];
+				}
+			}
+
+			if ( isset( $config['parent_menu_slug'] ) ) {
+				_deprecated_argument( __FUNCTION__, '2.4.0', 'The `parent_menu_slug` config parameter was removed in TGMPA 2.4.0. In TGMPA 2.5.0 an alternative was (re-)introduced. Please adjust your configuration. For more information visit the website: http://tgmpluginactivation.com/configuration/#h-configuration-options.' );
+			}
+			if ( isset( $config['parent_url_slug'] ) ) {
+				_deprecated_argument( __FUNCTION__, '2.4.0', 'The `parent_url_slug` config parameter was removed in TGMPA 2.4.0. In TGMPA 2.5.0 an alternative was (re-)introduced. Please adjust your configuration. For more information visit the website: http://tgmpluginactivation.com/configuration/#h-configuration-options.' );
+			}
+
 			call_user_func( array( $instance, 'config' ), $config );
 		}
 	}
@@ -2697,9 +2749,9 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				}
 				unset( $slug, $name, $source );
 
-				// Create a new instance of TGM_Bulk_Installer.
-				$installer = new TGM_Bulk_Installer(
-					new TGM_Bulk_Installer_Skin(
+				// Create a new instance of TGMPA_Bulk_Installer.
+				$installer = new TGMPA_Bulk_Installer(
+					new TGMPA_Bulk_Installer_Skin(
 						array(
 							'url'          => esc_url_raw( $this->tgmpa->get_tgmpa_url() ),
 							'nonce'        => 'bulk-' . $this->_args['plural'],
@@ -2776,7 +2828,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 					echo '<div id="message" class="error"><p>', wp_kses_post( $activate->get_error_message() ), '</p></div>';
 				} else {
 					$count        = count( $plugin_names ); // Count so we can use _n function.
-					$plugin_names = array_map( array( 'TGM_Utils', 'wrap_in_strong' ), $plugin_names );
+					$plugin_names = array_map( array( 'TGMPA_Utils', 'wrap_in_strong' ), $plugin_names );
 					$last_plugin  = array_pop( $plugin_names ); // Pop off last name to prep for readability.
 					$imploded     = empty( $plugin_names ) ? $last_plugin : ( implode( ', ', $plugin_names ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'tgmpa' ) . ' ' . $last_plugin );
 
@@ -2846,6 +2898,24 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 	}
 }
 
+
+if ( ! class_exists( 'TGM_Bulk_Installer' ) ) {
+
+	/**
+	 * Hack: Prevent TGMPA v2.4.1- bulk installer class from being loaded if 2.4.1- is loaded after 2.5+.
+	 */
+	class TGM_Bulk_Installer {
+	}
+}
+if ( ! class_exists( 'TGM_Bulk_Installer_Skin' ) ) {
+
+	/**
+	 * Hack: Prevent TGMPA v2.4.1- bulk installer skin class from being loaded if 2.4.1- is loaded after 2.5+.
+	 */
+	class TGM_Bulk_Installer_Skin {
+	}
+}
+
 /**
  * The WP_Upgrader file isn't always available. If it isn't available,
  * we load it here.
@@ -2862,6 +2932,11 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 	 * Load bulk installer
 	 */
 	function tgmpa_load_bulk_installer() {
+		// Silently fail if 2.5+ is loaded *after* an older version.
+		if ( ! isset( $GLOBALS['tgmpa'] ) ) {
+			return;
+		}
+
 		// Get TGMPA class instance.
 		$tgmpa_instance = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
 
@@ -2870,7 +2945,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 			}
 
-			if ( ! class_exists( 'TGM_Bulk_Installer' ) ) {
+			if ( ! class_exists( 'TGMPA_Bulk_Installer' ) ) {
 
 				/**
 				 * Installer class to handle bulk plugin installations.
@@ -2881,12 +2956,14 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				 * @since 2.2.0
 				 *
 				 * @internal Since 2.5.0 the class is an extension of Plugin_Upgrader rather than WP_Upgrader
+				 * @internal Since 2.5.2 the class has been renamed from TGM_Bulk_Installer to TGMPA_Bulk_Installer.
+				 *           This was done to prevent backward compatibility issues with v2.3.6.
 				 *
 				 * @package TGM-Plugin-Activation
 				 * @author  Thomas Griffin
 				 * @author  Gary Jones
 				 */
-				class TGM_Bulk_Installer extends Plugin_Upgrader {
+				class TGMPA_Bulk_Installer extends Plugin_Upgrader {
 					/**
 					 * Holds result of bulk plugin installation.
 					 *
@@ -3192,7 +3269,7 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				}
 			}
 
-			if ( ! class_exists( 'TGM_Bulk_Installer_Skin' ) ) {
+			if ( ! class_exists( 'TGMPA_Bulk_Installer_Skin' ) ) {
 
 				/**
 				 * Installer skin to set strings for the bulk plugin installations..
@@ -3202,13 +3279,17 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 				 *
 				 * @since 2.2.0
 				 *
+				 * @internal Since 2.5.2 the class has been renamed from TGM_Bulk_Installer_Skin to
+				 *           TGMPA_Bulk_Installer_Skin.
+				 *           This was done to prevent backward compatibility issues with v2.3.6.
+				 *
 				 * @see https://core.trac.wordpress.org/browser/trunk/src/wp-admin/includes/class-wp-upgrader-skins.php
 				 *
 				 * @package TGM-Plugin-Activation
 				 * @author  Thomas Griffin
 				 * @author  Gary Jones
 				 */
-				class TGM_Bulk_Installer_Skin extends Bulk_Upgrader_Skin {
+				class TGMPA_Bulk_Installer_Skin extends Bulk_Upgrader_Skin {
 					/**
 					 * Holds plugin info for each individual plugin installation.
 					 *
@@ -3413,19 +3494,21 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 	}
 }
 
-if ( ! class_exists( 'TGM_Utils' ) ) {
+if ( ! class_exists( 'TGMPA_Utils' ) ) {
 
 	/**
 	 * Generic utilities for TGMPA.
 	 *
 	 * All methods are static, poor-dev name-spacing class wrapper.
 	 *
+	 * Class was called TGM_Utils in 2.5.0 but renamed TGMPA_Utils in 2.5.1 as this was conflicting with Soliloquy.
+	 *
 	 * @since 2.5.0
 	 *
 	 * @package TGM-Plugin-Activation
 	 * @author  Juliette Reinders Folmer
 	 */
-	class TGM_Utils {
+	class TGMPA_Utils {
 		/**
 		 * Whether the PHP filter extension is enabled.
 		 *
@@ -3536,5 +3619,5 @@ if ( ! class_exists( 'TGM_Utils' ) ) {
 
 			return false;
 		}
-	} // End of class TGM_Utils
+	} // End of class TGMPA_Utils
 } // End of class_exists wrapper

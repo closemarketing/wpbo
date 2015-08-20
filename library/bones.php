@@ -10,7 +10,7 @@ URL: http://themble.com/bones/
 */
 
 // Adding Translation Option
-load_theme_textdomain( 'wpbootstrap', get_template_directory().'/languages' );
+load_theme_textdomain( 'wpbo', get_template_directory().'/languages' );
 $locale = get_locale();
 $locale_file = get_template_directory()."/languages/$locale.php";
 if ( is_readable($locale_file) ) require_once($locale_file);
@@ -45,7 +45,7 @@ function wp_bootstrap_queue_js(){ if (!is_admin()){ if ( is_singular() AND comme
 function wp_bootstrap_excerpt_more($more) {
 	global $post;
 	// edit here if you like
-	return '...  <a href="'. get_permalink($post->ID) . '" class="more-link" title="Read '.get_the_title($post->ID).'">'.__('Read more &raquo;','wpbootstrap').'</a>';
+	return '...  <a href="'. get_permalink($post->ID) . '" class="more-link" title="Read '.get_the_title($post->ID).'">'.__('Read more &raquo;','wpbo').'</a>';
 }
 add_filter('excerpt_more', 'wp_bootstrap_excerpt_more');
 
@@ -57,7 +57,7 @@ function wp_bootstrap_theme_support() {
 	add_theme_support('automatic-feed-links'); // rss thingy
 	// to add header image support go here: http://themble.com/support/adding-header-background-image-support/
 	// adding post format support
-	add_theme_support( 'post-formats',      // post formats
+/*	add_theme_support( 'post-formats',      // post formats
 		array(
 			'aside',   // title less blurb
 			'gallery', // gallery of images
@@ -69,7 +69,7 @@ function wp_bootstrap_theme_support() {
 			'audio',   // audio
 			'chat'     // chat transcript
 		)
-	);
+	);*/
 	add_theme_support( 'menus' );            // wp menus
 	register_nav_menus(                      // wp3+ menus
 		array(
@@ -149,7 +149,7 @@ function bones_related_posts() {
 				<li class="related_post"><a class="entry-unrelated" href="<?php the_permalink() ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></li>
 			<?php endforeach; }
 		else { ?>
-			<?php echo '<li class="no_related_post">' . __( 'No Related Posts Yet!', 'bonestheme' ) . '</li>'; ?>
+			<?php echo '<li class="no_related_post">' . __( 'No Related Posts Yet!', 'wpbo' ) . '</li>'; ?>
 		<?php }
 	}
 	wp_reset_postdata();

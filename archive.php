@@ -7,30 +7,30 @@
         <div class="page-header">
         <?php if (is_category()) { ?>
             <h1 class="archive_title h2">
-                <span><?php _e("Posts Categorized:", "wpbootstrap"); ?></span> <?php single_cat_title(); ?>
+                <span><?php _e("Posts Categorized:", "wpbo"); ?></span> <?php single_cat_title(); ?>
             </h1>
         <?php } elseif (is_tag()) { ?> 
             <h1 class="archive_title h2">
-                <span><?php _e("Posts Tagged:", "wpbootstrap"); ?></span> <?php single_tag_title(); ?>
+                <span><?php _e("Posts Tagged:", "wpbo"); ?></span> <?php single_tag_title(); ?>
             </h1>
         <?php } elseif (is_author()) { ?>
             <h1 class="archive_title h2">
-                <span><?php _e("Posts By:", "wpbootstrap"); ?></span> <?php get_the_author_meta('display_name'); ?>
+                <span><?php _e("Posts By:", "wpbo"); ?></span> <?php get_the_author_meta('display_name'); ?>
             </h1>
         <?php } elseif (is_day()) { ?>
             <h1 class="archive_title h2">
-                <span><?php _e("Daily Archives:", "wpbootstrap"); ?></span> <?php the_time('l, F j, Y'); ?>
+                <?php printf( __( 'Daily Archives: <span>%s</span>', 'wpbo' ), get_the_date() ); ?>
             </h1>
         <?php } elseif (is_month()) { ?>
             <h1 class="archive_title h2">
-                <span><?php _e("Monthly Archives:", "wpbootstrap"); ?>:</span> <?php the_time('F Y'); ?>
+                <?php printf( __( 'Monthly Archives: <span>%s</span>', 'wpbo' ), get_the_date( _x( 'F Y', 'monthly archives date format', 'wpbo' ) ) ); ?>
             </h1>
         <?php } elseif (is_year()) { ?>
             <h1 class="archive_title h2">
-                <span><?php _e("Yearly Archives:", "wpbootstrap"); ?>:</span> <?php the_time('Y'); ?>
+				<?php printf( __( 'Yearly Archives: <span>%s</span>', 'wpbo' ), get_the_date( _x( 'Y', 'yearly archives date format', 'twentyten' ) ) ); ?>
             </h1>
         <?php } ?>
-        
+            
         <?php if ( !get_query_var( 'paged' ) ) { 
           //Description for Taxonomy ?>
           <?php echo wpautop( term_description() ); ?>
@@ -73,8 +73,8 @@
         <?php } else { // if it is disabled, display regular wp prev & next links ?>
             <nav class="wp-prev-next">
                 <ul class="pager">
-                    <li class="previous"><?php next_posts_link(_e('&laquo; Older Entries', "wpbootstrap")) ?></li>
-                    <li class="next"><?php previous_posts_link(_e('Newer Entries &raquo;', "wpbootstrap")) ?></li>
+                    <li class="previous"><?php next_posts_link(_e('&laquo; Older Entries', "wpbo")) ?></li>
+                    <li class="next"><?php previous_posts_link(_e('Newer Entries &raquo;', "wpbo")) ?></li>
                 </ul>
             </nav>
         <?php } ?>
@@ -84,10 +84,10 @@
 
         <article id="post-not-found">
             <header>
-                <h1><?php _e("No Posts Yet", "wpbootstrap"); ?></h1>
+                <h1><?php _e("No Posts Yet", "wpbo"); ?></h1>
             </header>
             <section class="post_content">
-                <p><?php _e("Sorry, What you were looking for is not here.", "wpbootstrap"); ?></p>
+                <p><?php _e("Sorry, What you were looking for is not here.", "wpbo"); ?></p>
             </section>
             <footer>
             </footer>

@@ -50,7 +50,7 @@ get_header(); ?>
 
             <footer>
 
-                <?php the_tags('<p class="tags"><span class="tags-title">' . __("Tags","wpbootstrap") . ':</span> ', ' ', '</p>'); ?>
+                <?php the_tags('<p class="tags"><span class="tags-title">' . __("Tags","wpbo") . ':</span> ', ' ', '</p>'); ?>
 
             </footer> <!-- end article footer -->
 
@@ -64,10 +64,10 @@ get_header(); ?>
 
         <article id="post-not-found">
             <header>
-                <h1><?php _e("Not Found", "wpbootstrap"); ?></h1>
+                <h1><?php _e("Not Found", "wpbo"); ?></h1>
             </header>
             <section class="post_content">
-                <p><?php _e("Sorry, but the requested resource was not found on this site.", "wpbootstrap"); ?></p>
+                <p><?php _e("Sorry, but the requested resource was not found on this site.", "wpbo"); ?></p>
             </section>
             <footer>
             </footer>
@@ -86,7 +86,7 @@ get_header(); ?>
         <!-- Using WordPress functions to retrieve the extracted EXIF information from database -->
         <div class="well">
 
-            <h3><?php _e("Image metadata","wpbootstrap"); ?></h3>
+            <h3><?php _e("Image metadata","wpbo"); ?></h3>
 
            <?php
               $imgmeta = wp_get_attachment_metadata( $id );
@@ -110,25 +110,25 @@ get_header(); ?>
 
         // Start to display EXIF and IPTC data of digital photograph
                if ( $imgmeta['image_meta']['created_timestamp'] ) { 
-                   echo __("Date Taken","wpbootstrap") . ": " . date("d-M-Y H:i:s", $imgmeta['image_meta']['created_timestamp'])."<br />"; }
+                   echo __("Date Taken","wpbo") . ": " . date("d-M-Y H:i:s", $imgmeta['image_meta']['created_timestamp'])."<br />"; }
                if ( $imgmeta['image_meta']['copyright'] ) { 
-                   echo __("Copyright","wpbootstrap") . ": " . $imgmeta['image_meta']['copyright']."<br />"; }
+                   echo __("Copyright","wpbo") . ": " . $imgmeta['image_meta']['copyright']."<br />"; }
                if ( $imgmeta['image_meta']['credit'] ) { 
-                   echo __("Credit","wpbootstrap") . ": " . $imgmeta['image_meta']['credit']."<br />"; }
+                   echo __("Credit","wpbo") . ": " . $imgmeta['image_meta']['credit']."<br />"; }
                if ( $imgmeta['image_meta']['title'] ) { 
-                   echo __("Title","wpbootstrap") . ": " . $imgmeta['image_meta']['title']."<br />"; }
+                   echo __("Title","wpbo") . ": " . $imgmeta['image_meta']['title']."<br />"; }
                if ( $imgmeta['image_meta']['caption'] ) { 
-                   echo __("Caption","wpbootstrap") . ": " . $imgmeta['image_meta']['caption']."<br />"; }
+                   echo __("Caption","wpbo") . ": " . $imgmeta['image_meta']['caption']."<br />"; }
                if ( $imgmeta['image_meta']['camera'] ) { 
-                   echo __("Camera","wpbootstrap") . ": " . $imgmeta['image_meta']['camera']."<br />"; }
+                   echo __("Camera","wpbo") . ": " . $imgmeta['image_meta']['camera']."<br />"; }
                if ( $imgmeta['image_meta']['focal_length'] ) { 
-                   echo __("Focal Length","wpbootstrap") . ": " . $imgmeta['image_meta']['focal_length']."mm<br />"; }
+                   echo __("Focal Length","wpbo") . ": " . $imgmeta['image_meta']['focal_length']."mm<br />"; }
                if ( $imgmeta['image_meta']['aperture'] ) { 
-                   echo __("Aperture","wpbootstrap") . ": f/" . $imgmeta['image_meta']['aperture']."<br />"; }
+                   echo __("Aperture","wpbo") . ": f/" . $imgmeta['image_meta']['aperture']."<br />"; }
                if ( $imgmeta['image_meta']['iso'] ) { 
-                   echo __("ISO","wpbootstrap") . ": " . $imgmeta['image_meta']['iso']."<br />"; }
+                   echo __("ISO","wpbo") . ": " . $imgmeta['image_meta']['iso']."<br />"; }
                if ( $pshutter ) { 
-                   echo __("Shutter Speed","wpbootstrap") . ": " . $pshutter . "<br />"; }
+                   echo __("Shutter Speed","wpbo") . ": " . $pshutter . "<br />"; }
            ?>
         </div>
 

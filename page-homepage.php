@@ -44,7 +44,7 @@ Template Name: Homepage
             </section> <!-- end article header -->
 
             <footer>
-                <p class="clearfix"><?php the_tags('<span class="tags">' . __("Tags","wpbootstrap") . ': ', ', ', '</span>'); ?></p>
+                <p class="clearfix"><?php the_tags('<span class="tags">' . __("Tags","wpbo") . ': ', ', ', '</span>'); ?></p>
 
             </footer> <!-- end article footer -->
 
@@ -56,10 +56,10 @@ Template Name: Homepage
 
         <article id="post-not-found">
             <header>
-                <h1><?php _e("Not Found", "wpbootstrap"); ?></h1>
+                <h1><?php _e("Not Found", "wpbo"); ?></h1>
             </header>
             <section class="post_content">
-                <p><?php _e("Sorry, but the requested resource was not found on this site.", "wpbootstrap"); ?></p>
+                <p><?php _e("Sorry, but the requested resource was not found on this site.", "wpbo"); ?></p>
             </section>
             <footer>
             </footer>

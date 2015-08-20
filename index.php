@@ -19,12 +19,12 @@
             </header> <!-- end article header -->
 
             <section class="post_content clearfix">
-                <?php the_content( __("Read more &raquo;","wpbootstrap") ); ?>
+                <?php the_content( __("Read more &raquo;","wpbo") ); ?>
             </section> <!-- end article section -->
 
             <footer>
 
-                <p class="tags"><?php the_tags('<span class="tags-title">' . __("Tags","wpbootstrap") . ':</span> ', ' ', ''); ?></p>
+                <p class="tags"><?php the_tags('<span class="tags-title">' . __("Tags","wpbo") . ':</span> ', ' ', ''); ?></p>
 
             </footer> <!-- end article footer -->
 
@@ -39,8 +39,8 @@
         <?php } else { // if it is disabled, display regular wp prev & next links ?>
             <nav class="wp-prev-next">
                 <ul class="pager">
-                    <li class="previous"><?php next_posts_link(_e('&laquo; Older Entries', "wpbootstrap")) ?></li>
-                    <li class="next"><?php previous_posts_link(_e('Newer Entries &raquo;', "wpbootstrap")) ?></li>
+                    <li class="previous"><?php next_posts_link(_e('&laquo; Older Entries', "wpbo")) ?></li>
+                    <li class="next"><?php previous_posts_link(_e('Newer Entries &raquo;', "wpbo")) ?></li>
                 </ul>
             </nav>
         <?php } ?>		
@@ -49,10 +49,10 @@
 
         <article id="post-not-found">
             <header>
-                <h1><?php _e("Not Found", "wpbootstrap"); ?></h1>
+                <h1><?php _e("Not Found", "wpbo"); ?></h1>
             </header>
             <section class="post_content">
-                <p><?php _e("Sorry, but the requested resource was not found on this site.", "wpbootstrap"); ?></p>
+                <p><?php _e("Sorry, but the requested resource was not found on this site.", "wpbo"); ?></p>
             </section>
             <footer>
             </footer>

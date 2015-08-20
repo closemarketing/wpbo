@@ -120,7 +120,7 @@ you like.
 
 // Custom Backend Footer
 function wp_bootstrap_custom_admin_footer() {
-	echo '<span id="footer-thankyou">Developed by <a href="http://yoursite.com" target="_blank">Your Site Name</a></span>. Built using <a href="http://themble.com/bones" target="_blank">Bones</a>.';
+	echo '<span id="footer-thankyou">Developed by Closemarketing</span>. Built using Bones.';
 }
 
 // adding it to the admin area
