@@ -44,19 +44,19 @@ msgid "Posts By:"
 msgstr "Entradas Por:"
 
 #: archive.php:22
-#, fuzzy, php-format
+#, php-format
 msgid "Daily Archives: <span>%s</span>"
-msgstr "Archivo Diario:"
+msgstr "Archivo Diario: <span>%s</span>"
 
 #: archive.php:26
-#, fuzzy, php-format
+#, php-format
 msgid "Monthly Archives: <span>%s</span>"
-msgstr "Archivo Mensual:"
+msgstr "Archivo Mensual: <span>%s</span>"
 
 #: archive.php:30
-#, fuzzy, php-format
+#, php-format
 msgid "Yearly Archives: <span>%s</span>"
-msgstr "Archivo Anual:"
+msgstr "Archivo Anual: <span>%s</span>"
 
 #: archive.php:76 author.php:58 index.php:42 search.php:42
 msgid "&laquo; Older Entries"
@@ -129,35 +129,35 @@ msgstr "Comentarios posteriores"
 
 #: footer.php:19
 msgid "https://www.closemarketing.es/"
-msgstr ""
+msgstr "https://www.closemarketing.es/"
 
 #: functions.php:53
 msgid "Main Sidebar"
-msgstr ""
+msgstr "Recuadro Principal"
 
 #: functions.php:55
 msgid "Used on every page BUT the homepage page template."
-msgstr ""
+msgstr "Utilizado en todas las páginas MENOS en la plantilla página de inicio."
 
 #: functions.php:63
 msgid "Homepage Sidebar"
-msgstr ""
+msgstr "Recuadro Página Inicio"
 
 #: functions.php:64
 msgid "Used only on the homepage page template."
-msgstr ""
+msgstr "Utilizado sólo en la plantilla de la página de inicio."
 
 #: functions.php:73
 msgid "Footer 1"
-msgstr ""
+msgstr "Pie Página 1"
 
 #: functions.php:82
 msgid "Footer 2"
-msgstr ""
+msgstr "Pie Página 2"
 
 #: functions.php:91
 msgid "Footer 3"
-msgstr ""
+msgstr "Pie Página 3"
 
 #: functions.php:128
 msgid "Edit"
@@ -180,16 +180,16 @@ msgstr "Clave:"
 
 #: functions.php:591 library/class-tgm-plugin-activation.php:333
 msgid "Install Required Plugins"
-msgstr ""
+msgstr "Instalar Módulos requeridos"
 
 #: functions.php:592 library/class-tgm-plugin-activation.php:334
 msgid "Install Plugins"
-msgstr ""
+msgstr "Instalar Módulos"
 
 #: functions.php:593 library/class-tgm-plugin-activation.php:335
 #, php-format
 msgid "Installing Plugin: %s"
-msgstr ""
+msgstr "Instalando Módulo: %s"
 
 #: functions.php:594 library/class-tgm-plugin-activation.php:336
 msgid "Something went wrong with the plugin API."
@@ -262,9 +262,8 @@ msgid "Read more &raquo;"
 msgstr "Leer más &raquo;"
 
 #: library/bones.php:152
-#, fuzzy
 msgid "No Related Posts Yet!"
-msgstr "Todavía no hay entradas"
+msgstr "No hay entradas relacionadas"
 
 #: library/class-tgm-plugin-activation.php:398
 msgid "Return to the dashboard"
@@ -305,11 +304,11 @@ msgstr "Requerido"
 
 #: library/class-tgm-plugin-activation.php:2175
 msgid "Recommended"
-msgstr ""
+msgstr "Recomendado"
 
 #: library/class-tgm-plugin-activation.php:2191
 msgid "WordPress Repository"
-msgstr ""
+msgstr "Repositorio WordPress"
 
 #: library/class-tgm-plugin-activation.php:2194
 msgid "External Source"
@@ -320,9 +319,8 @@ msgid "Pre-Packaged"
 msgstr ""
 
 #: library/class-tgm-plugin-activation.php:2214
-#, fuzzy
 msgid "Not Installed"
-msgstr "Versión instalada"
+msgstr "No instalada"
 
 #: library/class-tgm-plugin-activation.php:2218
 msgid "Installed But Not Activated"
@@ -345,18 +343,16 @@ msgid "Update recommended"
 msgstr ""
 
 #: library/class-tgm-plugin-activation.php:2384
-#, fuzzy
 msgid "Installed version:"
-msgstr "Versión instalada"
+msgstr "Versión instalada:"
 
 #: library/class-tgm-plugin-activation.php:2392
 msgid "Minimum required version:"
 msgstr ""
 
 #: library/class-tgm-plugin-activation.php:2404
-#, fuzzy
 msgid "Available version:"
-msgstr "Última versión disponible"
+msgstr "Versión disponible:"
 
 #: library/class-tgm-plugin-activation.php:2427
 #, php-format
@@ -366,9 +362,8 @@ msgid ""
 msgstr ""
 
 #: library/class-tgm-plugin-activation.php:2441
-#, fuzzy
 msgid "Plugin"
-msgstr "Te gusta este Plugin?"
+msgstr "Plugin"
 
 #: library/class-tgm-plugin-activation.php:2442
 msgid "Source"
