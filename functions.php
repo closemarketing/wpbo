@@ -503,7 +503,7 @@ function wpboot_register_required_plugins() {
           'slug'      => 'bootstrap-shortcodes-for-content',
           'required'  => false,
       ),
-        
+
 
       // Include Cookie Notice.
       array(
@@ -575,10 +575,17 @@ function wpboot_register_required_plugins() {
           'required'  => false,
       ),
 
+      // Include Wordpress SEO.
+      array(
+          'name'      => 'Yoast SEO',
+          'slug'      => 'wordpress-seo',
+          'required'  => true,
+      ),
+
   );
 
   // Array of configuration settings. Amend each line as needed.
-  
+
   $config = array(
       'default_path' => '',                      // Default absolute path to pre-packaged plugins.
       'menu'         => 'tgmpa-install-plugins', // Menu slug.
