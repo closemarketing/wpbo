@@ -12,7 +12,7 @@
               </div>
 
                 <nav class="clearfix">
-                    <?php wp_bootstrap_footer_links(); // Adjust using Menus in Wordpress Admin ?>
+                    <?php wpbo_bootstrap_footer_links(); // Adjust using Menus in Wordpress Admin ?>
                 </nav>
 
                 <p class="pull-right">

@@ -18,7 +18,7 @@ Digging into WP - http://digwp.com/2010/10/customize-wordpress-dashboard/
 /************* DASHBOARD WIDGETS *****************/
 
 // disable default dashboard widgets
-function disable_default_dashboard_widgets() {
+function wpbo_disable_default_dashboard_widgets() {
 	// remove_meta_box('dashboard_right_now', 'dashboard', 'core');    // Right Now Widget
 	remove_meta_box('dashboard_recent_comments', 'dashboard', 'core'); // Comments Widget
 	remove_meta_box('dashboard_incoming_links', 'dashboard', 'core');  // Incoming Links Widget
@@ -52,7 +52,7 @@ http://digwp.com/2010/10/customize-wordpress-dashboard/
 */
 
 // RSS Dashboard Widget
-function wp_bootstrap_rss_dashboard_widget() {
+function wpbo_bootstrap_rss_dashboard_widget() {
 	if(function_exists('fetch_feed')) {
 		include_once(ABSPATH . WPINC . '/feed.php');               // include the required file
 		$feed = fetch_feed('http://themble.com/feed/rss/');        // specify the source feed
@@ -74,39 +74,39 @@ function wp_bootstrap_rss_dashboard_widget() {
 }
 
 // calling all custom dashboard widgets
-function wp_bootstrap_custom_dashboard_widgets() {
+function wpbo_bootstrap_custom_dashboard_widgets() {
 	wp_add_dashboard_widget('wp_bootstrap_rss_dashboard_widget', 'Recently on Themble (Customize on admin.php)', 'wp_bootstrap_rss_dashboard_widget');
 	/*
 	Be sure to drop any other created Dashboard Widgets
-	in this function and they will all load.
+	in this function wpbo_and they will all load.
 	*/
 }
 
 
 // removing the dashboard widgets
-add_action('admin_menu', 'disable_default_dashboard_widgets');
+add_action('admin_menu', 'wpbo_disable_default_dashboard_widgets');
 // adding any custom widgets
-add_action('wp_dashboard_setup', 'wp_bootstrap_custom_dashboard_widgets');
+add_action('wp_dashboard_setup', 'wpbo_bootstrap_custom_dashboard_widgets');
 
 
 /************* CUSTOM LOGIN PAGE *****************/
 
 // calling your own login css so you can style it
-function wp_bootstrap_login_css() {
+function wpbo_bootstrap_login_css() {
 	/* i couldn't get wp_enqueue_style to work :( */
 	echo '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/library/css/login.css">';
 }
 
 // changing the logo link from wordpress.org to your site
-function wp_bootstrap_login_url() { echo esc_url( home_url() ); }
+function wpbo_bootstrap_login_url() { echo esc_url( home_url() ); }
 
 // changing the alt text on the logo to show your site name
-function wp_bootstrap_login_title() { echo get_option('blogname'); }
+function wpbo_bootstrap_login_title() { echo get_option('blogname'); }
 
 // calling it only on the login page
-add_action('login_head', 'wp_bootstrap_login_css');
-add_filter('login_headerurl', 'wp_bootstrap_login_url');
-add_filter('login_headertitle', 'wp_bootstrap_login_title');
+add_action('login_head', 'wpbo_bootstrap_login_css');
+add_filter('login_headerurl', 'wpbo_bootstrap_login_url');
+add_filter('login_headertitle', 'wpbo_bootstrap_login_title');
 
 
 /************* CUSTOMIZE ADMIN *******************/
@@ -119,10 +119,10 @@ you like.
 */
 
 // Custom Backend Footer
-function wp_bootstrap_custom_admin_footer() {
+function wpbo_bootstrap_custom_admin_footer() {
 	echo '<span id="footer-thankyou">Developed by Closemarketing</span>. Built using Bones.';
 }
 
 // adding it to the admin area
-add_filter('admin_footer_text', 'wp_bootstrap_custom_admin_footer');
+add_filter('admin_footer_text', 'wpbo_bootstrap_custom_admin_footer');
 
