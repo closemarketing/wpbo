@@ -9,7 +9,7 @@
 
         <ul id="author-social" class="nav nav-pills">
             <li>
-                <a href="<?php the_author_meta('twitter'); ?>"><img src="<?php echo get_template_directory_uri();?>/images/twitter.png" alt="Twitter" title="Twitter" /></a>
+                <a href="https://twitter.com/<?php the_author_meta('twitter'); ?>"><img src="<?php echo get_template_directory_uri();?>/images/twitter.png" alt="Twitter" title="Twitter" /></a>
             </li>
             <li>
                 <a href="<?php the_author_meta('googleplus'); ?>"><img src="<?php echo get_template_directory_uri();?>/images/google_plus.png" alt="Twitter" title="Twitter" /></a>
