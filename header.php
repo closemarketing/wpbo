@@ -47,12 +47,12 @@
 
 
             <a class="navbar-brand" title="<?php echo get_bloginfo('description'); ?>" href="<?php echo home_url(); ?>">
-                <img src="<?php echo esc_url( get_stylesheet_directory_uri() );?>/img/logo.png" width="360" height="120" alt="<?php bloginfo('description');?>" />
+                <img src="<?php echo esc_url( get_stylesheet_directory_uri() );?>/images/logo.png" width="225" height="75" alt="<?php bloginfo('description');?>" />
             </a>
             </div>
 
             <div class="collapse navbar-collapse navbar-responsive-collapse">
-                <?php wp_bootstrap_main_nav(); // Adjust using Menus in Wordpress Admin ?>
+                <?php wpbo_bootstrap_main_nav(); // Adjust using Menus in Wordpress Admin ?>
 
 
                 <form class="navbar-form navbar-right" role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">
