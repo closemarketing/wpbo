@@ -41,7 +41,7 @@ function wpbo_bootstrap_queue_js(){ if (!is_admin()){ if ( is_singular() AND com
 	add_action('wp_print_scripts', 'wpbo_bootstrap_queue_js');
 
 // Fixing the Read More in the Excerpts
-// This removes the annoying […] to a Read More link
+// This removes the annoying … to a Read More link
 function wpbo_bootstrap_excerpt_more($more) {
 	global $post;
 	// edit here if you like
@@ -171,8 +171,8 @@ function wpbo_page_navi() {
             'prev_next' => false,
             'type'  => 'array',
             'prev_next'   => TRUE,
-			'prev_text'    => '«',
-			'next_text'    => '»',
+			'prev_text'    => '<',
+			'next_text'    => '>',
         ) );
         if( is_array( $pages ) ) {
             $paged = ( get_query_var('paged') == 0 ) ? 1 : get_query_var('paged');

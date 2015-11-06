@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-			
+
 <div id="content" class="clearfix row">
 
     <div id="main" class="col-sm-8 clearfix" role="main">
@@ -9,7 +9,7 @@
             <h1 class="archive_title h2">
                 <span><?php _e("Posts Categorized:", "wpbo"); ?></span> <?php single_cat_title(); ?>
             </h1>
-        <?php } elseif (is_tag()) { ?> 
+        <?php } elseif (is_tag()) { ?>
             <h1 class="archive_title h2">
                 <span><?php _e("Posts Tagged:", "wpbo"); ?></span> <?php single_tag_title(); ?>
             </h1>
@@ -27,15 +27,15 @@
             </h1>
         <?php } elseif (is_year()) { ?>
             <h1 class="archive_title h2">
-				<?php printf( __( 'Yearly Archives: <span>%s</span>', 'wpbo' ), get_the_date( _x( 'Y', 'yearly archives date format', 'twentyten' ) ) ); ?>
+				<?php printf( __( 'Yearly Archives: <span>%s</span>', 'wpbo' ), get_the_date( _x( 'Y', 'yearly archives date format', 'wpbo' ) ) ); ?>
             </h1>
         <?php } ?>
-            
-        <?php if ( !get_query_var( 'paged' ) ) { 
+
+        <?php if ( !get_query_var( 'paged' ) ) {
           //Description for Taxonomy ?>
           <?php echo wpautop( term_description() ); ?>
         <?php } ?>
-        
+
         </div>
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
@@ -64,7 +64,7 @@
 
         </article> <!-- end article -->
 
-        <?php endwhile; ?>	
+        <?php endwhile; ?>
 
         <?php if (function_exists('page_navi')) { // if expirimental feature is active ?>
 
