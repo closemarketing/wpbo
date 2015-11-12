@@ -85,7 +85,7 @@ add_action('after_setup_theme','wpbo_bootstrap_theme_support');
 // adding sidebars to Wordpress (these are created in functions.php)
 add_action( 'widgets_init', 'wpbo_bootstrap_register_sidebars' );
 
-function wpbo_bootstrap_main_nav() {
+function wp_bootstrap_main_nav() {
 	// display the wp3 menu if available
     wp_nav_menu(
     	array(
@@ -100,7 +100,7 @@ function wpbo_bootstrap_main_nav() {
     );
 }
 
-function wpbo_bootstrap_footer_links() {
+function wp_bootstrap_footer_links() {
 	// display the wp3 menu if available
     wp_nav_menu(
     	array(
