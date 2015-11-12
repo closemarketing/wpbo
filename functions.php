@@ -475,7 +475,7 @@ if( !function_exists( "wpbo_theme_js" ) ) {
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_js' );
 
 
-/************* PLUGINS RECOMMENDED *****************/
+/************* PLUGINS RECOMMENDED *****************
 
 require_once(dirname( __FILE__ ) . '/library/class-tgm-plugin-activation.php');
 
@@ -498,7 +498,7 @@ function wpbo_register_required_plugins() {
           'slug'      => 'bootstrap-shortcodes-for-content',
           'required'  => false,
       ),
-        
+
 
       // Include Cookie Notice.
       array(
@@ -573,7 +573,7 @@ function wpbo_register_required_plugins() {
   );
 
   // Array of configuration settings. Amend each line as needed.
-  
+
   $config = array(
       'default_path' => '',                      // Default absolute path to pre-packaged plugins.
       'menu'         => 'tgmpa-install-plugins', // Menu slug.
@@ -606,4 +606,4 @@ function wpbo_register_required_plugins() {
 
   tgmpa( $plugins, $config );
 
-}
+} * Waiting a method to implement in wordpress/
