@@ -11,7 +11,7 @@ Template Name: Full Width Page
         yoast_breadcrumb('<p id="breadcrumbs">','</p>');
     } ?>
 
-    <div id="main" class="col col-lg-12 clearfix" role="main">
+    <div id="main" class="col col-sm-12 clearfix" role="main">
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
@@ -30,13 +30,11 @@ Template Name: Full Width Page
 
             <footer>
 
-                <p class="clearfix"><?php the_tags('<span class="tags">' . __("Tags","wpbootstrap") . ': ', ', ', '</span>'); ?></p>
+                <p class="clearfix"><?php the_tags('<span class="tags">' . __("Tags","wpbo") . ': ', ', ', '</span>'); ?></p>
 
             </footer> <!-- end article footer -->
 
         </article> <!-- end article -->
-
-        <?php comments_template(); ?>
 
         <?php endwhile; ?>
 
@@ -44,10 +42,10 @@ Template Name: Full Width Page
 
         <article id="post-not-found">
             <header>
-                <h1><?php _e("Not Found", "wpbootstrap"); ?></h1>
+                <h1><?php _e("Not Found", "wpbo"); ?></h1>
             </header>
             <section class="post_content">
-                <p><?php _e("Sorry, but the requested resource was not found on this site.", "wpbootstrap"); ?></p>
+                <p><?php _e("Sorry, but the requested resource was not found on this site.", "wpbo"); ?></p>
             </section>
             <footer>
             </footer>

@@ -1,30 +1,24 @@
 <?php
 /*
-Template Name: Left Sidebar Page
+Template Name: Full Width without Title
 */
 ?>
 
 <?php get_header(); ?>
 
 <div id="content" class="clearfix row">
+<?php if ( function_exists('yoast_breadcrumb') ) {
+        yoast_breadcrumb('<p id="breadcrumbs">','</p>');
+    } ?>
 
-    <?php get_sidebar(); // sidebar 1 ?>
-
-    <div id="main" class="col col-lg-8 clearfix" role="main">
+    <div id="main" class="col col-sm-12 clearfix" role="main">
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
         <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix'); ?> role="article">
 
-            <header>
-
-                <div class="page-header"><h1><?php the_title(); ?></h1></div>
-
-            </header> <!-- end article header -->
-
             <section class="post_content">
                 <?php the_content(); ?>
-
             </section> <!-- end article section -->
 
             <footer>
@@ -35,9 +29,7 @@ Template Name: Left Sidebar Page
 
         </article> <!-- end article -->
 
-        <?php comments_template(); ?>
-
-        <?php endwhile; ?>	
+        <?php endwhile; ?>
 
         <?php else : ?>
 
@@ -55,6 +47,8 @@ Template Name: Left Sidebar Page
         <?php endif; ?>
 
     </div> <!-- end #main -->
+
+    <?php //get_sidebar(); // sidebar 1 ?>
 
 </div> <!-- end #content -->
 

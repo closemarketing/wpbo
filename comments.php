@@ -8,7 +8,7 @@ The comments page for Bones
     die ('Please do not load this page directly. Thanks!');
 
   if ( post_password_required() ) { ?>
-  	<div class="alert alert-info"><?php _e("This post is password protected. Enter the password to view comments.","wpbootstrap"); ?></div>
+  	<div class="alert alert-info"><?php _e("This post is password protected. Enter the password to view comments.","wpbo"); ?></div>
   <?php
     return;
   }
@@ -18,47 +18,44 @@ The comments page for Bones
 
 <?php if ( have_comments() ) : ?>
 	<?php if ( ! empty($comments_by_type['comment']) ) : ?>
-	<h3 id="comments"><?php comments_number('<span>' . __("No","wpbootstrap") . '</span> ' . __("Responses","wpbootstrap") . '', '<span>' . __("One","wpbootstrap") . '</span> ' . __("Response","wpbootstrap") . '', '<span>%</span> ' . __("Responses","wpbootstrap") );?> <?php _e("to","wpbootstrap"); ?> &#8220;<?php the_title(); ?>&#8221;</h3>
+	<h3 id="comments"><?php comments_number('<span>' . __("No","wpbo") . '</span> ' . __("Responses","wpbo") . '', '<span>' . __("One","wpbo") . '</span> ' . __("Response","wpbo") . '', '<span>%</span> ' . __("Responses","wpbo") );?> <?php _e("to","wpbo"); ?> &#8220;<?php the_title(); ?>&#8221;</h3>
 
 	<nav id="comment-nav">
 		<ul class="clearfix">
-	  		<li><?php previous_comments_link( __("Older comments","wpbootstrap") ) ?></li>
-	  		<li><?php next_comments_link( __("Newer comments","wpbootstrap") ) ?></li>
+	  		<li><?php previous_comments_link( __("Older comments","wpbo") ) ?></li>
+	  		<li><?php next_comments_link( __("Newer comments","wpbo") ) ?></li>
 	 	</ul>
 	</nav>
-	
+
 	<ol class="commentlist">
 		<?php wp_list_comments('type=comment&callback=wp_bootstrap_comments'); ?>
 	</ol>
-	
+
 	<?php endif; ?>
-	
+
 	<?php if ( ! empty($comments_by_type['pings']) ) : ?>
 		<h3 id="pings">Trackbacks/Pingbacks</h3>
-		
+
 		<ol class="pinglist">
 			<?php wp_list_comments('type=pings&callback=list_pings'); ?>
 		</ol>
 	<?php endif; ?>
-	
+
 	<nav id="comment-nav">
 		<ul class="clearfix">
-	  		<li><?php previous_comments_link( __("Older comments","wpbootstrap") ) ?></li>
-	  		<li><?php next_comments_link( __("Newer comments","wpbootstrap") ) ?></li>
+	  		<li><?php previous_comments_link( __("Older comments","wpbo") ) ?></li>
+	  		<li><?php next_comments_link( __("Newer comments","wpbo") ) ?></li>
 		</ul>
 	</nav>
-  
+
 	<?php else : // this is displayed if there are no comments so far ?>
 
 	<?php if ( comments_open() ) : ?>
     	<!-- If comments are open, but there are no comments. -->
 
-	<?php else : // comments are closed 
+	<?php else : // comments are closed
 	?>
-		
-	<!-- If comments are closed. -->
-	<p class="alert alert-info"><?php _e("Comments are closed","wpbootstrap"); ?>.</p>
-				
+
 	<?php endif; ?>
 
 <?php endif; ?>
@@ -66,6 +63,6 @@ The comments page for Bones
 
 <?php if ( comments_open() ) : ?>
 
-	<?php comment_form(); ?>
+	<?php comment_form(array('comment_notes_after' => '')); ?>
 
 <?php endif; // if you delete this the sky will fall on your head ?>

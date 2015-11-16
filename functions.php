@@ -11,9 +11,6 @@ sidebars, comments, ect.
 // Get Bones Core Up & Running!
 require_once('library/bones.php');            // core functions (don't remove)
 
-// Shortcodes
-require_once('library/shortcodes.php');
-
 // Admin Functions (commented out by default)
 // require_once('library/admin.php');         // custom admin functions
 
@@ -23,7 +20,7 @@ if ( ! isset( $content_width ) ) $content_width = 580;
 /************* THUMBNAIL SIZE OPTIONS *************/
 
 // Thumbnail sizes
-add_image_size( 'wpbs-featured', 780, 300, true );
+add_image_size( 'wpbs-featured', 848, 300, true );
 add_image_size( 'wpbs-featured-home', 970, 311, true);
 add_image_size( 'wpbs-featured-carousel', 970, 400, true);
 
@@ -50,12 +47,12 @@ you like. Enjoy!
 /************* ACTIVE SIDEBARS ********************/
 
 // Sidebars & Widgetizes Areas
-function wp_bootstrap_register_sidebars() {
+function wpbo_bootstrap_register_sidebars() {
     register_sidebar(array(
     	'id' => 'sidebar1',
-    	'name' => __('Main Sidebar','wpbootstrap'),
-    	'description' => __('Used on every page BUT the homepage page template.','wpbootstrap'),
+    	'name' => __('Main Sidebar','wpbo'),
     	'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    	'description' => __('Used on every page BUT the homepage page template.','wpbo'),
     	'after_widget' => '</div>',
     	'before_title' => '<h4 class="widgettitle">',
     	'after_title' => '</h4>',
@@ -63,8 +60,8 @@ function wp_bootstrap_register_sidebars() {
 
     register_sidebar(array(
     	'id' => 'sidebar2',
-    	'name' => __('Homepage Sidebar','wpbootstrap'),
-    	'description' => __('Used only on the homepage page template.','wpbootstrap'),
+    	'name' => __('Homepage Sidebar','wpbo'),
+    	'description' => __('Used only on the homepage page template.','wpbo'),
     	'before_widget' => '<div id="%1$s" class="widget %2$s">',
     	'after_widget' => '</div>',
     	'before_title' => '<h4 class="widgettitle">',
@@ -73,7 +70,7 @@ function wp_bootstrap_register_sidebars() {
 
     register_sidebar(array(
       'id' => 'footer1',
-      'name' => __('Footer 1','wpbootstrap'),
+      'name' => __('Footer 1','wpbo'),
       'before_widget' => '<div id="%1$s" class="widget col-sm-4 %2$s">',
       'after_widget' => '</div>',
       'before_title' => '<h4 class="widgettitle">',
@@ -82,7 +79,7 @@ function wp_bootstrap_register_sidebars() {
 
     register_sidebar(array(
       'id' => 'footer2',
-      'name' => __('Footer 2','wpbootstrap'),
+      'name' => __('Footer 2','wpbo'),
       'before_widget' => '<div id="%1$s" class="widget col-sm-4 %2$s">',
       'after_widget' => '</div>',
       'before_title' => '<h4 class="widgettitle">',
@@ -91,7 +88,7 @@ function wp_bootstrap_register_sidebars() {
 
     register_sidebar(array(
       'id' => 'footer3',
-      'name' => __('Footer 3','wpbootstrap'),
+      'name' => __('Footer 3','wpbo'),
       'before_widget' => '<div id="%1$s" class="widget col-sm-4 %2$s">',
       'after_widget' => '</div>',
       'before_title' => '<h4 class="widgettitle">',
@@ -118,7 +115,7 @@ function wp_bootstrap_register_sidebars() {
 /************* COMMENT LAYOUT *********************/
 
 // Comment Layout
-function wp_bootstrap_comments($comment, $args, $depth) {
+function wpbo_bootstrap_comments($comment, $args, $depth) {
    $GLOBALS['comment'] = $comment; ?>
 	<li <?php comment_class(); ?>>
 		<article id="comment-<?php comment_ID(); ?>" class="clearfix">
@@ -128,11 +125,11 @@ function wp_bootstrap_comments($comment, $args, $depth) {
 				</div>
 				<div class="col-sm-9 comment-text">
 					<?php printf('<h4>%s</h4>', get_comment_author_link()) ?>
-					<?php edit_comment_link(__('Edit','wpbootstrap'),'<span class="edit-comment btn btn-sm btn-info"><i class="glyphicon-white glyphicon-pencil"></i>','</span>') ?>
+					<?php edit_comment_link(__('Edit','wpbo'),'<span class="edit-comment btn btn-sm btn-info"><i class="glyphicon-white glyphicon-pencil"></i>','</span>') ?>
 
                     <?php if ($comment->comment_approved == '0') : ?>
        					<div class="alert-message success">
-          				<p><?php _e('Your comment is awaiting moderation.','wpbootstrap') ?></p>
+          				<p><?php _e('Your comment is awaiting moderation.','wpbo') ?></p>
           				</div>
 					<?php endif; ?>
 
@@ -149,7 +146,7 @@ function wp_bootstrap_comments($comment, $args, $depth) {
 } // don't remove this bracket!
 
 // Display trackbacks/pings callback function
-function list_pings($comment, $args, $depth) {
+function wpbo_list_pings($comment, $args, $depth) {
        $GLOBALS['comment'] = $comment;
 ?>
         <li id="comment-<?php comment_ID(); ?>"><i class="icon icon-share-alt"></i>&nbsp;<?php comment_author_link(); ?>
@@ -161,14 +158,14 @@ function list_pings($comment, $args, $depth) {
 
 /****************** password protected post form *****/
 
-add_filter( 'the_password_form', 'custom_password_form' );
+add_filter( 'the_password_form', 'wpbo_custom_password_form' );
 
-function custom_password_form() {
+function wpbo_custom_password_form() {
 	global $post;
 	$label = 'pwbox-'.( empty( $post->ID ) ? rand() : $post->ID );
 	$o = '<div class="clearfix"><form class="protected-post-form" action="' . get_option('siteurl') . '/wp-login.php?action=postpass" method="post">
-	' . '<p>' . __( "This post is password protected. To view it please enter your password below:" ,'wpbootstrap') . '</p>' . '
-	<label for="' . $label . '">' . __( "Password:" ,'wpbootstrap') . ' </label><div class="input-append"><input name="post_password" id="' . $label . '" type="password" size="20" /><input type="submit" name="Submit" class="btn btn-primary" value="' . esc_attr__( "Submit",'wpbootstrap' ) . '" /></div>
+	' . '<p>' . __( "This post is password protected. To view it please enter your password below:" ,'wpbo') . '</p>' . '
+	<label for="' . $label . '">' . __( "Password:" ,'wpbo') . ' </label><div class="input-append"><input name="post_password" id="' . $label . '" type="password" size="20" /><input type="submit" name="Submit" class="btn btn-primary" value="' . esc_attr__( "Submit",'wpbo' ) . '" /></div>
 	</form></div>
 	';
 	return $o;
@@ -176,9 +173,9 @@ function custom_password_form() {
 
 /*********** update standard wp tag cloud widget so it looks better ************/
 
-add_filter( 'widget_tag_cloud_args', 'my_widget_tag_cloud_args' );
+add_filter( 'widget_tag_cloud_args', 'wpbo_my_widget_tag_cloud_args' );
 
-function my_widget_tag_cloud_args( $args ) {
+function wpbo_my_widget_tag_cloud_args( $args ) {
 	$args['number'] = 20; // show less tags
 	$args['largest'] = 9.75; // make largest and smallest the same - i don't like the varying font-size look
 	$args['smallest'] = 9.75;
@@ -187,7 +184,7 @@ function my_widget_tag_cloud_args( $args ) {
 }
 
 // filter tag clould output so that it can be styled by CSS
-function add_tag_class( $taglinks ) {
+function wpbo_add_tag_class( $taglinks ) {
     $tags = explode('</a>', $taglinks);
     $regex = "#(.*tag-link[-])(.*)(' title.*)#e";
 
@@ -200,11 +197,11 @@ function add_tag_class( $taglinks ) {
     return $taglinks;
 }
 
-add_action( 'wp_tag_cloud', 'add_tag_class' );
+add_action( 'wp_tag_cloud', 'wpbo_add_tag_class' );
 
-add_filter( 'wp_tag_cloud','wp_tag_cloud_filter', 10, 2) ;
+add_filter( 'wp_tag_cloud','wpbo_tag_cloud_filter', 10, 2) ;
 
-function wp_tag_cloud_filter( $return, $args )
+function wpbo_tag_cloud_filter( $return, $args )
 {
   return '<div id="tag-cloud">' . $return . '</div>';
 }
@@ -213,7 +210,7 @@ function wp_tag_cloud_filter( $return, $args )
 add_filter( 'widget_text', 'do_shortcode' );
 
 // Disable jump in 'read more' link
-function remove_more_jump_link( $link ) {
+function wpbo_remove_more_jump_link( $link ) {
 	$offset = strpos($link, '#more-');
 	if ( $offset ) {
 		$end = strpos( $link, '"',$offset );
@@ -223,19 +220,19 @@ function remove_more_jump_link( $link ) {
 	}
 	return $link;
 }
-add_filter( 'the_content_more_link', 'remove_more_jump_link' );
+add_filter( 'the_content_more_link', 'wpbo_remove_more_jump_link' );
 
 // Remove height/width attributes on images so they can be responsive
-add_filter( 'post_thumbnail_html', 'remove_thumbnail_dimensions', 10 );
-add_filter( 'image_send_to_editor', 'remove_thumbnail_dimensions', 10 );
+add_filter( 'post_thumbnail_html', 'wpbo_remove_thumbnail_dimensions', 10 );
+add_filter( 'image_send_to_editor', 'wpbo_remove_thumbnail_dimensions', 10 );
 
-function remove_thumbnail_dimensions( $html ) {
+function wpbo_remove_thumbnail_dimensions( $html ) {
     $html = preg_replace( '/(width|height)=\"\d*\"\s/', "", $html );
     return $html;
 }
 
 // Add the Meta Box to the homepage template
-function add_homepage_meta_box() {
+function wpbo_add_homepage_meta_box() {
 	global $post;
 
 	// Only add homepage meta box if template being used is the homepage template
@@ -247,14 +244,14 @@ function add_homepage_meta_box() {
 	    add_meta_box(
 	        'homepage_meta_box', // $id
 	        'Optional Homepage Tagline', // $title
-	        'show_homepage_meta_box', // $callback
+	        'wpbo_show_homepage_meta_box', // $callback
 	        'page', // $page
 	        'normal', // $context
 	        'high'); // $priority
     }
 }
 
-add_action( 'add_meta_boxes', 'add_homepage_meta_box' );
+add_action( 'add_meta_boxes', 'wpbo_add_homepage_meta_box' );
 
 // Field Array
 $prefix = 'custom_';
@@ -268,7 +265,7 @@ $custom_meta_fields = array(
 );
 
 // The Homepage Meta Box Callback
-function show_homepage_meta_box() {
+function wpbo_show_homepage_meta_box() {
   global $custom_meta_fields, $post;
 
   // Use nonce for verification
@@ -303,7 +300,7 @@ function show_homepage_meta_box() {
 }
 
 // Save the Data
-function save_homepage_meta( $post_id ) {
+function wpbo_save_homepage_meta( $post_id ) {
 
     global $custom_meta_fields;
 
@@ -335,18 +332,19 @@ function save_homepage_meta( $post_id ) {
         }
     } // end foreach
 }
-add_action( 'save_post', 'save_homepage_meta' );
+add_action( 'save_post', 'wpbo_save_homepage_meta' );
 
 // Add thumbnail class to thumbnail links
-function add_class_attachment_link( $html ) {
+function wpbo_add_class_attachment_link( $html ) {
     $postid = get_the_ID();
     $html = str_replace( '<a','<a class="thumbnail"',$html );
     return $html;
 }
-add_filter( 'wp_get_attachment_link', 'add_class_attachment_link', 10, 1 );
+add_filter( 'wp_get_attachment_link', 'wpbo_add_class_attachment_link', 10, 1 );
 
 // Add lead class to first paragraph
-function first_paragraph( $content ){
+if( !function_exists('wpbo_first_paragraph') ) {
+function wpbo_first_paragraph( $content ){
     global $post;
 
     // if we're on the homepage, don't add the lead class to the first paragraph of text
@@ -355,12 +353,12 @@ function first_paragraph( $content ){
     else
         return preg_replace('/<p([^>]+)?>/', '<p$1 class="lead">', $content, 1);
 }
-add_filter( 'the_content', 'first_paragraph' );
-
+add_filter( 'the_content', 'wpbo_first_paragraph' );
+}
 // Menu output mods
 class Bootstrap_walker extends Walker_Nav_Menu{
 
-  function start_el(&$output, $object, $depth = 0, $args = Array(), $current_object_id = 0){
+  function wpbo_start_el(&$output, $object, $depth = 0, $args = Array(), $current_object_id = 0){
 
 	 global $wp_query;
 	 $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
@@ -407,12 +405,12 @@ class Bootstrap_walker extends Walker_Nav_Menu{
     $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $object, $depth, $args );
   } // end start_el function
 
-  function start_lvl(&$output, $depth = 0, $args = Array()) {
+  function wpbo_start_lvl(&$output, $depth = 0, $args = Array()) {
     $indent = str_repeat("\t", $depth);
     $output .= "\n$indent<ul class=\"dropdown-menu\">\n";
   }
 
-	function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ){
+	function wpbo_display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ){
     $id_field = $this->db_fields['id'];
     if ( is_object( $args[0] ) ) {
         $args[0]->has_children = ! empty( $children_elements[$element->$id_field] );
@@ -424,9 +422,9 @@ class Bootstrap_walker extends Walker_Nav_Menu{
 add_editor_style('editor-style.css');
 
 // Add Twitter Bootstrap's standard 'active' class name to the active nav link item
-add_filter('nav_menu_css_class', 'add_active_class', 10, 2 );
+add_filter('nav_menu_css_class', 'wpbo_add_active_class', 10, 2 );
 
-function add_active_class($classes, $item) {
+function wpbo_add_active_class($classes, $item) {
 	if( $item->menu_item_parent == 0 && in_array('current-menu-item', $classes) ) {
     $classes[] = "active";
 	}
@@ -435,10 +433,10 @@ function add_active_class($classes, $item) {
 }
 
 // enqueue styles
-if( !function_exists("theme_styles") ) {
-    function theme_styles() {
+if( !function_exists("wpbo_theme_styles") ) {
+    function wpbo_theme_styles() {
         // This is the compiled css file from LESS - this means you compile the LESS file locally and put it in the appropriate directory if you want to make any changes to the master bootstrap.css.
-        wp_register_style( 'bootstrap', get_template_directory_uri() . '/library/css/bootstrap.min.css', array(), '1.0', 'all' );
+        wp_register_style( 'bootstrap', get_template_directory_uri() . '/library/css/bootstrap.css', array(), '1.0', 'all' );
         wp_enqueue_style( 'bootstrap' );
 
         // For child themes
@@ -446,11 +444,11 @@ if( !function_exists("theme_styles") ) {
         wp_enqueue_style( 'wpbs-style' );
     }
 }
-add_action( 'wp_enqueue_scripts', 'theme_styles' );
+add_action( 'wp_enqueue_scripts', 'wpbo_theme_styles' );
 
 // enqueue javascript
-if( !function_exists( "theme_js" ) ) {
-  function theme_js(){
+if( !function_exists( "wpbo_theme_js" ) ) {
+  function wpbo_theme_js(){
 
     wp_register_script( 'bootstrap',
       get_template_directory_uri() . '/library/js/bootstrap.min.js',
@@ -467,18 +465,11 @@ if( !function_exists( "theme_js" ) ) {
       array('jquery'),
       '1.2' );
 
-    wp_register_script(  'animate-it',
-      get_template_directory_uri() . '/library/js/css3-animate-it.js',
-      array('jquery'),
-      '1.2' );
-
     wp_enqueue_script('bootstrap');
     wp_enqueue_script('wpbs-scripts');
     wp_enqueue_script('modernizr');
-    wp_enqueue_script('animate-it');
+    //wp_enqueue_script('animate-it');
 
   }
 }
-add_action( 'wp_enqueue_scripts', 'theme_js' );
-
-?>
+add_action( 'wp_enqueue_scripts', 'wpbo_theme_js' );

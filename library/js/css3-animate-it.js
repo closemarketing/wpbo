@@ -10,6 +10,7 @@
  * I also utilise the jQuery.doTimeout plugin for the data-sequence functionality so here is a link back to them.
  * http://benalman.com/projects/jquery-dotimeout-plugin/
  */
+
 (function($) {
   var selectors = [];
 
@@ -395,8 +396,8 @@
 
 
 //CSS3 Animate-it
-$('.animatedParent').appear();
-$('.animatedClick').click(function(){
+jQuery('.animatedParent').appear();
+jQuery('.animatedClick').click(function(){
   var target = $(this).attr('data-target');
 
   
@@ -444,7 +445,7 @@ $('.animatedClick').click(function(){
   } 
 });
 
-$(document.body).on('appear', '.animatedParent', function(e, $affected){
+jQuery(document.body).on('appear', '.animatedParent', function(e, $affected){
   var ele = $(this).find('.animated');
   var parent = $(this);
   
@@ -470,12 +471,12 @@ $(document.body).on('appear', '.animatedParent', function(e, $affected){
   
 });
 
- $(document.body).on('disappear', '.animatedParent', function(e, $affected) {
+ jQuery(document.body).on('disappear', '.animatedParent', function(e, $affected) {
   if(!$(this).hasClass('animateOnce')){
     $(this).find('.animated').removeClass('go');
    }
  });
 
- $(window).load(function(){
-  $.force_appear();
+ jQuery(window).load(function(){
+  jQuery.force_appear();
  });

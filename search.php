@@ -2,9 +2,9 @@
 
 <div id="content" class="clearfix row">
 
-    <div id="main" class="col col-lg-8 clearfix" role="main">
+    <div id="main" class="col col-sm-8 clearfix" role="main">
 
-        <div class="page-header"><h1><span><?php _e("Search Results for","wpbootstrap"); ?>:</span> <?php echo esc_attr(get_search_query()); ?></h1></div>
+        <div class="page-header"><h1><span><?php _e("Search Results for","wpbo"); ?>:</span> <?php echo esc_attr(get_search_query()); ?></h1></div>
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
@@ -14,12 +14,12 @@
 
                 <h3><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h3>
 
-                <p class="meta"><?php _e("Posted", "wpbootstrap"); ?> <time datetime="<?php echo the_time('Y-m-j'); ?>" pubdate><?php the_time(); ?></time> <?php _e("by", "wpbootstrap"); ?> <?php the_author_posts_link(); ?> <span class="amp">&</span> <?php _e("filed under", "wpbootstrap"); ?> <?php the_category(', '); ?>.</p>
+                <?php get_template_part('partials/content', 'meta');?>
 
             </header> <!-- end article header -->
 
             <section class="post_content">
-                <?php the_excerpt('<span class="read-more">' . __("Read more on","wpbootstrap") . ' "'.the_title('', '', false).'" &raquo;</span>'); ?>
+                <?php the_excerpt('<span class="read-more">' . __("Read more on","wpbo") . ' "'.the_title('', '', false).'" &raquo;</span>'); ?>
 
             </section> <!-- end article section -->
 
@@ -39,8 +39,8 @@
         <?php } else { // if it is disabled, display regular wp prev & next links ?>
             <nav class="wp-prev-next">
                 <ul class="clearfix">
-                    <li class="prev-link"><?php next_posts_link(_e('&laquo; Older Entries', "wpbootstrap")) ?></li>
-                    <li class="next-link"><?php previous_posts_link(_e('Newer Entries &raquo;', "wpbootstrap")) ?></li>
+                    <li class="prev-link"><?php next_posts_link(_e('&laquo; Older Entries', "wpbo")) ?></li>
+                    <li class="next-link"><?php previous_posts_link(_e('Newer Entries &raquo;', "wpbo")) ?></li>
                 </ul>
             </nav>
         <?php } ?>			
@@ -51,10 +51,10 @@
 
         <article id="post-not-found">
             <header>
-                <h1><?php _e("Not Found", "wpbootstrap"); ?></h1>
+                <h1><?php _e("Not Found", "wpbo"); ?></h1>
             </header>
             <section class="post_content">
-                <p><?php _e("Sorry, but the requested resource was not found on this site.", "wpbootstrap"); ?></p>
+                <p><?php _e("Sorry, but the requested resource was not found on this site.", "wpbo"); ?></p>
             </section>
             <footer>
             </footer>

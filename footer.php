@@ -1,4 +1,4 @@
-        <footer role="contentinfo">
+        <footer class="mainfooter" role="contentinfo">
 
             <div id="inner-footer" class="clearfix">
               <hr />
@@ -12,10 +12,12 @@
               </div>
 
                 <nav class="clearfix">
-                    <?php wp_bootstrap_footer_links(); // Adjust using Menus in Wordpress Admin ?>
+                    <?php wpbo_bootstrap_footer_links(); // Adjust using Menus in Wordpress Admin ?>
                 </nav>
 
-                <p class="pull-right"><a href="https://www.closemarketing.es/" id="credit-clmkg" title="Diseño Web Wordpress en Granada">Closemarketing</a></p>
+                <p class="pull-right">
+                    <a href="<?php echo esc_url( __('https://www.closemarketing.es/', 'wpbo'));?>" target="_blank" title="Dise&ntilde;o Web Wordpress en Granada">Closemarketing</a>
+                </p>
 
                 <p class="attribution">&copy; <?php bloginfo('name'); ?></p>
 

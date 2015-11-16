@@ -5,7 +5,7 @@ Template Name: Homepage
 ?>
 
 <?php get_header(); ?>
-			
+
 <div id="content" class="clearfix row">
 
     <div id="main" class="col-sm-12 clearfix" role="main">
@@ -16,7 +16,7 @@ Template Name: Homepage
 
             <header>
 
-                <?php 
+                <?php
                     $post_thumbnail_id = get_post_thumbnail_id();
                     $featured_src = wp_get_attachment_image_src( $post_thumbnail_id, 'wpbs-featured-home' );
                 ?>
@@ -25,7 +25,7 @@ Template Name: Homepage
 
                     <div class="page-header">
                         <h1><?php bloginfo('title'); ?><small><?php echo get_post_meta($post->ID, 'custom_tagline' , true);?></small></h1>
-                    </div>				
+                    </div>
 
                 </div>
 
@@ -44,28 +44,22 @@ Template Name: Homepage
             </section> <!-- end article header -->
 
             <footer>
-
-                <p class="clearfix"><?php the_tags('<span class="tags">' . __("Tags","wpbootstrap") . ': ', ', ', '</span>'); ?></p>
+                <p class="clearfix"><?php the_tags('<span class="tags">' . __("Tags","wpbo") . ': ', ', ', '</span>'); ?></p>
 
             </footer> <!-- end article footer -->
 
         </article> <!-- end article -->
 
-        <?php 
-            // No comments on homepage
-            //comments_template();
-        ?>
-
-        <?php endwhile; ?>	
+        <?php endwhile; ?>
 
         <?php else : ?>
 
         <article id="post-not-found">
             <header>
-                <h1><?php _e("Not Found", "wpbootstrap"); ?></h1>
+                <h1><?php _e("Not Found", "wpbo"); ?></h1>
             </header>
             <section class="post_content">
-                <p><?php _e("Sorry, but the requested resource was not found on this site.", "wpbootstrap"); ?></p>
+                <p><?php _e("Sorry, but the requested resource was not found on this site.", "wpbo"); ?></p>
             </section>
             <footer>
             </footer>
