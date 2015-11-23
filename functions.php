@@ -440,8 +440,8 @@ if( !function_exists("wpbo_theme_styles") ) {
         wp_enqueue_style( 'bootstrap' );
 
         // For child themes
-        wp_register_style( 'wpbs-style', get_stylesheet_directory_uri() . '/style.css', array(), '1.0', 'all' );
-        wp_enqueue_style( 'wpbs-style' );
+        wp_register_style( 'wpbo-style', get_stylesheet_directory_uri() . '/style.css', array(), '1.0', 'all' );
+        wp_enqueue_style( 'wpbo-style' );
     }
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_styles' );
