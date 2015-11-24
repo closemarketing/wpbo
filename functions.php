@@ -358,7 +358,7 @@ add_filter( 'the_content', 'wpbo_first_paragraph' );
 // Menu output mods
 class Bootstrap_walker extends Walker_Nav_Menu{
 
-  function wpbo_start_el(&$output, $object, $depth = 0, $args = Array(), $current_object_id = 0){
+  function start_el(&$output, $object, $depth = 0, $args = Array(), $current_object_id = 0){
 
 	 global $wp_query;
 	 $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
@@ -405,12 +405,12 @@ class Bootstrap_walker extends Walker_Nav_Menu{
     $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $object, $depth, $args );
   } // end start_el function
 
-  function wpbo_start_lvl(&$output, $depth = 0, $args = Array()) {
+  function start_lvl(&$output, $depth = 0, $args = Array()) {
     $indent = str_repeat("\t", $depth);
     $output .= "\n$indent<ul class=\"dropdown-menu\">\n";
   }
 
-	function wpbo_display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ){
+	function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ){
     $id_field = $this->db_fields['id'];
     if ( is_object( $args[0] ) ) {
         $args[0]->has_children = ! empty( $children_elements[$element->$id_field] );
