@@ -442,6 +442,15 @@ if( !function_exists("wpbo_theme_styles") ) {
         // For child themes
         wp_register_style( 'wpbs-style', get_stylesheet_directory_uri() . '/style.css', array(), '1.0', 'all' );
         wp_enqueue_style( 'wpbs-style' );
+
+        //Font Awesome
+        global $wp_styles, $is_IE;
+        wp_enqueue_style( 'prefix-font-awesome', '//netdna.bootstrapcdn.com/font-awesome/3.2.0/css/font-awesome.min.css', array(), '3.2.0' );
+        if ( $is_IE ) {
+            wp_enqueue_style( 'prefix-font-awesome-ie', '//netdna.bootstrapcdn.com/font-awesome/3.2.0/css/font-awesome-ie7.min.css', array('prefix-font-awesome'), '3.2.0' );
+            // Add IE conditional tags for IE 7 and older
+            $wp_styles->add_data( 'prefix-font-awesome-ie', 'conditional', 'lte IE 7' );
+        }
     }
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_styles' );
