@@ -12,3 +12,7 @@ define("ICL_DONT_PROMOTE", true);
 
 function first_paragraph( $content ){
 }
+
+//Remove support for emoji
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
