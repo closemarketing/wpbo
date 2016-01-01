@@ -525,7 +525,7 @@ if( !function_exists( "wpbo_theme_js" ) ) {
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_js' );
 
 // Updater from Github
-add_action( 'init', 'wpbo_github_plugin_updater' );
+//add_action( 'init', 'wpbo_github_plugin_updater' );
 function wpbo_github_plugin_updater() {
 	include_once 'library/updater/updater.php';
 	define( 'WP_GITHUB_FORCE_UPDATE', true );
