@@ -7418,6 +7418,8 @@ blockquote.pull-left {
     padding-right: 0;
   }
 }
+/*White gap*/
+html, body { overflow-x: hidden; }
 /*Vertical Space Classes*/
 .top2 { margin-top:2%; }
 .top5 { margin-top:5%; }
