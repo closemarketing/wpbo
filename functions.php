@@ -518,25 +518,6 @@ if( !function_exists( "wpbo_theme_js" ) ) {
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_js' );
 
-// Updater from Github
-//add_action( 'init', 'wpbo_github_plugin_updater' );
-function wpbo_github_plugin_updater() {
-	include_once 'library/updater/updater.php';
-	define( 'WP_GITHUB_FORCE_UPDATE', true );
-	if ( is_admin() ) {
-        $config = array(
-            'slug' => plugin_basename(__FILE__),
-            'proper_folder_name' => 'wpbo',
-            'api_url' => 'https://api.github.com/repos/closemarketing/wpbo',
-            'raw_url' => 'https://raw.github.com/closemarketing/wpbo/master',
-            'github_url' => 'https://github.com/closemarketing/wpbo',
-            'zip_url' => 'https://github.com/closemarketing/wpbo/zipball/master',
-            'sslverify' => true,
-            'requires' => '3.9',
-            'tested' => '4.4',
-            'readme' => 'readme.txt',
-            'access_token' => '',
-        );
-		new WP_GitHub_Updater( $config );
-	}
-}
+// Updater from Kernl
+require 'library/theme_update_check.php';
+$MyUpdateChecker = new ThemeUpdateChecker( 'wpbo', 'https://kernl.us/api/v1/theme-updates/56b0d3d7d8ed3a6f0745bacf/' );
