@@ -1,7 +1,7 @@
 <?php
 /*
-Author: Eddie Machado
-URL: htp://themble.com/bones/
+Author: David Perez
+URL: https://www.closemarketing.es
 
 This is where you can drop your custom functions or
 just edit things like thumbnail sizes, header images,
@@ -152,6 +152,47 @@ function wpbo_list_pings($comment, $args, $depth) {
         <li id="comment-<?php comment_ID(); ?>"><i class="icon icon-share-alt"></i>&nbsp;<?php comment_author_link(); ?>
 <?php
 
+}
+/************* PAGE NAVI *****************/
+/* From http://www.kriesi.at/archives/how-to-build-a-wordpress-post-pagination-without-plugin */
+function wpbo_pagenavi($pages = '', $range = 2)
+{
+     $showitems = ($range * 2)+1;
+
+     global $paged;
+     if(empty($paged)) $paged = 1;
+
+     if($pages == '')
+     {
+         global $wp_query;
+         $pages = $wp_query->max_num_pages;
+         if(!$pages)
+         {
+             $pages = 1;
+         }
+     }
+     if(1 != $pages)
+     {
+         echo '<nav><ul class="pagination">';
+         if($paged > 2 && $paged > $range+1 && $showitems < $pages)
+            echo "<li><a href='".get_pagenum_link(1)."'>&laquo;</a></li>";
+         if($paged > 1 && $showitems < $pages)
+            echo "<li><a href='".get_pagenum_link($paged - 1)."' aria-label='Previous'><span aria-hidden='true'>&lsaquo;</span></a></li>";
+
+         for ($i=1; $i <= $pages; $i++)
+         {
+             if (1 != $pages &&( !($i >= $paged+$range+1 || $i <= $paged-$range-1) || $pages <= $showitems ))
+             {
+                 echo ($paged == $i)? "<li class='active'><span class='current'>".$i."</span></li>":"<li><a href='".get_pagenum_link($i)."' class='inactive' >".$i."</a></li>";
+             }
+         }
+         if ($paged < $pages && $showitems < $pages)
+            echo "<li><a href='".get_pagenum_link($paged + 1)."'>&rsaquo;</a></li>";
+         if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages)
+            echo "<li><a href='".get_pagenum_link($pages)."' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+
+         echo "</ul></nav>\n";
+     }
 }
 
 /************* SEARCH FORM LAYOUT *****************/
@@ -440,8 +481,11 @@ if( !function_exists("wpbo_theme_styles") ) {
         wp_enqueue_style( 'bootstrap' );
 
         // For child themes
-        wp_register_style( 'wpbo-style', get_stylesheet_directory_uri() . '/style.css', array(), '1.0', 'all' );
-        wp_enqueue_style( 'wpbo-style' );
+        wp_register_style( 'wpbs-style', get_stylesheet_directory_uri() . '/style.css', array(), '1.0', 'all' );
+        wp_enqueue_style( 'wpbs-style' );
+
+        //Font Awesome
+        wp_enqueue_style( 'prefix-font-awesome', get_template_directory_uri() . '/library/font-awesome/css/font-awesome.min.css', array(), '4.5.0' );
     }
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_styles' );
@@ -473,3 +517,7 @@ if( !function_exists( "wpbo_theme_js" ) ) {
   }
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_js' );
+
+// Updater from Kernl
+require 'library/theme_update_check.php';
+$MyUpdateChecker = new ThemeUpdateChecker( 'wpbo', 'https://kernl.us/api/v1/theme-updates/56b0d3d7d8ed3a6f0745bacf/' );

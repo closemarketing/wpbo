@@ -8,6 +8,11 @@ Template:       wpbo
 Version:        0.1.0
 */
 
+.bannerImage img {
+    margin: 0 auto;
+    display: block;
+}
+
 /*Responsive*/
 /* iPads horizontal ----------- */
 @media only screen and (min-width: 1024px) and (max-width: 1280px) {

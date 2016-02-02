@@ -156,34 +156,6 @@ function wpbo_bones_related_posts() {
 	echo '</ul>';
 } /* end bones related posts function */
 
-/*********************
-PAGE NAVI
-*********************/
-// Numeric Page Navi (built into the theme by default)
-function wpbo_page_navi() {
-    global $wp_query;
-    $big = 999999999; // need an unlikely integer
-    $pages = paginate_links( array(
-            'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-            'format' => '?paged=%#%',
-            'current' => max( 1, get_query_var('paged') ),
-            'total' => $wp_query->max_num_pages,
-            'prev_next' => false,
-            'type'  => 'array',
-            'prev_next'   => TRUE,
-			'prev_text'    => '<',
-			'next_text'    => '>',
-        ) );
-        if( is_array( $pages ) ) {
-            $paged = ( get_query_var('paged') == 0 ) ? 1 : get_query_var('paged');
-            echo '<ul class="pagination">';
-            foreach ( $pages as $page ) {
-                    echo "<li>$page</li>";
-            }
-           echo '</ul>';
-        }
-} /* end page navi */
-
 // remove the p from around imgs (http://css-tricks.com/snippets/wordpress/remove-paragraph-tags-from-around-images/)
 function wpbo_filter_ptags_on_images($content){
    return preg_replace('/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $content);
