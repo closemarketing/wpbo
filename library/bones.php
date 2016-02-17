@@ -15,7 +15,7 @@ $locale = get_locale();
 $locale_file = get_template_directory()."/languages/$locale.php";
 if ( is_readable($locale_file) ) require_once($locale_file);
 
-// Cleaning up the Wordpress Head
+// Cleaning up the WordPress Head
 function wpbo_bootstrap_head_cleanup() {
 	// remove header links
 	remove_action( 'wp_head', 'feed_links_extra', 3 );                    // Category Feeds
@@ -82,7 +82,7 @@ function wpbo_bootstrap_theme_support() {
 // launching this stuff after theme setup
 add_action('after_setup_theme','wpbo_bootstrap_theme_support');
 
-// adding sidebars to Wordpress (these are created in functions.php)
+// adding sidebars to WordPress (these are created in functions.php)
 add_action( 'widgets_init', 'wpbo_bootstrap_register_sidebars' );
 
 function wpbo_bootstrap_main_nav() {

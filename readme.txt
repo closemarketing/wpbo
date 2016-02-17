@@ -35,7 +35,7 @@ GNU General Public License for more details.
 
 == Changelog ==
 = 1.3 =
-* Validate Wordpress Theme Check
+* Validate WordPress Theme Check
 
 = 1.2 =
 * Released: August 18, 2015

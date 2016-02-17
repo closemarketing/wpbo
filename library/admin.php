@@ -113,7 +113,7 @@ add_filter('login_headertitle', 'wpbo_bootstrap_login_title');
 
 /*
 I don't really reccomend editing the admin too much
-as things may get funky if Wordpress updates. Here
+as things may get funky if WordPress updates. Here
 are a few funtions which you can choose to use if
 you like.
 */

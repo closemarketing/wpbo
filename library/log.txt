@@ -1,4 +1,4 @@
-Bones - A Lightweight Wordpress Developer Template
+Bones - A Lightweight WordPress Developer Template
 
 This theme is meant to make development easier & take
 advantage of modern web development & design techniques.
