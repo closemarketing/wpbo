@@ -52,7 +52,7 @@
 
             <section class="post_content">
 
-                <?php the_post_thumbnail( 'wpbs-featured' ); ?>
+                <?php the_post_thumbnail( 'wpbo-featured' ); ?>
 
                 <?php the_excerpt(); ?>
 
