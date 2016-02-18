@@ -2,7 +2,7 @@
 Contributors: closemarketing
 Requires at least: WordPress 4.0
 Tested up to: WordPress 4.4.1
-Stable tag: 1.4
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: bootstrap, naked, black, blue, white, two-columns, fixed-layout, custom-header, custom-background, threaded-comments, sticky-post, translation-ready, microformats, rtl-language-support, editor-style, custom-menu, flexible-header, featured-images, featured-image-header
@@ -34,6 +34,11 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 == Changelog ==
+= 1.3.1 =
+* Validate Theme Check
+* Font Awesemo 4.5
+* Minus bugs fixed
+
 = 1.3 =
 * Validate WordPress Theme Check
 
