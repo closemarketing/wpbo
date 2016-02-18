@@ -44,6 +44,9 @@ You can change the names and dimensions to whatever
 you like. Enjoy!
 */
 
+/*** Title Tag since version WordPress 4.1 ***/
+add_theme_support( 'title-tag' );
+
 /************* ACTIVE SIDEBARS ********************/
 
 // Sidebars & Widgetizes Areas
