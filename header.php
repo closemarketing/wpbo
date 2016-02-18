@@ -41,7 +41,7 @@
 
 
             <a class="navbar-brand" title="<?php echo get_bloginfo('description'); ?>" href="<?php echo home_url(); ?>">
-                <img src="<?php echo esc_url( get_stylesheet_directory_uri() );?>/img/logo.png" srcset="<?php bloginfo('stylesheet_directory');?>/img/logom.png 480w,<?php bloginfo('stylesheet_directory');?>/img/logo.png 2000w" alt="<?php bloginfo('description');?>" />
+                <img src="<?php echo esc_url( get_stylesheet_directory_uri() );?>/img/logo.png" srcset="<?php echo esc_url( get_stylesheet_directory_uri() );?>/img/logom.png 480w,<?php echo esc_url( get_stylesheet_directory_uri() );?>/img/logo.png 2000w" alt="<?php bloginfo('description');?>" />
             </a>
             </div>
 
