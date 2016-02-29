@@ -125,6 +125,26 @@ function wpbo_bootstrap_register_sidebars() {
     */
 } // don't remove this bracket!
 
+
+/************* AUTHOR META *********************/
+
+//Change Author meta
+add_filter('user_contactmethods','wpbo_profile_fields', 10, 1);
+function wpbo_profile_fields($contactmethods) {
+    // Adds Twitter, Facebook and Google plus
+    $contactmethods['twitter'] = 'Twitter';
+    $contactmethods['facebook'] = 'Facebook';
+    $contactmethods['googleplus'] = 'Google Plus';
+    $contactmethods['linkedin'] = 'Linkedin';
+
+    //unsets profiles not usual
+    unset($contactmethods['aim']);
+    unset($contactmethods['jabber']);
+    unset($contactmethods['yim']);
+
+    return $contactmethods;
+}
+
 /************* COMMENT LAYOUT *********************/
 
 // Comment Layout
