@@ -33,6 +33,14 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
+Unless otherwise specified, all the theme files, scripts and images are licensed under GPLv2 license
+
+WPBO theme uses:
+* FontAwesome (http://fontawesome.io) licensed under the SIL OFL 1.1 (http://scripts.sil.org/OFL)
+* Bootstrap (http://getbootstrap.com/) licensed under MIT license (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+* WP-Bootstrap-NavWalker licensed under the GPLv2 license (http://www.gnu.org/licenses/gpl-2.0.html)
+* Bones licensed under the GPLv2 license (http://www.gnu.org/licenses/gpl-2.0.html)
+
 == Changelog ==
 = 1.3.1 =
 * Validate Theme Check
