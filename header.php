@@ -41,7 +41,7 @@
 
 
             <a class="navbar-brand" title="<?php echo get_bloginfo('description'); ?>" href="<?php echo home_url(); ?>">
-                <img src="<?php bloginfo('stylesheet_directory');?>/img/logo.png" alt="<?php bloginfo('description');?>" />
+                <img src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/img/logo.png" alt="<?php bloginfo('description');?>" />
             </a>
             </div>
 
