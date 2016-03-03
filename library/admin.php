@@ -126,3 +126,45 @@ function wpbo_bootstrap_custom_admin_footer() {
 // adding it to the admin area
 add_filter('admin_footer_text', 'wpbo_bootstrap_custom_admin_footer');
 
+/**** Select Sidebars in pages admin ******/
+
+add_action('admin_init', 'wpbo_admin_metabox_page');
+add_action('save_post', 'wpbo_admin_metabox_save');
+
+function wpbo_admin_metabox_page() {
+	add_meta_box("page_options", __('Select Sidebar','wpbo'), "wpbo_page_sidebar_metabox", 'page', "side", "normal");
+}
+
+function wpbo_page_sidebar_metabox(){
+	global $post;
+	$page_sidebar = get_post_meta($post->ID, 'page_sidebar', true);
+
+	echo '<strong>'.__('Select the sidebar','wpbo').':</strong><br/>';
+	$dynamic_widget_areas = array(
+	  'sidebar-1' => 'stuff',
+	);
+	global $wp_registered_sidebars;
+	$output = '';
+    echo '<select name="page_sidebar" value="'.$page_sidebar.'">';
+	foreach($wp_registered_sidebars as $sidebar_id => $sidebar) {
+	  echo "<option";
+	  if(isset($dynamic_widget_areas[$sidebar_id])) {
+	     if($sidebar_id == $val) {
+	      echo " selected='selected'";
+	    }
+	    echo " value='".$sidebar_id."'>".$sidebar['name']."</option>";
+	  }
+	}
+	echo "</select>";
+
+}
+
+function wpbo_admin_metabox_save(){
+	global $post;
+
+	$fields = array ('page_sidebar');
+
+	foreach ($fields as $field)
+	  if(isset($_POST[$field]) )
+	      update_post_meta($post->ID, $field, $_POST[$field]);
+}

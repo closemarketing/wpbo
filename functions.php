@@ -20,9 +20,9 @@ if ( ! isset( $content_width ) ) $content_width = 580;
 /************* THUMBNAIL SIZE OPTIONS *************/
 
 // Thumbnail sizes
-add_image_size( 'wpbs-featured', 848, 300, true );
-add_image_size( 'wpbs-featured-home', 970, 311, true);
-add_image_size( 'wpbs-featured-carousel', 970, 400, true);
+add_image_size( 'wpbo-featured', 848, 300, true );
+add_image_size( 'wpbo-featured-home', 970, 311, true);
+add_image_size( 'wpbo-featured-carousel', 970, 400, true);
 
 /*
 to add more sizes, simply copy a line from above
@@ -61,6 +61,16 @@ function wpbo_bootstrap_register_sidebars() {
     register_sidebar(array(
     	'id' => 'sidebar2',
     	'name' => __('Homepage Sidebar','wpbo'),
+    	'description' => __('Used only on the homepage page template.','wpbo'),
+    	'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    	'after_widget' => '</div>',
+    	'before_title' => '<h4 class="widgettitle">',
+    	'after_title' => '</h4>',
+    ));
+
+    register_sidebar(array(
+    	'id' => 'sidebar-contact',
+    	'name' => __('Contact Page Sidebar','wpbo'),
     	'description' => __('Used only on the homepage page template.','wpbo'),
     	'before_widget' => '<div id="%1$s" class="widget %2$s">',
     	'after_widget' => '</div>',
@@ -115,6 +125,7 @@ function wpbo_bootstrap_register_sidebars() {
 /************* COMMENT LAYOUT *********************/
 
 // Comment Layout
+if ( ! function_exists( 'wpbo_bootstrap_comments' ) ) :
 function wpbo_bootstrap_comments($comment, $args, $depth) {
    $GLOBALS['comment'] = $comment; ?>
 	<li <?php comment_class(); ?>>
@@ -144,17 +155,20 @@ function wpbo_bootstrap_comments($comment, $args, $depth) {
     <!-- </li> is added by wordpress automatically -->
 <?php
 } // don't remove this bracket!
+endif;
 
 // Display trackbacks/pings callback function
+if ( ! function_exists( 'wpbo_list_pings' ) ) :
 function wpbo_list_pings($comment, $args, $depth) {
        $GLOBALS['comment'] = $comment;
 ?>
         <li id="comment-<?php comment_ID(); ?>"><i class="icon icon-share-alt"></i>&nbsp;<?php comment_author_link(); ?>
 <?php
-
 }
+endif;
 /************* PAGE NAVI *****************/
 /* From http://www.kriesi.at/archives/how-to-build-a-wordpress-post-pagination-without-plugin */
+if ( ! function_exists( 'wpbo_pagenavi' ) ) :
 function wpbo_pagenavi($pages = '', $range = 2)
 {
      $showitems = ($range * 2)+1;
@@ -194,13 +208,14 @@ function wpbo_pagenavi($pages = '', $range = 2)
          echo "</ul></nav>\n";
      }
 }
-
+endif;
 /************* SEARCH FORM LAYOUT *****************/
 
 /****************** password protected post form *****/
 
 add_filter( 'the_password_form', 'wpbo_custom_password_form' );
 
+if ( ! function_exists( 'wpbo_custom_password_form' ) ) :
 function wpbo_custom_password_form() {
 	global $post;
 	$label = 'pwbox-'.( empty( $post->ID ) ? rand() : $post->ID );
@@ -211,11 +226,12 @@ function wpbo_custom_password_form() {
 	';
 	return $o;
 }
-
+endif;
 /*********** update standard wp tag cloud widget so it looks better ************/
 
 add_filter( 'widget_tag_cloud_args', 'wpbo_my_widget_tag_cloud_args' );
 
+if ( ! function_exists( 'wpbo_my_widget_tag_cloud_args' ) ) :
 function wpbo_my_widget_tag_cloud_args( $args ) {
 	$args['number'] = 20; // show less tags
 	$args['largest'] = 9.75; // make largest and smallest the same - i don't like the varying font-size look
@@ -223,8 +239,10 @@ function wpbo_my_widget_tag_cloud_args( $args ) {
 	$args['unit'] = 'px';
 	return $args;
 }
+endif;
 
 // filter tag clould output so that it can be styled by CSS
+if ( ! function_exists( 'wpbo_add_tag_class' ) ) :
 function wpbo_add_tag_class( $taglinks ) {
     $tags = explode('</a>', $taglinks);
     $regex = "#(.*tag-link[-])(.*)(' title.*)#e";
@@ -237,20 +255,23 @@ function wpbo_add_tag_class( $taglinks ) {
 
     return $taglinks;
 }
+endif;
 
 add_action( 'wp_tag_cloud', 'wpbo_add_tag_class' );
 
 add_filter( 'wp_tag_cloud','wpbo_tag_cloud_filter', 10, 2) ;
 
+if ( ! function_exists( 'wpbo_tag_cloud_filter' ) ) :
 function wpbo_tag_cloud_filter( $return, $args )
 {
   return '<div id="tag-cloud">' . $return . '</div>';
 }
-
+endif;
 // Enable shortcodes in widgets
 add_filter( 'widget_text', 'do_shortcode' );
 
 // Disable jump in 'read more' link
+if ( ! function_exists( 'wpbo_remove_more_jump_link' ) ) :
 function wpbo_remove_more_jump_link( $link ) {
 	$offset = strpos($link, '#more-');
 	if ( $offset ) {
@@ -261,18 +282,22 @@ function wpbo_remove_more_jump_link( $link ) {
 	}
 	return $link;
 }
+endif;
 add_filter( 'the_content_more_link', 'wpbo_remove_more_jump_link' );
 
 // Remove height/width attributes on images so they can be responsive
 add_filter( 'post_thumbnail_html', 'wpbo_remove_thumbnail_dimensions', 10 );
 add_filter( 'image_send_to_editor', 'wpbo_remove_thumbnail_dimensions', 10 );
 
+if ( ! function_exists( 'wpbo_remove_thumbnail_dimensions' ) ) :
 function wpbo_remove_thumbnail_dimensions( $html ) {
     $html = preg_replace( '/(width|height)=\"\d*\"\s/', "", $html );
     return $html;
 }
+endif;
 
 // Add the Meta Box to the homepage template
+if ( ! function_exists( 'wpbo_add_homepage_meta_box' ) ) :
 function wpbo_add_homepage_meta_box() {
 	global $post;
 
@@ -291,6 +316,7 @@ function wpbo_add_homepage_meta_box() {
 	        'high'); // $priority
     }
 }
+endif;
 
 add_action( 'add_meta_boxes', 'wpbo_add_homepage_meta_box' );
 
@@ -306,6 +332,7 @@ $custom_meta_fields = array(
 );
 
 // The Homepage Meta Box Callback
+if ( ! function_exists( 'wpbo_show_homepage_meta_box' ) ) :
 function wpbo_show_homepage_meta_box() {
   global $custom_meta_fields, $post;
 
@@ -339,8 +366,10 @@ function wpbo_show_homepage_meta_box() {
   } // end foreach
   echo '</table>'; // end table
 }
+endif;
 
 // Save the Data
+if ( ! function_exists( 'wpbo_save_homepage_meta' ) ) :
 function wpbo_save_homepage_meta( $post_id ) {
 
     global $custom_meta_fields;
@@ -373,14 +402,17 @@ function wpbo_save_homepage_meta( $post_id ) {
         }
     } // end foreach
 }
+endif;
 add_action( 'save_post', 'wpbo_save_homepage_meta' );
 
 // Add thumbnail class to thumbnail links
+if ( ! function_exists( 'wpbo_add_class_attachment_link' ) ) :
 function wpbo_add_class_attachment_link( $html ) {
     $postid = get_the_ID();
     $html = str_replace( '<a','<a class="thumbnail"',$html );
     return $html;
 }
+endif;
 add_filter( 'wp_get_attachment_link', 'wpbo_add_class_attachment_link', 10, 1 );
 
 // Add lead class to first paragraph
@@ -465,6 +497,7 @@ add_editor_style('editor-style.css');
 // Add Twitter Bootstrap's standard 'active' class name to the active nav link item
 add_filter('nav_menu_css_class', 'wpbo_add_active_class', 10, 2 );
 
+if ( ! function_exists( 'wpbo_add_active_class' ) ) :
 function wpbo_add_active_class($classes, $item) {
 	if( $item->menu_item_parent == 0 && in_array('current-menu-item', $classes) ) {
     $classes[] = "active";
@@ -472,6 +505,7 @@ function wpbo_add_active_class($classes, $item) {
 
   return $classes;
 }
+endif;
 
 // enqueue styles
 if( !function_exists("wpbo_theme_styles") ) {
@@ -517,26 +551,3 @@ if( !function_exists( "wpbo_theme_js" ) ) {
   }
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_js' );
-
-// Updater from Github
-//add_action( 'init', 'wpbo_github_plugin_updater' );
-function wpbo_github_plugin_updater() {
-	include_once 'library/updater/updater.php';
-	define( 'WP_GITHUB_FORCE_UPDATE', true );
-	if ( is_admin() ) {
-        $config = array(
-            'slug' => plugin_basename(__FILE__),
-            'proper_folder_name' => 'wpbo',
-            'api_url' => 'https://api.github.com/repos/closemarketing/wpbo',
-            'raw_url' => 'https://raw.github.com/closemarketing/wpbo/master',
-            'github_url' => 'https://github.com/closemarketing/wpbo',
-            'zip_url' => 'https://github.com/closemarketing/wpbo/zipball/master',
-            'sslverify' => true,
-            'requires' => '3.9',
-            'tested' => '4.4',
-            'readme' => 'readme.txt',
-            'access_token' => '',
-        );
-		new WP_GitHub_Updater( $config );
-	}
-}

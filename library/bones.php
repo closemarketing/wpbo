@@ -73,8 +73,8 @@ function wpbo_bootstrap_theme_support() {
 	add_theme_support( 'menus' );            // wp menus
 	register_nav_menus(                      // wp3+ menus
 		array(
-			'main_nav' => 'The Main Menu',   // main nav in header
-			'footer_links' => 'Footer Links' // secondary nav in footer
+			'main_nav' => __('The Main Menu','wpbo'),   // main nav in header
+			'footer_links' => __('Footer Links','wpbo') // secondary nav in footer
 		)
 	);
 }
