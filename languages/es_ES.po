@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPBO\n"
-"POT-Creation-Date: 2016-03-06 11:12+0100\n"
+"POT-Creation-Date: 2016-03-07 11:15+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: David <david@closemarketing.es>\n"
 "Language-Team: \n"
@@ -62,20 +62,20 @@ msgstr "Todavía no hay entradas"
 msgid "Sorry, What you were looking for is not here."
 msgstr "Disculpa, lo que estabas buscando no esta aquí."
 
-#: attachment.php:27 image.php:53 index.php:27 page-full-width.php:33
-#: page-homepage.php:47 page-left-sidebar.php:32 page-withouttit.php:26
+#: attachment.php:27 image.php:53 index.php:27 page-full-width.php:34
+#: page-homepage.php:48 page-left-sidebar.php:33 page-withouttit.php:27
 #: page.php:27 single.php:36
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: attachment.php:41 image.php:67 index.php:41 page-full-width.php:45
-#: page-homepage.php:59 page-left-sidebar.php:46 page-withouttit.php:38
+#: attachment.php:41 image.php:67 index.php:41 page-full-width.php:46
+#: page-homepage.php:60 page-left-sidebar.php:47 page-withouttit.php:39
 #: page.php:39 search.php:43 single.php:57
 msgid "Not Found"
 msgstr "No Encontrado"
 
-#: attachment.php:44 image.php:70 index.php:44 page-full-width.php:48
-#: page-homepage.php:62 page-left-sidebar.php:49 page-withouttit.php:41
+#: attachment.php:44 image.php:70 index.php:44 page-full-width.php:49
+#: page-homepage.php:63 page-left-sidebar.php:50 page-withouttit.php:42
 #: page.php:42 search.php:46 single.php:60
 msgid "Sorry, but the requested resource was not found on this site."
 msgstr ""
@@ -241,6 +241,22 @@ msgstr "Enlaces a pie de página"
 #: library/bones.php:152
 msgid "No Related Posts Yet!"
 msgstr "No hay entradas relacionadas"
+
+#: page-full-width.php:5
+msgid "Full Width Page"
+msgstr "Ancho completo"
+
+#: page-homepage.php:5
+msgid "Homepage"
+msgstr "Página Inicio"
+
+#: page-left-sidebar.php:5
+msgid "Left Sidebar Page"
+msgstr "Barra lateral a la izquierda"
+
+#: page-withouttit.php:5
+msgid "Full Width without Title"
+msgstr "Ancho completo sin título"
 
 #: partials/content-meta.php:17
 msgid "One comment"

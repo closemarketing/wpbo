@@ -22,7 +22,7 @@ Version:        0.1.0
 
 }
 /* Phablets vertical ----------- */
-@media only screen and (min-width: 280px) and (max-width: 380px) {
+@media only screen and (min-width: 280px) and (max-width: 420px) {
     body {width: 105%;}
     .gform_wrapper .top_label li.gfield.gf_left_third, .gform_wrapper .top_label li.gfield.gf_middle_third, .gform_wrapper .top_label li.gfield.gf_right_third {
     width: 100% !important; }
