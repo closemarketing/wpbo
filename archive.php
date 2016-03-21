@@ -51,8 +51,9 @@
             </header> <!-- end article header -->
 
             <section class="post_content">
-
-                <?php the_post_thumbnail( 'wpbo-featured' ); ?>
+                <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
+                    <?php the_post_thumbnail( 'wpbo-featured' ); ?>
+                </a>
 
                 <?php the_excerpt(); ?>
 
