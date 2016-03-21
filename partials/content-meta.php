@@ -3,7 +3,9 @@
         <li class="meta-date">
             <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
             <time datetime="<?php echo the_time('Y-m-j'); ?>" pubdate>
-                <?php if(WPLANG=='es_ES') the_time('j \d\e\ F \d\e\ Y '); else the_time('F jS, Y'); ?>
+                <?php 
+                $locale = get_locale();
+                if($locale=='es_ES') the_time('j \d\e\ F \d\e\ Y '); else the_time('F jS, Y'); ?>
             </time>
         </li>
         <li class="meta-author">

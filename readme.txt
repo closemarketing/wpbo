@@ -15,7 +15,7 @@ Watch or star this project to keep up with its progress.
 == Installation ==
 
 1. In your admin panel, go to Appearance -> Themes and click the 'Add New' button.
-2. Type in Twenty Ten in the search form and press the 'Enter' key in your keyboard.
+2. Type in WPBO in the search form and press the 'Enter' key in your keyboard.
 3. Click on the 'Activate' button to use your new theme right away.
 
 == Copyright ==

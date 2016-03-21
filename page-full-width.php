@@ -2,6 +2,7 @@
 /*
 Template Name: Full Width Page
 */
+__( 'Full Width Page', 'wpbo' );
 ?>
 
 <?php get_header(); ?>

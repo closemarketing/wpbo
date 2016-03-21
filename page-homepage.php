@@ -2,6 +2,7 @@
 /*
 Template Name: Homepage
 */
+__( 'Homepage', 'wpbo' );
 ?>
 
 <?php get_header(); ?>
@@ -18,7 +19,7 @@ Template Name: Homepage
 
                 <?php
                     $post_thumbnail_id = get_post_thumbnail_id();
-                    $featured_src = wp_get_attachment_image_src( $post_thumbnail_id, 'wpbs-featured-home' );
+                    $featured_src = wp_get_attachment_image_src( $post_thumbnail_id, 'wpbo-featured-home' );
                 ?>
 
                 <div class="jumbotron" style="background-image: url('<?php echo $featured_src[0]; ?>'); background-repeat: no-repeat; background-position: 0 0;">

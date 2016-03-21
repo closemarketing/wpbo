@@ -10,10 +10,10 @@ URL: http://themble.com/bones/
 */
 
 // Adding Translation Option
-load_theme_textdomain( 'wpbo', get_template_directory().'/languages' );
-$locale = get_locale();
-$locale_file = get_template_directory()."/languages/$locale.php";
-if ( is_readable($locale_file) ) require_once($locale_file);
+add_action('after_setup_theme', 'wpbo_theme_locale');
+function wpbo_theme_locale(){
+    load_theme_textdomain('wpbo', get_template_directory() . '/languages');
+}
 
 // Cleaning up the Wordpress Head
 function wpbo_bootstrap_head_cleanup() {
@@ -73,8 +73,8 @@ function wpbo_bootstrap_theme_support() {
 	add_theme_support( 'menus' );            // wp menus
 	register_nav_menus(                      // wp3+ menus
 		array(
-			'main_nav' => 'The Main Menu',   // main nav in header
-			'footer_links' => 'Footer Links' // secondary nav in footer
+			'main_nav' => __('The Main Menu','wpbo'),   // main nav in header
+			'footer_links' => __('Footer Links','wpbo') // secondary nav in footer
 		)
 	);
 }
