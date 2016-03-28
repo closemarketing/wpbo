@@ -1,5 +1,5 @@
 === WPBO Naked Bootstrap Theme ===
-Contributors: closemarketing
+Contributors: closemarketing, davidperez
 Requires at least: WordPress 4.0
 Tested up to: WordPress 4.4.2
 Stable tag: 1.3.3
