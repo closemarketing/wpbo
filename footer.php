@@ -16,7 +16,7 @@
                 </nav>
 
                 <p class="pull-right">
-                    <a href="https://www.closemarketing.es/" target="_blank" title="Dise&ntilde;o Web Wordpress en Granada">Closemarketing</a>
+                    <a href="<?php echo esc_url( __('https://www.closemarketing.es/', 'wpbo'));?>" target="_blank" title="Dise&ntilde;o Web Wordpress en Granada">Closemarketing</a>
                 </p>
 
                 <p class="attribution">&copy; <?php bloginfo('name'); ?></p>
