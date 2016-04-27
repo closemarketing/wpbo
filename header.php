@@ -8,19 +8,7 @@
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- media-queries.js (fallback) -->
-    <!--[if lt IE 9]>
-        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-    <![endif]-->
-
-    <!-- html5.js -->
-    <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
-    <link rel="shortcut icon" href="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/img/favicon.png" />
 
     <?php wp_head(); ?>
 </head>
@@ -41,7 +29,7 @@
 
 
             <a class="navbar-brand" title="<?php echo get_bloginfo('description'); ?>" href="<?php echo home_url(); ?>">
-                <img src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/img/logo.png" alt="<?php bloginfo('description');?>" />
+                <?php if ( function_exists( 'the_custom_logo' ) ) { the_custom_logo(); } ?>
             </a>
             </div>
 
