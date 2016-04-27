@@ -2,7 +2,7 @@
 Contributors: closemarketing, davidperez
 Requires at least: WordPress 4.0
 Tested up to: WordPress 4.4.2
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: bootstrap, naked, black, blue, white, two-columns, fixed-layout, custom-header, custom-background, threaded-comments, sticky-post, translation-ready, microformats, rtl-language-support, editor-style, custom-menu, flexible-header, featured-images, featured-image-header
