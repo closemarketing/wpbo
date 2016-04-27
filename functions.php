@@ -8,44 +8,28 @@ just edit things like thumbnail sizes, header images,
 sidebars, comments, ect.
 */
 
-// Get Bones Core Up & Running!
-require_once('library/bones.php');            // core functions (don't remove)
-
-// Admin Functions (commented out by default)
-// require_once('library/admin.php');         // custom admin functions
-
 // Set content width
 if ( ! isset( $content_width ) ) $content_width = 580;
 
-/************* THUMBNAIL SIZE OPTIONS *************/
+/************* THEME OPTIONS *************/
+function wpbo_theme_settings_functions() {
+    // Thumbnail sizes
+    add_image_size( 'wpbo-featured', 848, 300, true );
+    add_image_size( 'wpbo-featured-home', 970, 311, true);
+    add_image_size( 'wpbo-featured-carousel', 970, 400, true);
 
-// Thumbnail sizes
-add_image_size( 'wpbo-featured', 848, 300, true );
-add_image_size( 'wpbo-featured-home', 970, 311, true);
-add_image_size( 'wpbo-featured-carousel', 970, 400, true);
+    /*** Title Tag since version WordPress 4.1 ***/
+    add_theme_support( 'title-tag' );
 
-/*
-to add more sizes, simply copy a line from above
-and change the dimensions & name. As long as you
-upload a "featured image" as large as the biggest
-set width or height, all the other sizes will be
-auto-cropped.
-
-To call a different size, simply change the text
-inside the thumbnail function.
-
-For example, to call the 300 x 300 sized image,
-we would use the function:
-<?php the_post_thumbnail( 'bones-thumb-300' ); ?>
-for the 600 x 100 image:
-<?php the_post_thumbnail( 'bones-thumb-600' ); ?>
-
-You can change the names and dimensions to whatever
-you like. Enjoy!
-*/
-
-/*** Title Tag since version WordPress 4.1 ***/
-add_theme_support( 'title-tag' );
+    /*** Title Tag since version WordPress 4.5 ***/
+    add_theme_support( 'custom-logo', array(
+    	'height'      => 100,
+    	'width'       => 200,
+    	'flex-height' => true,
+    	'flex-width'  => true,
+    ) );
+}
+add_action( 'after_setup_theme', 'wpbo_theme_settings_functions', 11 );
 
 /************* ACTIVE SIDEBARS ********************/
 
@@ -108,21 +92,6 @@ function wpbo_bootstrap_register_sidebars() {
       'after_title' => '</h4>',
     ));
 
-
-    /*
-    to add more sidebars or widgetized areas, just copy
-    and edit the above sidebar code. In order to call
-    your new sidebar just use the following code:
-
-    Just change the name to whatever your new
-    sidebar's id is, for example:
-
-    To call the sidebar in your template, you can just copy
-    the sidebar.php file and rename it to your sidebar's name.
-    So using the above example, it would be:
-    sidebar-sidebar2.php
-
-    */
 } // don't remove this bracket!
 
 
@@ -136,11 +105,6 @@ function wpbo_profile_fields($contactmethods) {
     $contactmethods['facebook'] = 'Facebook';
     $contactmethods['googleplus'] = 'Google Plus';
     $contactmethods['linkedin'] = 'Linkedin';
-
-    //unsets profiles not usual
-    unset($contactmethods['aim']);
-    unset($contactmethods['jabber']);
-    unset($contactmethods['yim']);
 
     return $contactmethods;
 }
@@ -190,46 +154,30 @@ function wpbo_list_pings($comment, $args, $depth) {
 }
 endif;
 /************* PAGE NAVI *****************/
-/* From http://www.kriesi.at/archives/how-to-build-a-wordpress-post-pagination-without-plugin */
 if ( ! function_exists( 'wpbo_pagenavi' ) ) :
-function wpbo_pagenavi($pages = '', $range = 2)
+function wpbo_pagenavi()
 {
-     $showitems = ($range * 2)+1;
-
-     global $paged;
-     if(empty($paged)) $paged = 1;
-
-     if($pages == '')
-     {
-         global $wp_query;
-         $pages = $wp_query->max_num_pages;
-         if(!$pages)
-         {
-             $pages = 1;
-         }
-     }
-     if(1 != $pages)
-     {
-         echo '<nav><ul class="pagination">';
-         if($paged > 2 && $paged > $range+1 && $showitems < $pages)
-            echo "<li><a href='".get_pagenum_link(1)."'>&laquo;</a></li>";
-         if($paged > 1 && $showitems < $pages)
-            echo "<li><a href='".get_pagenum_link($paged - 1)."' aria-label='Previous'><span aria-hidden='true'>&lsaquo;</span></a></li>";
-
-         for ($i=1; $i <= $pages; $i++)
-         {
-             if (1 != $pages &&( !($i >= $paged+$range+1 || $i <= $paged-$range-1) || $pages <= $showitems ))
-             {
-                 echo ($paged == $i)? "<li class='active'><span class='current'>".$i."</span></li>":"<li><a href='".get_pagenum_link($i)."' class='inactive' >".$i."</a></li>";
-             }
-         }
-         if ($paged < $pages && $showitems < $pages)
-            echo "<li><a href='".get_pagenum_link($paged + 1)."'>&rsaquo;</a></li>";
-         if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages)
-            echo "<li><a href='".get_pagenum_link($pages)."' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
-
-         echo "</ul></nav>\n";
-     }
+    global $wp_query;
+    $big = 999999999; // need an unlikely integer
+    $pages = paginate_links( array(
+            'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+            'format' => '?paged=%#%',
+            'current' => max( 1, get_query_var('paged') ),
+            'total' => $wp_query->max_num_pages,
+            'prev_next' => false,
+            'type'  => 'array',
+            'prev_next'   => TRUE,
+			'prev_text'    => __('«'),
+			'next_text'    => __('»'),
+        ) );
+        if( is_array( $pages ) ) {
+            $paged = ( get_query_var('paged') == 0 ) ? 1 : get_query_var('paged');
+            echo '<ul class="pagination">';
+            foreach ( $pages as $page ) {
+                    echo "<li>$page</li>";
+            }
+           echo '</ul>';
+        }
 }
 endif;
 /************* SEARCH FORM LAYOUT *****************/
@@ -347,8 +295,8 @@ add_action( 'add_meta_boxes', 'wpbo_add_homepage_meta_box' );
 $prefix = 'custom_';
 $custom_meta_fields = array(
     array(
-        'label'=> 'Homepage tagline area',
-        'desc'  => 'Displayed underneath page title. Only used on homepage template. HTML can be used.',
+        'label'=> __('Homepage tagline area','wpbo'),
+        'desc'  => __('Displayed underneath page title. Only used on homepage template. HTML can be used.','wpbo'),
         'id'    => $prefix.'tagline',
         'type'  => 'textarea'
     )
@@ -569,3 +517,139 @@ if( !function_exists( "wpbo_theme_js" ) ) {
   }
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_js' );
+
+// Adding Translation Option
+load_theme_textdomain( 'wpbo', get_template_directory().'/languages' );
+
+// remove WP version from RSS
+function wpbo_bootstrap_rss_version() { return ''; }
+add_filter('the_generator', 'wpbo_bootstrap_rss_version');
+
+// loading jquery reply elements on single pages automatically
+function wpbo_bootstrap_queue_js(){ if (!is_admin()){ if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) wp_enqueue_script( 'comment-reply' ); }
+}
+	// reply on comments script
+	add_action('wp_print_scripts', 'wpbo_bootstrap_queue_js');
+
+// Fixing the Read More in the Excerpts
+// This removes the annoying … to a Read More link
+function wpbo_bootstrap_excerpt_more($more) {
+	global $post;
+	// edit here if you like
+	return '...  <a href="'. get_permalink($post->ID) . '" class="more-link" title="Read '.get_the_title($post->ID).'">'.__('Read more &raquo;','wpbo').'</a>';
+}
+add_filter('excerpt_more', 'wpbo_bootstrap_excerpt_more');
+
+// Adding WP 3+ Functions & Theme Support
+function wpbo_bootstrap_theme_support() {
+	add_theme_support('post-thumbnails');      // wp thumbnails (sizes handled in functions.php)
+	set_post_thumbnail_size(125, 125, true);   // default thumb size
+	add_theme_support( 'custom-background' );  // wp custom background
+	add_theme_support('automatic-feed-links'); // rss thingy
+	// to add header image support go here: http://themble.com/support/adding-header-background-image-support/
+	// adding post format support
+/*	add_theme_support( 'post-formats',      // post formats
+		array(
+			'aside',   // title less blurb
+			'gallery', // gallery of images
+			'link',    // quick link to other site
+			'image',   // an image
+			'quote',   // a quick quote
+			'status',  // a Facebook like status update
+			'video',   // video
+			'audio',   // audio
+			'chat'     // chat transcript
+		)
+	);*/
+	add_theme_support( 'menus' );            // wp menus
+	register_nav_menus(                      // wp3+ menus
+		array(
+			'main_nav' => __('The Main Menu','wpbo'),   // main nav in header
+			'footer_links' => __('Footer Links','wpbo') // secondary nav in footer
+		)
+	);
+}
+
+// launching this stuff after theme setup
+add_action('after_setup_theme','wpbo_bootstrap_theme_support');
+
+// adding sidebars to WordPress (these are created in functions.php)
+add_action( 'widgets_init', 'wpbo_bootstrap_register_sidebars' );
+
+function wpbo_bootstrap_main_nav() {
+	// display the wp3 menu if available
+    wp_nav_menu(
+    	array(
+    		'menu' => 'main_nav', /* menu name */
+    		'menu_class' => 'nav navbar-nav',
+    		'theme_location' => 'main_nav', /* where in the theme it's assigned */
+    		'container' => 'false', /* container class */
+    		'fallback_cb' => 'wpbo_bootstrap_main_nav_fallback', /* menu fallback */
+    		// 'depth' => '2',  suppress lower levels for now
+    		'walker' => new Bootstrap_walker()
+    	)
+    );
+}
+
+function wpbo_bootstrap_footer_links() {
+	// display the wp3 menu if available
+    wp_nav_menu(
+    	array(
+    		'menu' => 'footer_links', /* menu name */
+    		'theme_location' => 'footer_links', /* where in the theme it's assigned */
+    		'container_class' => 'footer-links clearfix', /* container class */
+    		'fallback_cb' => 'wpbo_bootstrap_footer_links_fallback' /* menu fallback */
+    	)
+	);
+}
+
+// this is the fallback for header menu
+function wpbo_bootstrap_main_nav_fallback() {
+	// Figure out how to make this output bootstrap-friendly html
+	//wp_page_menu( 'show_home=Home&menu_class=nav' );
+}
+
+// this is the fallback for footer menu
+function wpbo_bootstrap_footer_links_fallback() {
+	/* you can put a default here if you like */
+}
+
+
+/****************** PLUGINS & EXTRA FEATURES **************************/
+
+/*********************
+RELATED POSTS FUNCTION
+*********************/
+// Related Posts Function (call using bones_related_posts(); )
+function wpbo_bones_related_posts() {
+	echo '<ul id="bones-related-posts">';
+	global $post;
+	$tags = wp_get_post_tags( $post->ID );
+	if($tags) {
+		foreach( $tags as $tag ) {
+			$tag_arr .= $tag->slug . ',';
+		}
+		$args = array(
+			'tag' => $tag_arr,
+			'numberposts' => 5, /* you can change this to show more */
+			'post__not_in' => array($post->ID)
+		);
+		$related_posts = get_posts( $args );
+		if($related_posts) {
+			foreach ( $related_posts as $post ) : setup_postdata( $post ); ?>
+				<li class="related_post"><a class="entry-unrelated" href="<?php the_permalink() ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></li>
+			<?php endforeach; }
+		else { ?>
+			<?php echo '<li class="no_related_post">' . __( 'No Related Posts Yet!', 'wpbo' ) . '</li>'; ?>
+		<?php }
+	}
+	wp_reset_postdata();
+	echo '</ul>';
+} /* end bones related posts function */
+
+// remove the p from around imgs (http://css-tricks.com/snippets/wordpress/remove-paragraph-tags-from-around-images/)
+function wpbo_filter_ptags_on_images($content){
+   return preg_replace('/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $content);
+}
+
+add_filter('the_content', 'wpbo_filter_ptags_on_images');
