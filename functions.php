@@ -31,6 +31,27 @@ function wpbo_theme_settings_functions() {
 }
 add_action( 'after_setup_theme', 'wpbo_theme_settings_functions', 11 );
 
+/**** THEME BLOCKS ***/
+function wpbo_preheader() {
+?>
+<meta charset="utf-8">
+<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
+<?php
+do_action('wpbo_preheader');
+}
+function wpbo_doctype() {
+?><!doctype html>
+<!--[if IEMobile 7 ]> <html <?php language_attributes(); ?>class="no-js iem7"> <![endif]-->
+<!--[if lt IE 7 ]> <html <?php language_attributes(); ?> class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html <?php language_attributes(); ?> class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html <?php language_attributes(); ?> class="no-js ie8"> <![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html <?php language_attributes(); ?> class="no-js"><!--<![endif]-->
+<?php
+do_action('wpbo_preheader');
+}
+
 /************* ACTIVE SIDEBARS ********************/
 
 // Sidebars & Widgetizes Areas
@@ -93,21 +114,6 @@ function wpbo_bootstrap_register_sidebars() {
     ));
 
 } // don't remove this bracket!
-
-
-/************* AUTHOR META *********************/
-
-//Change Author meta
-add_filter('user_contactmethods','wpbo_profile_fields', 10, 1);
-function wpbo_profile_fields($contactmethods) {
-    // Adds Twitter, Facebook and Google plus
-    $contactmethods['twitter'] = 'Twitter';
-    $contactmethods['facebook'] = 'Facebook';
-    $contactmethods['googleplus'] = 'Google Plus';
-    $contactmethods['linkedin'] = 'Linkedin';
-
-    return $contactmethods;
-}
 
 /************* COMMENT LAYOUT *********************/
 
@@ -293,7 +299,7 @@ add_action( 'add_meta_boxes', 'wpbo_add_homepage_meta_box' );
 
 // Field Array
 $prefix = 'custom_';
-$custom_meta_fields = array(
+$wpbo_custom_meta_fields = array(
     array(
         'label'=> __('Homepage tagline area','wpbo'),
         'desc'  => __('Displayed underneath page title. Only used on homepage template. HTML can be used.','wpbo'),
@@ -305,7 +311,7 @@ $custom_meta_fields = array(
 // The Homepage Meta Box Callback
 if ( ! function_exists( 'wpbo_show_homepage_meta_box' ) ) :
 function wpbo_show_homepage_meta_box() {
-  global $custom_meta_fields, $post;
+  global $wpbo_custom_meta_fields, $post;
 
   // Use nonce for verification
   wp_nonce_field( basename( __FILE__ ), 'wpbs_nonce' );
@@ -313,7 +319,7 @@ function wpbo_show_homepage_meta_box() {
   // Begin the field table and loop
   echo '<table class="form-table">';
 
-  foreach ( $custom_meta_fields as $field ) {
+  foreach ( $wpbo_custom_meta_fields as $field ) {
       // get value of this field if it exists for this post
       $meta = get_post_meta($post->ID, $field['id'], true);
       // begin a table row with
@@ -343,7 +349,7 @@ endif;
 if ( ! function_exists( 'wpbo_save_homepage_meta' ) ) :
 function wpbo_save_homepage_meta( $post_id ) {
 
-    global $custom_meta_fields;
+    global $wpbo_custom_meta_fields;
 
     // verify nonce
     if ( !isset( $_POST['wpbs_nonce'] ) || !wp_verify_nonce($_POST['wpbs_nonce'], basename(__FILE__)) )
@@ -362,7 +368,7 @@ function wpbo_save_homepage_meta( $post_id ) {
     }
 
     // loop through fields and save the data
-    foreach ( $custom_meta_fields as $field ) {
+    foreach ( $wpbo_custom_meta_fields as $field ) {
         $old = get_post_meta( $post_id, $field['id'], true );
         $new = $_POST[$field['id']];
 
@@ -463,8 +469,6 @@ class Bootstrap_walker extends Walker_Nav_Menu{
   }
 }
 
-add_editor_style('editor-style.css');
-
 // Add Twitter Bootstrap's standard 'active' class name to the active nav link item
 add_filter('nav_menu_css_class', 'wpbo_add_active_class', 10, 2 );
 
@@ -486,11 +490,11 @@ if( !function_exists("wpbo_theme_styles") ) {
         wp_enqueue_style( 'bootstrap' );
 
         // For child themes
-        wp_register_style( 'wpbs-style', get_stylesheet_directory_uri() . '/style.css', array(), '1.0', 'all' );
-        wp_enqueue_style( 'wpbs-style' );
+        wp_register_style( 'wpbo-style', get_stylesheet_directory_uri() . '/style.css', array(), '1.0', 'all' );
+        wp_enqueue_style( 'wpbo-style' );
 
         //Font Awesome
-        wp_enqueue_style( 'prefix-font-awesome', get_template_directory_uri() . '/library/font-awesome/css/font-awesome.min.css', array(), '4.5.0' );
+        wp_enqueue_style( 'wpbo-font-awesome', get_template_directory_uri() . '/library/font-awesome/css/font-awesome.min.css', array(), '4.5.0' );
     }
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_styles' );
@@ -504,16 +508,15 @@ if( !function_exists( "wpbo_theme_js" ) ) {
       array('jquery'),
       '1.2' );
 
-    wp_register_script( 'wpbs-scripts',
+    wp_register_script( 'wpbo-scripts',
       get_template_directory_uri() . '/library/js/scripts.js',
       array('jquery'),
       '1.2' );
 
     wp_enqueue_script('bootstrap');
-    wp_enqueue_script('wpbs-scripts');
-    wp_enqueue_script('modernizr');
+    wp_enqueue_script('wpbo-scripts');
+    //wp_enqueue_script('modernizr');
     //wp_enqueue_script('animate-it');
-
   }
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_js' );
@@ -521,22 +524,18 @@ add_action( 'wp_enqueue_scripts', 'wpbo_theme_js' );
 // Adding Translation Option
 load_theme_textdomain( 'wpbo', get_template_directory().'/languages' );
 
-// remove WP version from RSS
-function wpbo_bootstrap_rss_version() { return ''; }
-add_filter('the_generator', 'wpbo_bootstrap_rss_version');
-
 // loading jquery reply elements on single pages automatically
 function wpbo_bootstrap_queue_js(){ if (!is_admin()){ if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) wp_enqueue_script( 'comment-reply' ); }
 }
-	// reply on comments script
-	add_action('wp_print_scripts', 'wpbo_bootstrap_queue_js');
+// reply on comments script
+add_action('wp_enqueue_scripts', 'wpbo_bootstrap_queue_js');
 
 // Fixing the Read More in the Excerpts
 // This removes the annoying … to a Read More link
 function wpbo_bootstrap_excerpt_more($more) {
 	global $post;
 	// edit here if you like
-	return '...  <a href="'. get_permalink($post->ID) . '" class="more-link" title="Read '.get_the_title($post->ID).'">'.__('Read more &raquo;','wpbo').'</a>';
+	return '...  <a href="'. get_permalink($post->ID) . '" class="more-link" title="'.__('Read','wpbo').'  '.get_the_title($post->ID).'">'.__('Read more','wpbo').' &raquo;</a>';
 }
 add_filter('excerpt_more', 'wpbo_bootstrap_excerpt_more');
 
