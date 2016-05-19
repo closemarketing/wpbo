@@ -173,8 +173,8 @@ function wpbo_pagenavi()
             'prev_next' => false,
             'type'  => 'array',
             'prev_next'   => TRUE,
-			'prev_text'    => __('«'),
-			'next_text'    => __('»'),
+			'prev_text'    => '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
+			'next_text'    => '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
         ) );
         if( is_array( $pages ) ) {
             $paged = ( get_query_var('paged') == 0 ) ? 1 : get_query_var('paged');
@@ -499,6 +499,18 @@ if( !function_exists("wpbo_theme_styles") ) {
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_styles' );
 
+
+add_action( 'init', 'wpbo_add_editor_styles' );
+/**
+ * Apply theme's stylesheet to the visual editor.
+ *
+ * @uses add_editor_style() Links a stylesheet to visual editor
+ * @uses get_stylesheet_uri() Returns URI of theme stylesheet
+ */
+function wpbo_add_editor_styles() {
+    add_editor_style( 'library/css/editor-style.css' );
+}
+
 // enqueue javascript
 if( !function_exists( "wpbo_theme_js" ) ) {
   function wpbo_theme_js(){
@@ -531,7 +543,7 @@ function wpbo_bootstrap_queue_js(){ if (!is_admin()){ if ( is_singular() AND com
 add_action('wp_enqueue_scripts', 'wpbo_bootstrap_queue_js');
 
 // Fixing the Read More in the Excerpts
-// This removes the annoying … to a Read More link
+// This removes the annoying ... to a Read More link
 function wpbo_bootstrap_excerpt_more($more) {
 	global $post;
 	// edit here if you like
