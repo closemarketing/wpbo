@@ -7,7 +7,7 @@
         <div class="page-header">
         <?php if (is_category()) { ?>
             <h1 class="archive_title h2">
-                <span><?php _e("Posts Categorized:", "wpbo"); ?></span> <?php single_cat_title(); ?>
+                <?php single_cat_title(); ?>
             </h1>
         <?php } elseif (is_tag()) { ?>
             <h1 class="archive_title h2">
@@ -52,7 +52,7 @@
 
             <section class="post_content">
 
-                <?php the_post_thumbnail( 'wpbs-featured' ); ?>
+                <?php the_post_thumbnail( 'wpbo-featured' ); ?>
 
                 <?php the_excerpt(); ?>
 
@@ -66,11 +66,12 @@
 
         <?php endwhile; ?>
 
-        <?php if (function_exists('page_navi')) { // if expirimental feature is active ?>
+        <?php
+            if (function_exists('wpbo_pagenavi')) { // function for pagination
 
-            <?php page_navi(); // use the page navi function ?>
+                wpbo_pagenavi(); // use the page navi function 
 
-        <?php } else { // if it is disabled, display regular wp prev & next links ?>
+            } else { // if it is disabled, display regular wp prev & next links ?>
             <nav class="wp-prev-next">
                 <ul class="pager">
                     <li class="previous"><?php next_posts_link(_e('&laquo; Older Entries', "wpbo")) ?></li>
@@ -78,7 +79,6 @@
                 </ul>
             </nav>
         <?php } ?>
-
 
         <?php else : ?>
 

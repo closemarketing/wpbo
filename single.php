@@ -14,7 +14,7 @@
 
             <header>
 
-                <?php the_post_thumbnail( 'wpbs-featured' ); ?>
+                <?php the_post_thumbnail( 'wpbo-featured' ); ?>
 
                 <div class="page-header"><h1 class="single-title" itemprop="headline"><?php the_title(); ?></h1></div>
 
@@ -26,7 +26,7 @@
                 <?php the_content(); ?>
 
                 <?php wp_link_pages(); ?>
-                
+
                 <?php get_template_part('partials/content','author'); ?>
 
             </section> <!-- end article section -->
@@ -34,13 +34,6 @@
             <footer>
 
                 <?php the_tags('<p class="tags"><span class="tags-title">' . __("Tags","wpbo") . ':</span> ', ' ', '</p>'); ?>
-
-                <?php
-                // only show edit button if user has permission to edit posts
-                if( $user_level > 0 ) {
-                ?>
-                <a href="<?php echo get_edit_post_link(); ?>" class="btn btn-success edit-post"><i class="icon-pencil icon-white"></i> <?php _e("Edit post","wpbo"); ?></a>
-                <?php } ?>
 
             </footer> <!-- end article footer -->
 

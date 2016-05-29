@@ -1,48 +1,56 @@
 <?php
 /*
-Author: Eddie Machado
-URL: htp://themble.com/bones/
+Author: David Perez
+URL: https://www.closemarketing.es
 
 This is where you can drop your custom functions or
 just edit things like thumbnail sizes, header images,
 sidebars, comments, ect.
 */
 
-// Get Bones Core Up & Running!
-require_once('library/bones.php');            // core functions (don't remove)
-
-// Admin Functions (commented out by default)
-// require_once('library/admin.php');         // custom admin functions
-
 // Set content width
 if ( ! isset( $content_width ) ) $content_width = 580;
 
-/************* THUMBNAIL SIZE OPTIONS *************/
+/************* THEME OPTIONS *************/
+function wpbo_theme_settings_functions() {
+    // Thumbnail sizes
+    add_image_size( 'wpbo-featured', 848, 300, true );
+    add_image_size( 'wpbo-featured-home', 970, 311, true);
+    add_image_size( 'wpbo-featured-carousel', 970, 400, true);
 
-// Thumbnail sizes
-add_image_size( 'wpbs-featured', 848, 300, true );
-add_image_size( 'wpbs-featured-home', 970, 311, true);
-add_image_size( 'wpbs-featured-carousel', 970, 400, true);
+    /*** Title Tag since version WordPress 4.1 ***/
+    add_theme_support( 'title-tag' );
 
-/*
-to add more sizes, simply copy a line from above
-and change the dimensions & name. As long as you
-upload a "featured image" as large as the biggest
-set width or height, all the other sizes will be
-auto-cropped.
+    /*** Title Tag since version WordPress 4.5 ***/
+    add_theme_support( 'custom-logo', array(
+    	'height'      => 100,
+    	'width'       => 200,
+    	'flex-height' => true,
+    	'flex-width'  => true,
+    ) );
+}
+add_action( 'after_setup_theme', 'wpbo_theme_settings_functions', 11 );
 
-To call a different size, simply change the text
-inside the thumbnail function.
-
-For example, to call the 300 x 300 sized image,
-we would use the function:
-<?php the_post_thumbnail( 'bones-thumb-300' ); ?>
-for the 600 x 100 image:
-<?php the_post_thumbnail( 'bones-thumb-600' ); ?>
-
-You can change the names and dimensions to whatever
-you like. Enjoy!
-*/
+/**** THEME BLOCKS ***/
+function wpbo_preheader() {
+?>
+<meta charset="utf-8">
+<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
+<?php
+do_action('wpbo_preheader');
+}
+function wpbo_doctype() {
+?><!doctype html>
+<!--[if IEMobile 7 ]> <html <?php language_attributes(); ?>class="no-js iem7"> <![endif]-->
+<!--[if lt IE 7 ]> <html <?php language_attributes(); ?> class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html <?php language_attributes(); ?> class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html <?php language_attributes(); ?> class="no-js ie8"> <![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html <?php language_attributes(); ?> class="no-js"><!--<![endif]-->
+<?php
+do_action('wpbo_preheader');
+}
 
 /************* ACTIVE SIDEBARS ********************/
 
@@ -61,6 +69,16 @@ function wpbo_bootstrap_register_sidebars() {
     register_sidebar(array(
     	'id' => 'sidebar2',
     	'name' => __('Homepage Sidebar','wpbo'),
+    	'description' => __('Used only on the homepage page template.','wpbo'),
+    	'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    	'after_widget' => '</div>',
+    	'before_title' => '<h4 class="widgettitle">',
+    	'after_title' => '</h4>',
+    ));
+
+    register_sidebar(array(
+    	'id' => 'sidebar-contact',
+    	'name' => __('Contact Page Sidebar','wpbo'),
     	'description' => __('Used only on the homepage page template.','wpbo'),
     	'before_widget' => '<div id="%1$s" class="widget %2$s">',
     	'after_widget' => '</div>',
@@ -95,26 +113,12 @@ function wpbo_bootstrap_register_sidebars() {
       'after_title' => '</h4>',
     ));
 
-
-    /*
-    to add more sidebars or widgetized areas, just copy
-    and edit the above sidebar code. In order to call
-    your new sidebar just use the following code:
-
-    Just change the name to whatever your new
-    sidebar's id is, for example:
-
-    To call the sidebar in your template, you can just copy
-    the sidebar.php file and rename it to your sidebar's name.
-    So using the above example, it would be:
-    sidebar-sidebar2.php
-
-    */
 } // don't remove this bracket!
 
 /************* COMMENT LAYOUT *********************/
 
 // Comment Layout
+if ( ! function_exists( 'wpbo_bootstrap_comments' ) ) :
 function wpbo_bootstrap_comments($comment, $args, $depth) {
    $GLOBALS['comment'] = $comment; ?>
 	<li <?php comment_class(); ?>>
@@ -144,22 +148,51 @@ function wpbo_bootstrap_comments($comment, $args, $depth) {
     <!-- </li> is added by wordpress automatically -->
 <?php
 } // don't remove this bracket!
+endif;
 
 // Display trackbacks/pings callback function
+if ( ! function_exists( 'wpbo_list_pings' ) ) :
 function wpbo_list_pings($comment, $args, $depth) {
        $GLOBALS['comment'] = $comment;
 ?>
         <li id="comment-<?php comment_ID(); ?>"><i class="icon icon-share-alt"></i>&nbsp;<?php comment_author_link(); ?>
 <?php
-
 }
-
+endif;
+/************* PAGE NAVI *****************/
+if ( ! function_exists( 'wpbo_pagenavi' ) ) :
+function wpbo_pagenavi()
+{
+    global $wp_query;
+    $big = 999999999; // need an unlikely integer
+    $pages = paginate_links( array(
+            'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+            'format' => '?paged=%#%',
+            'current' => max( 1, get_query_var('paged') ),
+            'total' => $wp_query->max_num_pages,
+            'prev_next' => false,
+            'type'  => 'array',
+            'prev_next'   => TRUE,
+			'prev_text'    => '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
+			'next_text'    => '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
+        ) );
+        if( is_array( $pages ) ) {
+            $paged = ( get_query_var('paged') == 0 ) ? 1 : get_query_var('paged');
+            echo '<ul class="pagination">';
+            foreach ( $pages as $page ) {
+                    echo "<li>$page</li>";
+            }
+           echo '</ul>';
+        }
+}
+endif;
 /************* SEARCH FORM LAYOUT *****************/
 
 /****************** password protected post form *****/
 
 add_filter( 'the_password_form', 'wpbo_custom_password_form' );
 
+if ( ! function_exists( 'wpbo_custom_password_form' ) ) :
 function wpbo_custom_password_form() {
 	global $post;
 	$label = 'pwbox-'.( empty( $post->ID ) ? rand() : $post->ID );
@@ -170,11 +203,12 @@ function wpbo_custom_password_form() {
 	';
 	return $o;
 }
-
+endif;
 /*********** update standard wp tag cloud widget so it looks better ************/
 
 add_filter( 'widget_tag_cloud_args', 'wpbo_my_widget_tag_cloud_args' );
 
+if ( ! function_exists( 'wpbo_my_widget_tag_cloud_args' ) ) :
 function wpbo_my_widget_tag_cloud_args( $args ) {
 	$args['number'] = 20; // show less tags
 	$args['largest'] = 9.75; // make largest and smallest the same - i don't like the varying font-size look
@@ -182,8 +216,10 @@ function wpbo_my_widget_tag_cloud_args( $args ) {
 	$args['unit'] = 'px';
 	return $args;
 }
+endif;
 
 // filter tag clould output so that it can be styled by CSS
+if ( ! function_exists( 'wpbo_add_tag_class' ) ) :
 function wpbo_add_tag_class( $taglinks ) {
     $tags = explode('</a>', $taglinks);
     $regex = "#(.*tag-link[-])(.*)(' title.*)#e";
@@ -196,20 +232,23 @@ function wpbo_add_tag_class( $taglinks ) {
 
     return $taglinks;
 }
+endif;
 
 add_action( 'wp_tag_cloud', 'wpbo_add_tag_class' );
 
 add_filter( 'wp_tag_cloud','wpbo_tag_cloud_filter', 10, 2) ;
 
+if ( ! function_exists( 'wpbo_tag_cloud_filter' ) ) :
 function wpbo_tag_cloud_filter( $return, $args )
 {
   return '<div id="tag-cloud">' . $return . '</div>';
 }
-
+endif;
 // Enable shortcodes in widgets
 add_filter( 'widget_text', 'do_shortcode' );
 
 // Disable jump in 'read more' link
+if ( ! function_exists( 'wpbo_remove_more_jump_link' ) ) :
 function wpbo_remove_more_jump_link( $link ) {
 	$offset = strpos($link, '#more-');
 	if ( $offset ) {
@@ -220,18 +259,22 @@ function wpbo_remove_more_jump_link( $link ) {
 	}
 	return $link;
 }
+endif;
 add_filter( 'the_content_more_link', 'wpbo_remove_more_jump_link' );
 
 // Remove height/width attributes on images so they can be responsive
 add_filter( 'post_thumbnail_html', 'wpbo_remove_thumbnail_dimensions', 10 );
 add_filter( 'image_send_to_editor', 'wpbo_remove_thumbnail_dimensions', 10 );
 
+if ( ! function_exists( 'wpbo_remove_thumbnail_dimensions' ) ) :
 function wpbo_remove_thumbnail_dimensions( $html ) {
     $html = preg_replace( '/(width|height)=\"\d*\"\s/', "", $html );
     return $html;
 }
+endif;
 
 // Add the Meta Box to the homepage template
+if ( ! function_exists( 'wpbo_add_homepage_meta_box' ) ) :
 function wpbo_add_homepage_meta_box() {
 	global $post;
 
@@ -250,23 +293,25 @@ function wpbo_add_homepage_meta_box() {
 	        'high'); // $priority
     }
 }
+endif;
 
 add_action( 'add_meta_boxes', 'wpbo_add_homepage_meta_box' );
 
 // Field Array
 $prefix = 'custom_';
-$custom_meta_fields = array(
+$wpbo_custom_meta_fields = array(
     array(
-        'label'=> 'Homepage tagline area',
-        'desc'  => 'Displayed underneath page title. Only used on homepage template. HTML can be used.',
+        'label'=> __('Homepage tagline area','wpbo'),
+        'desc'  => __('Displayed underneath page title. Only used on homepage template. HTML can be used.','wpbo'),
         'id'    => $prefix.'tagline',
         'type'  => 'textarea'
     )
 );
 
 // The Homepage Meta Box Callback
+if ( ! function_exists( 'wpbo_show_homepage_meta_box' ) ) :
 function wpbo_show_homepage_meta_box() {
-  global $custom_meta_fields, $post;
+  global $wpbo_custom_meta_fields, $post;
 
   // Use nonce for verification
   wp_nonce_field( basename( __FILE__ ), 'wpbs_nonce' );
@@ -274,7 +319,7 @@ function wpbo_show_homepage_meta_box() {
   // Begin the field table and loop
   echo '<table class="form-table">';
 
-  foreach ( $custom_meta_fields as $field ) {
+  foreach ( $wpbo_custom_meta_fields as $field ) {
       // get value of this field if it exists for this post
       $meta = get_post_meta($post->ID, $field['id'], true);
       // begin a table row with
@@ -298,11 +343,13 @@ function wpbo_show_homepage_meta_box() {
   } // end foreach
   echo '</table>'; // end table
 }
+endif;
 
 // Save the Data
+if ( ! function_exists( 'wpbo_save_homepage_meta' ) ) :
 function wpbo_save_homepage_meta( $post_id ) {
 
-    global $custom_meta_fields;
+    global $wpbo_custom_meta_fields;
 
     // verify nonce
     if ( !isset( $_POST['wpbs_nonce'] ) || !wp_verify_nonce($_POST['wpbs_nonce'], basename(__FILE__)) )
@@ -321,7 +368,7 @@ function wpbo_save_homepage_meta( $post_id ) {
     }
 
     // loop through fields and save the data
-    foreach ( $custom_meta_fields as $field ) {
+    foreach ( $wpbo_custom_meta_fields as $field ) {
         $old = get_post_meta( $post_id, $field['id'], true );
         $new = $_POST[$field['id']];
 
@@ -332,14 +379,17 @@ function wpbo_save_homepage_meta( $post_id ) {
         }
     } // end foreach
 }
+endif;
 add_action( 'save_post', 'wpbo_save_homepage_meta' );
 
 // Add thumbnail class to thumbnail links
+if ( ! function_exists( 'wpbo_add_class_attachment_link' ) ) :
 function wpbo_add_class_attachment_link( $html ) {
     $postid = get_the_ID();
     $html = str_replace( '<a','<a class="thumbnail"',$html );
     return $html;
 }
+endif;
 add_filter( 'wp_get_attachment_link', 'wpbo_add_class_attachment_link', 10, 1 );
 
 // Add lead class to first paragraph
@@ -419,11 +469,10 @@ class Bootstrap_walker extends Walker_Nav_Menu{
   }
 }
 
-add_editor_style('editor-style.css');
-
 // Add Twitter Bootstrap's standard 'active' class name to the active nav link item
 add_filter('nav_menu_css_class', 'wpbo_add_active_class', 10, 2 );
 
+if ( ! function_exists( 'wpbo_add_active_class' ) ) :
 function wpbo_add_active_class($classes, $item) {
 	if( $item->menu_item_parent == 0 && in_array('current-menu-item', $classes) ) {
     $classes[] = "active";
@@ -431,6 +480,7 @@ function wpbo_add_active_class($classes, $item) {
 
   return $classes;
 }
+endif;
 
 // enqueue styles
 if( !function_exists("wpbo_theme_styles") ) {
@@ -442,9 +492,24 @@ if( !function_exists("wpbo_theme_styles") ) {
         // For child themes
         wp_register_style( 'wpbo-style', get_stylesheet_directory_uri() . '/style.css', array(), '1.0', 'all' );
         wp_enqueue_style( 'wpbo-style' );
+
+        //Font Awesome
+        wp_enqueue_style( 'wpbo-font-awesome', get_template_directory_uri() . '/library/font-awesome/css/font-awesome.min.css', array(), '4.5.0' );
     }
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_styles' );
+
+
+add_action( 'init', 'wpbo_add_editor_styles' );
+/**
+ * Apply theme's stylesheet to the visual editor.
+ *
+ * @uses add_editor_style() Links a stylesheet to visual editor
+ * @uses get_stylesheet_uri() Returns URI of theme stylesheet
+ */
+function wpbo_add_editor_styles() {
+    add_editor_style( 'library/css/editor-style.css' );
+}
 
 // enqueue javascript
 if( !function_exists( "wpbo_theme_js" ) ) {
@@ -455,21 +520,147 @@ if( !function_exists( "wpbo_theme_js" ) ) {
       array('jquery'),
       '1.2' );
 
-    wp_register_script( 'wpbs-scripts',
+    wp_register_script( 'wpbo-scripts',
       get_template_directory_uri() . '/library/js/scripts.js',
       array('jquery'),
       '1.2' );
 
-    wp_register_script(  'modernizr',
-      get_template_directory_uri() . '/library/js/modernizr.full.min.js',
-      array('jquery'),
-      '1.2' );
-
     wp_enqueue_script('bootstrap');
-    wp_enqueue_script('wpbs-scripts');
-    wp_enqueue_script('modernizr');
+    wp_enqueue_script('wpbo-scripts');
+    //wp_enqueue_script('modernizr');
     //wp_enqueue_script('animate-it');
-
   }
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_js' );
+
+// Adding Translation Option
+load_theme_textdomain( 'wpbo', get_template_directory().'/languages' );
+
+// loading jquery reply elements on single pages automatically
+function wpbo_bootstrap_queue_js(){ if (!is_admin()){ if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) wp_enqueue_script( 'comment-reply' ); }
+}
+// reply on comments script
+add_action('wp_enqueue_scripts', 'wpbo_bootstrap_queue_js');
+
+// Fixing the Read More in the Excerpts
+// This removes the annoying ... to a Read More link
+function wpbo_bootstrap_excerpt_more($more) {
+	global $post;
+	// edit here if you like
+	return '...  <a href="'. get_permalink($post->ID) . '" class="more-link" title="'.__('Read','wpbo').'  '.get_the_title($post->ID).'">'.__('Read more','wpbo').' &raquo;</a>';
+}
+add_filter('excerpt_more', 'wpbo_bootstrap_excerpt_more');
+
+// Adding WP 3+ Functions & Theme Support
+function wpbo_bootstrap_theme_support() {
+	add_theme_support('post-thumbnails');      // wp thumbnails (sizes handled in functions.php)
+	set_post_thumbnail_size(125, 125, true);   // default thumb size
+	add_theme_support( 'custom-background' );  // wp custom background
+	add_theme_support('automatic-feed-links'); // rss thingy
+	// to add header image support go here: http://themble.com/support/adding-header-background-image-support/
+	// adding post format support
+/*	add_theme_support( 'post-formats',      // post formats
+		array(
+			'aside',   // title less blurb
+			'gallery', // gallery of images
+			'link',    // quick link to other site
+			'image',   // an image
+			'quote',   // a quick quote
+			'status',  // a Facebook like status update
+			'video',   // video
+			'audio',   // audio
+			'chat'     // chat transcript
+		)
+	);*/
+	add_theme_support( 'menus' );            // wp menus
+	register_nav_menus(                      // wp3+ menus
+		array(
+			'main_nav' => __('The Main Menu','wpbo'),   // main nav in header
+			'footer_links' => __('Footer Links','wpbo') // secondary nav in footer
+		)
+	);
+}
+
+// launching this stuff after theme setup
+add_action('after_setup_theme','wpbo_bootstrap_theme_support');
+
+// adding sidebars to WordPress (these are created in functions.php)
+add_action( 'widgets_init', 'wpbo_bootstrap_register_sidebars' );
+
+function wpbo_bootstrap_main_nav() {
+	// display the wp3 menu if available
+    wp_nav_menu(
+    	array(
+    		'menu' => 'main_nav', /* menu name */
+    		'menu_class' => 'nav navbar-nav',
+    		'theme_location' => 'main_nav', /* where in the theme it's assigned */
+    		'container' => 'false', /* container class */
+    		'fallback_cb' => 'wpbo_bootstrap_main_nav_fallback', /* menu fallback */
+    		// 'depth' => '2',  suppress lower levels for now
+    		'walker' => new Bootstrap_walker()
+    	)
+    );
+}
+
+function wpbo_bootstrap_footer_links() {
+	// display the wp3 menu if available
+    wp_nav_menu(
+    	array(
+    		'menu' => 'footer_links', /* menu name */
+    		'theme_location' => 'footer_links', /* where in the theme it's assigned */
+    		'container_class' => 'footer-links clearfix', /* container class */
+    		'fallback_cb' => 'wpbo_bootstrap_footer_links_fallback' /* menu fallback */
+    	)
+	);
+}
+
+// this is the fallback for header menu
+function wpbo_bootstrap_main_nav_fallback() {
+	// Figure out how to make this output bootstrap-friendly html
+	//wp_page_menu( 'show_home=Home&menu_class=nav' );
+}
+
+// this is the fallback for footer menu
+function wpbo_bootstrap_footer_links_fallback() {
+	/* you can put a default here if you like */
+}
+
+
+/****************** PLUGINS & EXTRA FEATURES **************************/
+
+/*********************
+RELATED POSTS FUNCTION
+*********************/
+// Related Posts Function (call using bones_related_posts(); )
+function wpbo_bones_related_posts() {
+	echo '<ul id="bones-related-posts">';
+	global $post;
+	$tags = wp_get_post_tags( $post->ID );
+	if($tags) {
+		foreach( $tags as $tag ) {
+			$tag_arr .= $tag->slug . ',';
+		}
+		$args = array(
+			'tag' => $tag_arr,
+			'numberposts' => 5, /* you can change this to show more */
+			'post__not_in' => array($post->ID)
+		);
+		$related_posts = get_posts( $args );
+		if($related_posts) {
+			foreach ( $related_posts as $post ) : setup_postdata( $post ); ?>
+				<li class="related_post"><a class="entry-unrelated" href="<?php the_permalink() ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></li>
+			<?php endforeach; }
+		else { ?>
+			<?php echo '<li class="no_related_post">' . __( 'No Related Posts Yet!', 'wpbo' ) . '</li>'; ?>
+		<?php }
+	}
+	wp_reset_postdata();
+	echo '</ul>';
+} /* end bones related posts function */
+
+// remove the p from around imgs (http://css-tricks.com/snippets/wordpress/remove-paragraph-tags-from-around-images/)
+function wpbo_filter_ptags_on_images($content){
+   return preg_replace('/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $content);
+}
+
+add_filter('the_content', 'wpbo_filter_ptags_on_images');
