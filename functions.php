@@ -485,9 +485,13 @@ endif;
 // enqueue styles
 if( !function_exists("wpbo_theme_styles") ) {
     function wpbo_theme_styles() {
-        // This is the compiled css file from LESS - this means you compile the LESS file locally and put it in the appropriate directory if you want to make any changes to the master bootstrap.css.
+        // This is the main file for bootstrap
         wp_register_style( 'bootstrap', get_template_directory_uri() . '/library/css/bootstrap.css', array(), '1.0', 'all' );
         wp_enqueue_style( 'bootstrap' );
+
+        // This is the main file for bootstrap
+        wp_register_style( 'wpbo', get_template_directory_uri() . '/library/css/wpbo.css', array(), '1.0', 'all' );
+        wp_enqueue_style( 'wpbo' );
 
         // For child themes
         wp_register_style( 'wpbo-style', get_stylesheet_directory_uri() . '/style.css', array(), '1.0', 'all' );
