@@ -668,3 +668,33 @@ function wpbo_filter_ptags_on_images($content){
 }
 
 add_filter('the_content', 'wpbo_filter_ptags_on_images');
+
+
+/* Remove query strings from static resources
+ URL http://www.yourwpexpert.com/remove-query-strings-from-static-resources-wordpress-plugin/
+*/
+function wpbo_remove_query_strings_1( $src ){
+	$rqs = explode( '?ver', $src );
+        return $rqs[0];
+}
+		if ( is_admin() ) {
+// Remove query strings from static resources disabled in admin
+}
+
+		else {
+add_filter( 'script_loader_src', 'wpbo_remove_query_strings_1', 15, 1 );
+add_filter( 'style_loader_src', 'wpbo_remove_query_strings_1', 15, 1 );
+}
+
+function wpbo_remove_query_strings_2( $src ){
+	$rqs = explode( '&ver', $src );
+        return $rqs[0];
+}
+		if ( is_admin() ) {
+// Remove query strings from static resources disabled in admin
+}
+
+		else {
+add_filter( 'script_loader_src', 'wpbo_remove_query_strings_2', 15, 1 );
+add_filter( 'style_loader_src', 'wpbo_remove_query_strings_2', 15, 1 );
+}
