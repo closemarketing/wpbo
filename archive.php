@@ -33,7 +33,9 @@
 
         <?php if ( !get_query_var( 'paged' ) ) {
           //Description for Taxonomy ?>
-          <?php echo wpautop( term_description() ); ?>
+            <div class="resume">
+              <?php echo wpautop( term_description() ); ?>
+            </div>
         <?php } ?>
 
         </div>
@@ -44,7 +46,7 @@
 
             <header>
 
-                <h3 class="h2"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h3>
+                <h2><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
 
                 <?php get_template_part('partials/content', 'meta');?>
 
@@ -69,7 +71,7 @@
         <?php
             if (function_exists('wpbo_pagenavi')) { // function for pagination
 
-                wpbo_pagenavi(); // use the page navi function 
+                wpbo_pagenavi(); // use the page navi function
 
             } else { // if it is disabled, display regular wp prev & next links ?>
             <nav class="wp-prev-next">
