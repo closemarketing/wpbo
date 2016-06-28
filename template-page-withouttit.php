@@ -8,9 +8,6 @@ __( 'Full Width without Title', 'wpbo' );
 <?php get_header(); ?>
 
 <div id="content" class="clearfix row">
-<?php if ( function_exists('yoast_breadcrumb') ) {
-        yoast_breadcrumb('<p id="breadcrumbs">','</p>');
-    } ?>
 
     <div id="main" class="col col-sm-12 clearfix" role="main">
 
