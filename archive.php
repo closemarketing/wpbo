@@ -47,13 +47,13 @@
         <?php
             if (function_exists('wpbo_pagenavi')) { // function for pagination
 
-                wpbo_pagenavi(); // use the page navi function 
+                wpbo_pagenavi(); // use the page navi function
 
             } else { // if it is disabled, display regular wp prev & next links ?>
             <nav class="wp-prev-next">
                 <ul class="pager">
-                    <li class="previous"><?php next_posts_link(_e('&laquo; Older Entries', "wpbo")) ?></li>
-                    <li class="next"><?php previous_posts_link(_e('Newer Entries &raquo;', "wpbo")) ?></li>
+                    <li class="previous">&laquo; <?php next_posts_link(_e('Older Entries', "wpbo")) ?></li>
+                    <li class="next"><?php previous_posts_link(_e('Newer Entries', "wpbo")) ?> &raquo;</li>
                 </ul>
             </nav>
         <?php } ?>

@@ -19,7 +19,7 @@
             </header> <!-- end article header -->
 
             <section class="post_content clearfix">
-                <?php the_content( __("Read more &raquo;","wpbo") ); ?>
+                <?php the_content( __("Read more","wpbo").' &raquo;' ); ?>
             </section> <!-- end article section -->
 
             <footer>
