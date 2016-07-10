@@ -8,6 +8,9 @@ just edit things like thumbnail sizes, header images,
 sidebars, comments, ect.
 */
 
+/* Load Composer Dependency Libraries */
+require plugin_dir_path( __FILE__) . 'vendor/autoload.php';
+
 // Set content width
 if ( ! isset( $content_width ) ) $content_width = 580;
 
@@ -486,19 +489,27 @@ endif;
 if( !function_exists("wpbo_theme_styles") ) {
     function wpbo_theme_styles() {
         // This is the main file for bootstrap
-        wp_register_style( 'bootstrap', get_template_directory_uri() . '/library/css/bootstrap.css', array(), '1.0', 'all' );
+        wp_register_style( 'bootstrap',
+            get_template_directory_uri() . '/vendor/twbs/bootstrap/dist/css/bootstrap.min.css',
+            array(), '1.0', 'all' );
         wp_enqueue_style( 'bootstrap' );
 
         // This is the main file for bootstrap
-        wp_register_style( 'wpbo', get_template_directory_uri() . '/library/css/wpbo.css', array(), '1.0', 'all' );
+        wp_register_style( 'wpbo',
+            get_template_directory_uri() . '/library/css/wpbo.css',
+            array(), '1.0', 'all' );
         wp_enqueue_style( 'wpbo' );
 
         // For child themes
-        wp_register_style( 'wpbo-style', get_stylesheet_directory_uri() . '/style.css', array(), '1.0', 'all' );
+        wp_register_style( 'wpbo-style',
+            get_stylesheet_directory_uri() . '/style.css',
+            array(), '1.0', 'all' );
         wp_enqueue_style( 'wpbo-style' );
 
         //Font Awesome
-        wp_enqueue_style( 'wpbo-font-awesome', get_template_directory_uri() . '/library/font-awesome/css/font-awesome.min.css', array(), '4.5.0' );
+        wp_enqueue_style( 'wpbo-font-awesome',
+            get_template_directory_uri() . '/vendor/fortawesome/font-awesome/css/font-awesome.min.css',
+            array(), '4.5.0' );
     }
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_styles' );
@@ -520,19 +531,16 @@ if( !function_exists( "wpbo_theme_js" ) ) {
   function wpbo_theme_js(){
 
     wp_register_script( 'bootstrap',
-      get_template_directory_uri() . '/library/js/bootstrap.min.js',
+      get_template_directory_uri() . '/vendor/twbs/bootstrap/dist/js/bootstrap.min.js',
       array('jquery'),
       '1.2' );
+    wp_enqueue_script('bootstrap');
 
     wp_register_script( 'wpbo-scripts',
       get_template_directory_uri() . '/library/js/scripts.js',
       array('jquery'),
       '1.2' );
-
-    wp_enqueue_script('bootstrap');
     wp_enqueue_script('wpbo-scripts');
-    //wp_enqueue_script('modernizr');
-    //wp_enqueue_script('animate-it');
   }
 }
 add_action( 'wp_enqueue_scripts', 'wpbo_theme_js' );
