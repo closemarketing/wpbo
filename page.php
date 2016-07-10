@@ -2,10 +2,6 @@
 
 <div id="content" class="clearfix row">
 
-    <?php if ( function_exists('yoast_breadcrumb') ) {
-        yoast_breadcrumb('<p id="breadcrumbs">','</p>');
-    } ?>
-
     <div id="main" class="col-sm-8 clearfix" role="main">
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>

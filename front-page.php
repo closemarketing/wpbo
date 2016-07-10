@@ -2,6 +2,7 @@
 /*
 Template Name: Homepage
 */
+__( 'Homepage', 'wpbo' );
 ?>
 
 <?php get_header(); ?>

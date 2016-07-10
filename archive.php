@@ -42,29 +42,7 @@
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-        <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix'); ?> role="article">
-
-            <header>
-
-                <h2><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
-
-                <?php get_template_part('partials/content', 'meta');?>
-
-            </header> <!-- end article header -->
-
-            <section class="post_content">
-
-                <?php the_post_thumbnail( 'wpbo-featured' ); ?>
-
-                <?php the_excerpt(); ?>
-
-            </section> <!-- end article section -->
-
-            <footer>
-
-            </footer> <!-- end article footer -->
-
-        </article> <!-- end article -->
+        <?php get_template_part( 'loop', 'blog' ); ?>
 
         <?php endwhile; ?>
 
@@ -76,8 +54,8 @@
             } else { // if it is disabled, display regular wp prev & next links ?>
             <nav class="wp-prev-next">
                 <ul class="pager">
-                    <li class="previous"><?php next_posts_link(_e('&laquo; Older Entries', "wpbo")) ?></li>
-                    <li class="next"><?php previous_posts_link(_e('Newer Entries &raquo;', "wpbo")) ?></li>
+                    <li class="previous">&laquo; <?php next_posts_link(_e('Older Entries', "wpbo")) ?></li>
+                    <li class="next"><?php previous_posts_link(_e('Newer Entries', "wpbo")) ?> &raquo;</li>
                 </ul>
             </nav>
         <?php } ?>

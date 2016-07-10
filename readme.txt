@@ -8,9 +8,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: bootstrap, naked, black, blue, white, two-columns, fixed-layout, custom-header, custom-background, threaded-comments, sticky-post, translation-ready, microformats, rtl-language-support, editor-style, custom-menu, flexible-header, featured-images, featured-image-header
 
 == Description ==
-We’ve built the WP Bootstrap theme so that it could be used as-is as a very basic theme or as a starting point for theme developers. It’s built on top of the Bones theme framework by Eddie Machado and based on v3.3.4 of Bootstrap.
+We’ve built the WP Bootstrap theme so that it could be used as-is as a very basic theme or as a starting point for theme developers. It’s built on top of the Bones theme framework by Eddie Machado and based on v3.3.6 of Bootstrap.
 
 Watch or star this project to keep up with its progress.
+
+We recommend to use this theme as parent (https://codex.wordpress.org/Child_Themes) and make changes in Child Theme like WPBO child. (https://github.com/closemarketing/wpbo-child)
 
 == Installation ==
 
@@ -42,6 +44,13 @@ WPBO theme uses:
 * Bones licensed under the GPLv2 license (http://www.gnu.org/licenses/gpl-2.0.html)
 
 == Changelog ==
+= 1.3.6 =
+* Composer Dependency Libraries for better third libraries updates
+* Updated Font Awesome v4.6.3
+* Yoast breadcrumbs in footer
+* Changed strings for better localization
+* Updated image screenshot.
+
 = 1.3.5 =
 * Solved issues from ticket #28299(https://themes.trac.wordpress.org/ticket/28299#comment:43).
 
@@ -50,7 +59,7 @@ WPBO theme uses:
 
 = 1.3.1 =
 * Validate Theme Check
-* Font Awesemo 4.5
+* Font Awesome 4.5
 * Minus bugs fixed
 
 = 1.3 =

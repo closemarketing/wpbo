@@ -2,6 +2,7 @@
 /*
 Template Name: Left Sidebar Page
 */
+__( 'Left Sidebar Page', 'wpbo' );
 ?>
 
 <?php get_header(); ?>
@@ -37,7 +38,7 @@ Template Name: Left Sidebar Page
 
         <?php comments_template(); ?>
 
-        <?php endwhile; ?>	
+        <?php endwhile; ?>
 
         <?php else : ?>
 
