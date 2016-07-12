@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-			
+
 <div id="content" class="clearfix row">
 
     <div id="main" class="col-sm-8 clearfix" role="main">
@@ -7,9 +7,9 @@
         <div class="page-header">
         <?php if (is_category()) { ?>
             <h1 class="archive_title h2">
-                <span><?php _e("Posts Categorized:", "wpbo"); ?></span> <?php single_cat_title(); ?>
+                <?php single_cat_title(); ?>
             </h1>
-        <?php } elseif (is_tag()) { ?> 
+        <?php } elseif (is_tag()) { ?>
             <h1 class="archive_title h2">
                 <span><?php _e("Posts Tagged:", "wpbo"); ?></span> <?php single_tag_title(); ?>
             </h1>
@@ -27,58 +27,38 @@
             </h1>
         <?php } elseif (is_year()) { ?>
             <h1 class="archive_title h2">
-				<?php printf( __( 'Yearly Archives: <span>%s</span>', 'wpbo' ), get_the_date( _x( 'Y', 'yearly archives date format', 'twentyten' ) ) ); ?>
+				<?php printf( __( 'Yearly Archives: <span>%s</span>', 'wpbo' ), get_the_date( _x( 'Y', 'yearly archives date format', 'wpbo' ) ) ); ?>
             </h1>
         <?php } ?>
-            
-        <?php if ( !get_query_var( 'paged' ) ) { 
+
+        <?php if ( !get_query_var( 'paged' ) ) {
           //Description for Taxonomy ?>
-          <?php echo wpautop( term_description() ); ?>
+            <div class="resume">
+              <?php echo wpautop( term_description() ); ?>
+            </div>
         <?php } ?>
-        
+
         </div>
 
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-        <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix'); ?> role="article">
+        <?php get_template_part( 'loop', 'blog' ); ?>
 
-            <header>
+        <?php endwhile; ?>
 
-                <h3 class="h2"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h3>
+        <?php
+            if (function_exists('wpbo_pagenavi')) { // function for pagination
 
-                <?php get_template_part('partials/content', 'meta');?>
+                wpbo_pagenavi(); // use the page navi function
 
-            </header> <!-- end article header -->
-
-            <section class="post_content">
-
-                <?php the_post_thumbnail( 'wpbs-featured' ); ?>
-
-                <?php the_excerpt(); ?>
-
-            </section> <!-- end article section -->
-
-            <footer>
-
-            </footer> <!-- end article footer -->
-
-        </article> <!-- end article -->
-
-        <?php endwhile; ?>	
-
-        <?php if (function_exists('page_navi')) { // if expirimental feature is active ?>
-
-            <?php page_navi(); // use the page navi function ?>
-
-        <?php } else { // if it is disabled, display regular wp prev & next links ?>
+            } else { // if it is disabled, display regular wp prev & next links ?>
             <nav class="wp-prev-next">
                 <ul class="pager">
-                    <li class="previous"><?php next_posts_link(_e('&laquo; Older Entries', "wpbo")) ?></li>
-                    <li class="next"><?php previous_posts_link(_e('Newer Entries &raquo;', "wpbo")) ?></li>
+                    <li class="previous">&laquo; <?php next_posts_link(_e('Older Entries', "wpbo")) ?></li>
+                    <li class="next"><?php previous_posts_link(_e('Newer Entries', "wpbo")) ?> &raquo;</li>
                 </ul>
             </nav>
         <?php } ?>
-
 
         <?php else : ?>
 

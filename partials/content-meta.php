@@ -3,7 +3,7 @@
         <li class="meta-date">
             <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
             <time datetime="<?php echo the_time('Y-m-j'); ?>" pubdate>
-                <?php if(WPLANG=='es_ES') the_time('j \d\e\ F \d\e\ Y '); else the_time('F jS, Y'); ?>
+                <?php the_time( get_option('date_format') ); ?>
             </time>
         </li>
         <li class="meta-author">
@@ -20,5 +20,3 @@
         </li>
     </ul>
 </div>
-
-

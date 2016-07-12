@@ -10,7 +10,7 @@
 
             <header>
 
-                <a href="<?php the_permalink() ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail( 'wpbs-featured' ); ?></a>
+                <a href="<?php the_permalink() ?>" title="<?php the_title_attribute(); ?>"><?php the_post_thumbnail( 'wpbo-featured' ); ?></a>
 
                 <div class="page-header"><h1 class="h2"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h1></div>
 
@@ -19,7 +19,7 @@
             </header> <!-- end article header -->
 
             <section class="post_content clearfix">
-                <?php the_content( __("Read more &raquo;","wpbo") ); ?>
+                <?php the_content( __("Read more","wpbo").' &raquo;' ); ?>
             </section> <!-- end article section -->
 
             <footer>
@@ -30,20 +30,21 @@
 
         </article> <!-- end article -->
 
-        <?php endwhile; ?>	
+        <?php endwhile; ?>
 
-        <?php if (function_exists('page_navi')) { // if expirimental feature is active ?>
+        <?php
+            if (function_exists('wpbo_pagenavi')) { // function for pagination
 
-            <?php page_navi(); // use the page navi function ?>
+                wpbo_pagenavi(); // use the page navi function
 
-        <?php } else { // if it is disabled, display regular wp prev & next links ?>
+            } else { // if it is disabled, display regular wp prev & next links ?>
             <nav class="wp-prev-next">
                 <ul class="pager">
                     <li class="previous"><?php next_posts_link(_e('&laquo; Older Entries', "wpbo")) ?></li>
                     <li class="next"><?php previous_posts_link(_e('Newer Entries &raquo;', "wpbo")) ?></li>
                 </ul>
             </nav>
-        <?php } ?>		
+        <?php } ?>
 
         <?php else : ?>
 
