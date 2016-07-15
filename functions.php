@@ -221,32 +221,6 @@ function wpbo_my_widget_tag_cloud_args( $args ) {
 }
 endif;
 
-// filter tag clould output so that it can be styled by CSS
-if ( ! function_exists( 'wpbo_add_tag_class' ) ) :
-function wpbo_add_tag_class( $taglinks ) {
-    $tags = explode('</a>', $taglinks);
-    $regex = "#(.*tag-link[-])(.*)(' title.*)#e";
-
-    foreach( $tags as $tag ) {
-    	$tagn[] = preg_replace($regex, "('$1$2 label tag-'.get_tag($2)->slug.'$3')", $tag );
-    }
-
-    $taglinks = implode('</a>', $tagn);
-
-    return $taglinks;
-}
-endif;
-
-add_action( 'wp_tag_cloud', 'wpbo_add_tag_class' );
-
-add_filter( 'wp_tag_cloud','wpbo_tag_cloud_filter', 10, 2) ;
-
-if ( ! function_exists( 'wpbo_tag_cloud_filter' ) ) :
-function wpbo_tag_cloud_filter( $return, $args )
-{
-  return '<div id="tag-cloud">' . $return . '</div>';
-}
-endif;
 // Enable shortcodes in widgets
 add_filter( 'widget_text', 'do_shortcode' );
 
