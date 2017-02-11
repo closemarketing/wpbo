@@ -916,7 +916,9 @@ p.comment-form-author, p.comment-form-email, p.comment-form-url {
     width: 500%;
     margin-left: -200%;
 }
-
+.gform_wrapper .gform_footer p, .gform_wrapper .gform_footer br {
+    display: none;
+}
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
     .so-panel.widget_fullwidth {
     width: 499%;

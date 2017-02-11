@@ -42,6 +42,10 @@ WPBO theme uses:
 * Bones licensed under the GPLv2 license (http://www.gnu.org/licenses/gpl-2.0.html)
 
 == Changelog ==
+= 1.3.6 =
+* Composer Dependency Libraries for better updates
+* Updated Font Awesome v4.6.3
+
 = 1.3.5 =
 * Solved issues from ticket #28299(https://themes.trac.wordpress.org/ticket/28299#comment:43).
 
@@ -50,7 +54,7 @@ WPBO theme uses:
 
 = 1.3.1 =
 * Validate Theme Check
-* Font Awesemo 4.5
+* Font Awesome 4.5
 * Minus bugs fixed
 
 = 1.3 =
